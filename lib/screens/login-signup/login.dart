@@ -63,16 +63,37 @@ class LoginScreen extends StatelessWidget {
                 Icons.arrow_circle_right_rounded,
                 size: 100.0,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Text('Don\'t have an account?'),
-                  SizedBox(
+              Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Text('Don\'t have an account?'),
+                      SizedBox(
+                        width: 5.0,
+                      ),
+                      Text(
+                        'Create Account',
+                        style: kAttentionLabelTS,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 15.0,
                     width: 5.0,
                   ),
-                  Text(
-                    'Create Account',
-                    style: kAttentionLabelTS,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Text('Wanna do it up later?'),
+                      SizedBox(
+                        width: 5.0,
+                      ),
+                      Text(
+                        'Skip',
+                        style: kAttentionLabelTS,
+                      ),
+                    ],
                   ),
                 ],
               ),
