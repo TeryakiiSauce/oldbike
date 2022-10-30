@@ -84,14 +84,19 @@ class LoginScreen extends StatelessWidget {
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text('Wanna do it up later?'),
-                      SizedBox(
+                    children: [
+                      const Text('Wanna do it up later?'),
+                      const SizedBox(
                         width: 5.0,
                       ),
-                      Text(
-                        'Skip',
-                        style: kAttentionLabelTS,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushReplacementNamed(context, '/home');
+                        },
+                        child: const Text(
+                          'Skip',
+                          style: kAttentionLabelTS,
+                        ),
                       ),
                     ],
                   ),
