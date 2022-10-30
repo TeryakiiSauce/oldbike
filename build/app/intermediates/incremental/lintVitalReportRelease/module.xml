@@ -1,0 +1,18 @@
+<lint-module
+    format="1"
+    dir="X:\home\Documents\ALL THE COOL THINGS I MADE\DEVELOPMENT\Flutter\oldbike\android\app"
+    name=":app"
+    type="APP"
+    maven="android:app:"
+    gradle="7.3.1"
+    buildFolder="X:\home\Documents\ALL THE COOL THINGS I MADE\DEVELOPMENT\Flutter\oldbike\build\app"
+    bootClassPath="X:\Android-SDK\platforms\android-31\android.jar;X:\Android-SDK\build-tools\30.0.3\core-lambda-stubs.jar"
+    javaSourceLevel="1.8"
+    compileTarget="android-31">
+  <lintOptions
+      abortOnError="true"
+      absolutePaths="true"
+      checkReleaseBuilds="true"
+      explainIssues="true"/>
+  <variant name="release"/>
+</lint-module>

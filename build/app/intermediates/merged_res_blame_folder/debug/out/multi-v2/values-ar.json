@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "X:\\home\\Documents\\ALL THE COOL THINGS I MADE\\DEVELOPMENT\\Flutter\\oldbike\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-ar\\values-ar.xml",
+            "outputFile": "com.teryakiisauce.oldbike.oldbike.app-mergeDebugResources-9:/values-ar/values-ar.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\elias\\.gradle\\caches\\transforms-3\\acbce933e4b464a5224ed377a62db1f5\\transformed\\core-1.6.0\\res\\values-ar\\values-ar.xml",
+                    "source": "C:\\Users\\elias\\.gradle\\caches\\transforms-3\\3d943b8a8d6718874a3fad89ac634056\\transformed\\core-1.6.0\\res\\values-ar\\values-ar.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
