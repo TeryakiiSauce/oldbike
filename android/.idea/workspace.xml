@@ -4,115 +4,191 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ad27387-b163-4d06-b0b8-c46d52146dd0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" beforeDir="false" />
+    <list default="true" id="ed74177d-78a7-43f6-a8ad-93d339f3879d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher_foreground.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher_foreground.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher_foreground.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher_foreground.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/debug/ic_launcher-playstore.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/debug/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/debug/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/debug/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/debug/res/mipmap-hdpi/ic_launcher_foreground.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/debug/res/mipmap-hdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/debug/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/debug/res/mipmap-mdpi/ic_launcher_foreground.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/debug/res/mipmap-mdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/debug/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/debug/res/mipmap-xhdpi/ic_launcher_foreground.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/debug/res/mipmap-xhdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/debug/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/debug/res/mipmap-xxhdpi/ic_launcher_foreground.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/debug/res/mipmap-xxhdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/debug/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/debug/res/mipmap-xxxhdpi/ic_launcher_foreground.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/debug/res/mipmap-xxxhdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/debug/res/values/ic_launcher_background.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-v21/launch_background.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher_foreground.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher_foreground.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher_foreground.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher_foreground.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-night/styles.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/ic_launcher-playstore.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/ic_launcher-playstore.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/ic_launcher_background.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/ic_launcher_background.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/compile_and_runtime_not_namespaced_r_class_jar/release/R.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/intermediates/compile_and_runtime_not_namespaced_r_class_jar/release/R.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/dex/debug/mergeDexDebug/classes.dex" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/intermediates/dex/debug/mergeDexDebug/classes.dex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/dex_archive_input_jar_hashes/debug/out" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/intermediates/dex_archive_input_jar_hashes/debug/out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/compile-file-map.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-af/values-af.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-am/values-am.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ar/values-ar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-as/values-as.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-az/values-az.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-b+sr+Latn/values-b+sr+Latn.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-be/values-be.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-bg/values-bg.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-bn/values-bn.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-bs/values-bs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ca/values-ca.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-cs/values-cs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-da/values-da.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-de/values-de.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-el/values-el.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-en-rAU/values-en-rAU.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-en-rCA/values-en-rCA.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-en-rGB/values-en-rGB.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-en-rIN/values-en-rIN.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-en-rXC/values-en-rXC.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-es-rUS/values-es-rUS.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-es/values-es.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-et/values-et.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-eu/values-eu.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-fa/values-fa.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-fi/values-fi.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-fr-rCA/values-fr-rCA.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-fr/values-fr.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-gl/values-gl.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-gu/values-gu.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-hi/values-hi.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-hr/values-hr.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-hu/values-hu.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-hy/values-hy.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-in/values-in.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-is/values-is.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-it/values-it.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-iw/values-iw.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ja/values-ja.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ka/values-ka.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-kk/values-kk.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-km/values-km.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-kn/values-kn.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ko/values-ko.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ky/values-ky.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-lo/values-lo.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-lt/values-lt.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-lv/values-lv.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-mk/values-mk.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ml/values-ml.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-mn/values-mn.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-mr/values-mr.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ms/values-ms.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-my/values-my.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-nb/values-nb.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ne/values-ne.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-nl/values-nl.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-or/values-or.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-pa/values-pa.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-pl/values-pl.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-pt-rBR/values-pt-rBR.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-pt-rPT/values-pt-rPT.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-pt/values-pt.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ro/values-ro.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ru/values-ru.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-si/values-si.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-sk/values-sk.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-sl/values-sl.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-sq/values-sq.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-sr/values-sr.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-sv/values-sv.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-sw/values-sw.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ta/values-ta.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-te/values-te.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-th/values-th.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-tl/values-tl.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-tr/values-tr.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-uk/values-uk.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-ur/values-ur.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-uz/values-uz.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-v16/values-v16.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-v21/values-v21.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-vi/values-vi.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-zh-rCN/values-zh-rCN.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-zh-rHK/values-zh-rHK.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-zh-rTW/values-zh-rTW.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values-zu/values-zu.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values/values.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merged.dir/values/values.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/intermediates/incremental/debug/mergeDebugResources/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/packageDebug/tmp/debug/dex-renamer-state.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/intermediates/incremental/packageDebug/tmp/debug/dex-renamer-state.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/packageDebug/tmp/debug/zip-cache/androidResources" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/intermediates/incremental/packageDebug/tmp/debug/zip-cache/androidResources" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/packageRelease/tmp/release/dex-renamer-state.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/intermediates/incremental/packageRelease/tmp/release/dex-renamer-state.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/packageRelease/tmp/release/zip-cache/androidResources" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/intermediates/incremental/packageRelease/tmp/release/zip-cache/androidResources" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/release/mergeReleaseResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/intermediates/incremental/release/mergeReleaseResources/compile-file-map.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/merged-not-compiled-resources/release/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/intermediates/merged-not-compiled-resources/release/mipmap-anydpi-v26/ic_launcher.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/merged-not-compiled-resources/release/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/intermediates/merged-not-compiled-resources/release/mipmap-anydpi-v26/ic_launcher_round.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/release/mergeReleaseResources/merged.dir/values/values.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/intermediates/incremental/release/mergeReleaseResources/merged.dir/values/values.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/incremental/release/mergeReleaseResources/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/intermediates/incremental/release/mergeReleaseResources/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/linked_res_for_bundle/release/bundled-res.ap_" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/intermediates/linked_res_for_bundle/release/bundled-res.ap_" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/merged-not-compiled-resources/release/mipmap-hdpi-v4/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/merged-not-compiled-resources/release/mipmap-mdpi-v4/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/merged-not-compiled-resources/release/mipmap-xhdpi-v4/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/merged-not-compiled-resources/release/mipmap-xxhdpi-v4/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/merged-not-compiled-resources/release/mipmap-xxxhdpi-v4/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/merged-not-compiled-resources/release/values/values.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/intermediates/merged-not-compiled-resources/release/values/values.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/merged_res/debug/mipmap-hdpi_ic_launcher.png.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/merged_res/debug/mipmap-mdpi_ic_launcher.png.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/merged_res/debug/mipmap-xhdpi_ic_launcher.png.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/merged_res/debug/mipmap-xxhdpi_ic_launcher.png.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/merged_res/debug/mipmap-xxxhdpi_ic_launcher.png.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/merged_res/debug/values_values.arsc.flat" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/intermediates/merged_res/debug/values_values.arsc.flat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/merged_res/release/mipmap-hdpi_ic_launcher.png.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/merged_res/release/mipmap-mdpi_ic_launcher.png.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/merged_res/release/mipmap-xhdpi_ic_launcher.png.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/merged_res/release/mipmap-xxhdpi_ic_launcher.png.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/merged_res/release/mipmap-xxxhdpi_ic_launcher.png.flat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/merged_res/release/values_values.arsc.flat" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/intermediates/merged_res/release/values_values.arsc.flat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/merged_res_blame_folder/debug/out/multi-v2/debug.json" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/intermediates/merged_res_blame_folder/debug/out/multi-v2/debug.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/merged_res_blame_folder/debug/out/multi-v2/values.json" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/intermediates/merged_res_blame_folder/debug/out/multi-v2/values.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/merged_res_blame_folder/debug/out/single/debug.json" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/intermediates/merged_res_blame_folder/debug/out/single/debug.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/app/intermediates/merged_res_blame_folder/release/out/multi-v2/release.json" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/intermediates/merged_res_blame_folder/release/out/multi-v2/release.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/app/intermediates/merged_res_blame_folder/release/out/multi-v2/values.json" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/intermediates/merged_res_blame_folder/release/out/multi-v2/values.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/100.png" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/100.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/1024.png" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/1024.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/114.png" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/114.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/120.png" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/120.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/128.png" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/128.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/144.png" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/144.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/152.png" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/152.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/16.png" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/16.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/167.png" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/167.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/180.png" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/180.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/20.png" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/20.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/256.png" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/256.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/29.png" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/29.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/32.png" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/32.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/40.png" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/40.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/50.png" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/50.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/512.png" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/512.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/57.png" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/57.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/58.png" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/58.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/60.png" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/60.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/64.png" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/64.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/72.png" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/72.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/76.png" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/76.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/80.png" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/80.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/87.png" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/Runner/Assets.xcassets/AppIcon.appiconset/87.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../resources/logo/1600 x1600/logo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../resources/logo/500 x 500/logo (darker).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../resources/logo/500 x 500/logo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/100.png" beforeDir="false" afterPath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/100.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/1024.png" beforeDir="false" afterPath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/1024.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/114.png" beforeDir="false" afterPath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/114.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/120.png" beforeDir="false" afterPath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/120.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/128.png" beforeDir="false" afterPath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/128.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/144.png" beforeDir="false" afterPath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/144.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/152.png" beforeDir="false" afterPath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/152.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/16.png" beforeDir="false" afterPath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/16.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/167.png" beforeDir="false" afterPath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/167.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/180.png" beforeDir="false" afterPath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/180.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/20.png" beforeDir="false" afterPath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/20.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/256.png" beforeDir="false" afterPath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/256.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/29.png" beforeDir="false" afterPath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/29.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/32.png" beforeDir="false" afterPath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/32.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/40.png" beforeDir="false" afterPath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/40.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/50.png" beforeDir="false" afterPath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/50.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/512.png" beforeDir="false" afterPath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/512.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/57.png" beforeDir="false" afterPath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/57.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/58.png" beforeDir="false" afterPath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/58.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/60.png" beforeDir="false" afterPath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/60.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/64.png" beforeDir="false" afterPath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/64.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/72.png" beforeDir="false" afterPath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/72.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/76.png" beforeDir="false" afterPath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/76.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/80.png" beforeDir="false" afterPath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/80.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/87.png" beforeDir="false" afterPath="$PROJECT_DIR$/../resources/logo/AppIcons/Assets.xcassets/AppIcon.appiconset/87.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../resources/logo/AppIcons/android/mipmap-hdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/../resources/logo/AppIcons/android/mipmap-hdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../resources/logo/AppIcons/android/mipmap-mdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/../resources/logo/AppIcons/android/mipmap-mdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../resources/logo/AppIcons/android/mipmap-xhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/../resources/logo/AppIcons/android/mipmap-xhdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../resources/logo/AppIcons/android/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/../resources/logo/AppIcons/android/mipmap-xxhdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../resources/logo/AppIcons/android/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/../resources/logo/AppIcons/android/mipmap-xxxhdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../resources/logo/AppIcons/appstore.png" beforeDir="false" afterPath="$PROJECT_DIR$/../resources/logo/AppIcons/appstore.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../resources/logo/AppIcons/playstore.png" beforeDir="false" afterPath="$PROJECT_DIR$/../resources/logo/AppIcons/playstore.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/merged_res_blame_folder/release/out/single/release.json" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/intermediates/merged_res_blame_folder/release/out/single/release.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/optimized_processed_res/release/resources-release-optimize.ap_" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/intermediates/optimized_processed_res/release/resources-release-optimize.ap_" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/processed_res/debug/out/resources-debug.ap_" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/intermediates/processed_res/debug/out/resources-debug.ap_" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/processed_res/release/out/resources-release.ap_" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/intermediates/processed_res/release/out/resources-release.ap_" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/project_dex_archive/debug/out/27eb5e9c8bd224e1ed57f3adbd0e169a059741a01d8344dd119443284624c2c4_0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/project_dex_archive/debug/out/27eb5e9c8bd224e1ed57f3adbd0e169a059741a01d8344dd119443284624c2c4_1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/project_dex_archive/debug/out/27eb5e9c8bd224e1ed57f3adbd0e169a059741a01d8344dd119443284624c2c4_2.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/project_dex_archive/debug/out/27eb5e9c8bd224e1ed57f3adbd0e169a059741a01d8344dd119443284624c2c4_3.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/project_dex_archive/debug/out/27eb5e9c8bd224e1ed57f3adbd0e169a059741a01d8344dd119443284624c2c4_4.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/project_dex_archive/debug/out/27eb5e9c8bd224e1ed57f3adbd0e169a059741a01d8344dd119443284624c2c4_5.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/runtime_symbol_list/debug/R.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/intermediates/runtime_symbol_list/debug/R.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/runtime_symbol_list/release/R.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/intermediates/runtime_symbol_list/release/R.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/shrunk_processed_res/release/resources-release-proto-stripped.ap_" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/intermediates/shrunk_processed_res/release/resources-release-proto-stripped.ap_" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/shrunk_processed_res/release/resources-release-stripped.ap_" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/intermediates/shrunk_processed_res/release/resources-release-stripped.ap_" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/symbol_list_with_package_name/debug/package-aware-r.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/intermediates/symbol_list_with_package_name/debug/package-aware-r.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/intermediates/symbol_list_with_package_name/release/package-aware-r.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/intermediates/symbol_list_with_package_name/release/package-aware-r.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/kotlin/compileDebugKotlin/build-history.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/kotlin/compileDebugKotlin/build-history.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/kotlin/compileDebugKotlin/last-build.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/kotlin/compileDebugKotlin/last-build.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/kotlin/compileReleaseKotlin/build-history.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/kotlin/compileReleaseKotlin/build-history.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/kotlin/compileReleaseKotlin/last-build.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/kotlin/compileReleaseKotlin/last-build.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/outputs/apk/debug/app-debug.apk" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/outputs/apk/debug/app-debug.apk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/outputs/apk/release/app-release.apk" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/outputs/apk/release/app-release.apk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/outputs/flutter-apk/app-debug.apk" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/outputs/flutter-apk/app-debug.apk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/outputs/flutter-apk/app-release.apk" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/outputs/flutter-apk/app-release.apk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/outputs/flutter-apk/app.apk" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/outputs/flutter-apk/app.apk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/outputs/flutter-apk/app.apk.sha1" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/outputs/flutter-apk/app.apk.sha1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/outputs/mapping/release/resources.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/outputs/mapping/release/resources.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/app/outputs/mapping/release/seeds.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../build/app/outputs/mapping/release/seeds.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\elias\.android\avd\Pixel_6_API_33_1.avd]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -121,7 +197,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectId" id="2GuelHSX4yUpT1ZixA9naOeTxKq" />
+  <component name="ProjectId" id="2Guj4EFnt70rI9N8m7EvbD6buW8" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -199,11 +275,11 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="0ad27387-b163-4d06-b0b8-c46d52146dd0" name="Changes" comment="" />
-      <created>1667243045693</created>
+      <changelist id="ed74177d-78a7-43f6-a8ad-93d339f3879d" name="Changes" comment="" />
+      <created>1667245170549</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1667243045693</updated>
+      <updated>1667245170549</updated>
     </task>
     <servers />
   </component>
