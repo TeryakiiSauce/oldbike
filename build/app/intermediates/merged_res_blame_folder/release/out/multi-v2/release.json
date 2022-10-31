@@ -518,9 +518,9 @@
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
-                        "startOffsets": "57",
+                        "startOffsets": "55",
                         "endColumns": "56",
-                        "endOffsets": "109"
+                        "endOffsets": "107"
                     },
                     "to": {
                         "startLines": "13",
@@ -675,30 +675,6 @@
                         "startOffsets": "55",
                         "endColumns": "100",
                         "endOffsets": "151"
-                    }
-                }
-            ]
-        },
-        {
-            "outputFile": "com.teryakiisauce.oldbike.oldbike.app-merged_res-11:/values-night-v8_values-night-v8.arsc.flat",
-            "map": [
-                {
-                    "source": "X:\\home\\Documents\\ALL THE COOL THINGS I MADE\\DEVELOPMENT\\Flutter\\oldbike\\android\\app\\src\\main\\res\\values-night\\styles.xml",
-                    "from": {
-                        "startLines": "3,14",
-                        "startColumns": "4,4",
-                        "startOffsets": "172,817",
-                        "endLines": "7,16",
-                        "endColumns": "12,12",
-                        "endOffsets": "475,981"
-                    },
-                    "to": {
-                        "startLines": "2,6",
-                        "startColumns": "4,4",
-                        "startOffsets": "55,236",
-                        "endLines": "5,8",
-                        "endColumns": "12,12",
-                        "endOffsets": "231,400"
                     }
                 }
             ]
