@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -27,6 +28,20 @@ class HomeScreen extends StatelessWidget {
             ),
           ],
         ),
+      ),
+      bottomNavigationBar: BottomNavyBar(
+        items: [
+          BottomNavyBarItem(
+            icon: const Icon(Icons.home_filled),
+            title: const Text('Home'),
+          ),
+          BottomNavyBarItem(
+            icon: const Icon(Icons.access_alarm),
+            title: const Text('Time'),
+          ),
+        ],
+        selectedIndex: 1,
+        onItemSelected: (value) => print('home'),
       ),
     );
   }
