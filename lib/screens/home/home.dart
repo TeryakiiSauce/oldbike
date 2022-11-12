@@ -29,19 +29,17 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavyBar(
-        items: [
-          BottomNavyBarItem(
-            icon: const Icon(Icons.home_filled),
-            title: const Text('Home'),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_filled),
+            label: 'Home',
           ),
-          BottomNavyBarItem(
-            icon: const Icon(Icons.access_alarm),
-            title: const Text('Time'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.announcement),
+            label: 'News',
           ),
         ],
-        selectedIndex: 1,
-        onItemSelected: (value) => print('home'),
       ),
     );
   }
