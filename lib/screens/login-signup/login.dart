@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:oldbike/constants.dart';
+import 'package:oldbike/screens/home/home.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
+  static const String screen = 'login';
+
   const LoginScreen({Key? key}) : super(key: key);
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,7 +99,8 @@ class LoginScreen extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushReplacementNamed(context, '/home');
+                          Navigator.pushReplacementNamed(
+                              context, HomeScreen.screen);
                         },
                         child: const Text(
                           'Skip',

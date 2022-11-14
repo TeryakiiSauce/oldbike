@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:oldbike/screens/home/home.dart';
 import 'package:oldbike/screens/login-signup/login.dart';
+import 'package:oldbike/utils/colors.dart';
 
 void main() {
   runApp(const OldBikeApp());
@@ -16,14 +17,13 @@ class OldBikeApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Old Bike',
       theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: const Color(0xFF48435C),
+        scaffoldBackgroundColor: kcPrimary,
       ),
       routes: {
-        '/': (context) => const LoginScreen(),
-        '/home': (context) => const HomeScreen(),
+        LoginScreen.screen: (context) => const LoginScreen(),
+        HomeScreen.screen: (context) => const HomeScreen(),
       },
-      // home: const LoginScreen(),
-      initialRoute: '/',
+      initialRoute: LoginScreen.screen,
     );
   }
 }
