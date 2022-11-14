@@ -82,7 +82,10 @@ class RideInfoCard extends StatelessWidget {
           ),
           const Text(
             'Tylor Smith',
-            style: TextStyle(fontSize: 34.0, fontWeight: FontWeight.w900),
+            style: TextStyle(
+                fontSize: 34.0,
+                fontWeight: FontWeight.w900,
+                color: Color(0xffD6D3DF)),
           ),
           const Text(
             '22/11/2022',
@@ -100,6 +103,7 @@ class RideInfoCard extends StatelessWidget {
           const Text(
             'More >',
             textAlign: TextAlign.end,
+            style: TextStyle(color: kcAccent),
           ),
         ],
       ),
