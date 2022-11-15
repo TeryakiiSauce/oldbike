@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:oldbike/constants.dart';
+import 'package:oldbike/utils/text_styles.dart';
 import 'package:oldbike/screens/home/home.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -24,11 +24,11 @@ class _LoginScreenState extends State<LoginScreen> {
             children: [
               const Text(
                 'Sign In',
-                style: kTitleTS,
+                style: ktsMainTitle,
               ),
               const Text(
                 'The app\nfor tracking all\nyour bike rides',
-                style: kLargeLabelTS,
+                style: ktsNormalLargeLabel,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -63,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   const Text(
                     'Forgot Password?',
                     textAlign: TextAlign.right,
-                    style: kAttentionLabelTS,
+                    style: ktsAttentionLabel,
                   ),
                 ],
               ),
@@ -82,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       Text(
                         'Create Account',
-                        style: kAttentionLabelTS,
+                        style: ktsAttentionLabel,
                       ),
                     ],
                   ),
@@ -104,7 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                         child: const Text(
                           'Skip',
-                          style: kAttentionLabelTS,
+                          style: ktsAttentionLabel,
                         ),
                       ),
                     ],

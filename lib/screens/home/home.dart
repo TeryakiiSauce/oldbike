@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:oldbike/screens/login-signup/login.dart';
 import 'package:oldbike/utils/colors.dart';
+import 'package:oldbike/screens/login-signup/login.dart';
+import 'package:oldbike/components/ride_info_card.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String screen = 'home';
@@ -15,10 +16,38 @@ class _HomeScreenState extends State<HomeScreen> {
   List<RideInfoCard> getRidesInfoCards() {
     List<RideInfoCard> cardsList = [];
 
-    for (var i = 0; i < 3; i++) {
-      // TODO: adjust the function call below
-      cardsList.add(const RideInfoCard());
-    }
+    cardsList.addAll(
+      [
+        RideInfoCard(
+          username: 'Mason Bart',
+          date: DateTime.now(),
+          avgSpeed: 7.56360,
+          distTravelled: 123.25257,
+          elevationGained: 33.52390,
+        ),
+        RideInfoCard(
+          username: 'Tylor Smith',
+          date: DateTime.now(),
+          avgSpeed: 13.96563,
+          distTravelled: 6.46512,
+          elevationGained: 1.91236,
+        ),
+        RideInfoCard(
+          username: 'John Wick',
+          date: DateTime.now(),
+          avgSpeed: 8.34590,
+          distTravelled: 7.12490,
+          elevationGained: 2.63481,
+        ),
+        RideInfoCard(
+          username: 'May Jordan',
+          date: DateTime.now(),
+          avgSpeed: 15.79402,
+          distTravelled: 30.23518,
+          elevationGained: 0.67411,
+        ),
+      ],
+    );
 
     return cardsList;
   }
@@ -26,6 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kcPrimaryT3,
       appBar: AppBar(
         title: const Text('Home'),
         backgroundColor: kcAppBar,
@@ -53,59 +83,6 @@ class _HomeScreenState extends State<HomeScreen> {
         child: ListView(
           children: getRidesInfoCards(),
         ),
-      ),
-    );
-  }
-}
-
-class RideInfoCard extends StatelessWidget {
-  const RideInfoCard({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(20.0),
-      padding: const EdgeInsets.all(20.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20.0),
-        color: kcPrimaryT2,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(16.0),
-            child: Image.asset('images/robert-bye-tG36rvCeqng-unsplash.jpg'),
-          ),
-          const SizedBox(
-            height: 20.0,
-          ),
-          const Text(
-            'Tylor Smith',
-            style: TextStyle(
-                fontSize: 34.0,
-                fontWeight: FontWeight.w900,
-                color: Color(0xffD6D3DF)),
-          ),
-          const Text(
-            '22/11/2022',
-            style: TextStyle(fontSize: 15.0),
-          ),
-          const SizedBox(
-            height: 20.0,
-          ),
-          const Text('Average Speed: 13 km/h'),
-          const Text('Distance Travelled: 13 km'),
-          const Text('Elevation Gained: 2.5m'),
-          const SizedBox(
-            height: 20.0,
-          ),
-          const Text(
-            'More >',
-            textAlign: TextAlign.end,
-            style: TextStyle(color: kcAccent),
-          ),
-        ],
       ),
     );
   }
