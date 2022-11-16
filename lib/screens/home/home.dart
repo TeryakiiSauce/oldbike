@@ -80,8 +80,10 @@ class _HomeScreenState extends State<HomeScreen> {
       //   ],
       // ),
       body: SafeArea(
-        child: ListView(
-          children: getRidesInfoCards(),
+        child: Scrollbar(
+          child: ListView(
+            children: getRidesInfoCards(),
+          ),
         ),
       ),
     );

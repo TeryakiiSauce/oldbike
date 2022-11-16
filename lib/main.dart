@@ -18,6 +18,18 @@ class OldBikeApp extends StatelessWidget {
       title: 'Old Bike',
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: kcPrimary,
+        inputDecorationTheme: InputDecorationTheme(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16.0),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+              color: kcAccent,
+            ),
+            borderRadius: BorderRadius.circular(16.0),
+          ),
+          iconColor: kcAccent,
+        ),
       ),
       routes: {
         LoginScreen.screen: (context) => const LoginScreen(),
