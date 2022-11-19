@@ -45,10 +45,27 @@ class _LoginScreenState extends State<LoginScreen> {
             child: SingleChildScrollView(
               reverse: true,
               child: Padding(
-                padding: const EdgeInsets.all(30.0),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 30.0,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
+                    spacing,
+                    SizedBox(
+                      height: 75.0,
+                      child: Image.asset(
+                          'assets/Old Bike App Logo - Transparent 2x.png'),
+                    ),
+                    const SizedBox(
+                      height: 5.0,
+                    ),
+                    const Center(
+                      child: Text(
+                        'OLD BIKE',
+                        style: ktsSmallLabelWithSpacing,
+                      ),
+                    ),
                     spacing,
                     const Text(
                       'Sign In',

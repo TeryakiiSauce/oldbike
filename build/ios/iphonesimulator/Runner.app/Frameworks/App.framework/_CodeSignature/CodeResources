@@ -10,7 +10,7 @@
 		</data>
 		<key>flutter_assets/AssetManifest.json</key>
 		<data>
-		fOaPVsUKfr22Oibj3iv4n2KLtBc=
+		/ypv3Hu2yGx7LW0c2Vk3cOWYZEI=
 		</data>
 		<key>flutter_assets/FontManifest.json</key>
 		<data>
@@ -19,6 +19,14 @@
 		<key>flutter_assets/NOTICES.Z</key>
 		<data>
 		JOXHnBgB88EQKEt9n0SxfU+JcZU=
+		</data>
+		<key>flutter_assets/assets/Old%20Bike%20App%20Logo%20-%20Transparent%202x.png</key>
+		<data>
+		0DRRSSvnrPoiHa1SvZvFv1MccqU=
+		</data>
+		<key>flutter_assets/assets/logo/Upscaled/logo%20with%20label.png</key>
+		<data>
+		p2FxA6kSgtWRFsZ2kR0Tp97HVwA=
 		</data>
 		<key>flutter_assets/fonts/MaterialIcons-Regular.otf</key>
 		<data>
@@ -38,7 +46,7 @@
 		</data>
 		<key>flutter_assets/kernel_blob.bin</key>
 		<data>
-		p2HvFOgIHElDpYxjlkbwhboxNz4=
+		eJyruO1B4V/dse6pz0lUCWGejjM=
 		</data>
 		<key>flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
 		<data>
@@ -59,7 +67,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			BiQUy1mpLyuL/W7AGoRWjN7ZcB4XMI9jf8Z8N6+wDoo=
+			G49whixJJBFLGPS4iDioIFtmgDEhBQwU5h3/g9nYc2Q=
 			</data>
 		</dict>
 		<key>flutter_assets/FontManifest.json</key>
@@ -74,6 +82,20 @@
 			<key>hash2</key>
 			<data>
 			dfphGmsBhAnMMrzinB0RaAqT9GdEXHpPWPiH0I7ql2Y=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/Old%20Bike%20App%20Logo%20-%20Transparent%202x.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			jPuSbiP9zu3EA1g5trx8+Ykrl3mz6qpg5y3EasJj/qo=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/logo/Upscaled/logo%20with%20label.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			rlhU5SNN3TCUiogaPkUAF1sMXqeemvFzy6F2cP6nhyY=
 			</data>
 		</dict>
 		<key>flutter_assets/fonts/MaterialIcons-Regular.otf</key>
@@ -101,7 +123,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			u/nMMp70gT+r+lr0U52hLYBiS0QO7pz7FA6j/rNP2/M=
+			hQeh7rA2VLkA/T2BRmoYRueWv0sesZpOOxx0y+jAREs=
 			</data>
 		</dict>
 		<key>flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>

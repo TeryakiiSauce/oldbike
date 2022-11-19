@@ -6,7 +6,7 @@ import 'package:oldbike/utils/colors.dart';
 // Main Text Styles
 // === === === === ===
 const TextStyle ktsNormalLargeLabel = TextStyle(
-  fontSize: 42.0,
+  fontSize: 32.0,
 );
 
 const TextStyle ktsMainTitle = TextStyle(
@@ -16,6 +16,12 @@ const TextStyle ktsMainTitle = TextStyle(
 
 const TextStyle ktsAttentionLabel = TextStyle(
   color: kcAccent,
+);
+
+const TextStyle ktsSmallLabelWithSpacing = TextStyle(
+  fontWeight: FontWeight.w600,
+  fontSize: 12.0,
+  letterSpacing: 3.0,
 );
 
 // Card Text Styles
