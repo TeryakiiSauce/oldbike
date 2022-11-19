@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:oldbike/utils/text_styles.dart';
 import 'package:oldbike/tab_view_controller.dart';
 
@@ -14,7 +15,9 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   bool showPassword = false;
 
-  void togglePasswordVisibility() {
+  Future<void> togglePasswordVisibility() async {
+    await HapticFeedback.selectionClick();
+
     setState(() {
       if (showPassword) {
         showPassword = false;
@@ -146,7 +149,13 @@ class _LoginScreenState extends State<LoginScreen> {
                               width: 5.0,
                             ),
                             GestureDetector(
-                              onTap: () {
+                              onTap: () async {
+                                await HapticFeedback.selectionClick();
+
+                                if (!mounted) {
+                                  return; // Reference: https://stackoverflow.com/a/73342013
+                                }
+
                                 Navigator.pushReplacementNamed(
                                     context, TabViewController.screen);
                               },

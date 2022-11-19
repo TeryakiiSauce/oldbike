@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:oldbike/screens/home/home.dart';
 import 'package:oldbike/screens/login-signup/login.dart';
 import 'package:oldbike/screens/profile/profile.dart';
@@ -19,7 +20,9 @@ class _TabViewControllerState extends State<TabViewController> {
   final List<Map<String, dynamic>> screensMapsList = [];
   final Map<String, List<Widget>> actions = {};
 
-  void switchTabView(int screenIndex) {
+  Future<void> switchTabView(int screenIndex) async {
+    await HapticFeedback.selectionClick();
+
     setState(() {
       tabviewScreenIndex = screenIndex;
     });
@@ -38,8 +41,16 @@ class _TabViewControllerState extends State<TabViewController> {
         ],
         'profile': [
           IconButton(
-            onPressed: () => Navigator.pushReplacementNamed(
-                currentContext, LoginScreen.screen),
+            onPressed: () async {
+              await HapticFeedback.lightImpact();
+
+              if (!mounted) {
+                return; // Reference: https://stackoverflow.com/a/73342013
+              }
+
+              Navigator.pushReplacementNamed(
+                  currentContext, LoginScreen.screen);
+            },
             icon: const Icon(Icons.exit_to_app_rounded),
           ),
         ],
