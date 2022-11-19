@@ -153,7 +153,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 await HapticFeedback.selectionClick();
 
                                 if (!mounted) {
-                                  return; // Reference: https://stackoverflow.com/a/73342013
+                                  return;
                                 }
 
                                 Navigator.pushReplacementNamed(
