@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:oldbike/utils/text_styles.dart';
-import 'package:oldbike/screens/home/home.dart';
+import 'package:oldbike/tab_view_controller.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String screen = 'login';
@@ -131,7 +131,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             GestureDetector(
                               onTap: () {
                                 Navigator.pushReplacementNamed(
-                                    context, HomeScreen.screen);
+                                    context, TabViewController.screen);
                               },
                               child: const Text(
                                 'Skip',
