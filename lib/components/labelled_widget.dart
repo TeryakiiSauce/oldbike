@@ -18,7 +18,7 @@ class LabelledWidget extends StatelessWidget {
       children: [
         Text(title, style: ktsHeading),
         const SizedBox(
-          height: 15.0,
+          height: 10.0,
         ),
         child,
       ],

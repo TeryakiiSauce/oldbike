@@ -16,7 +16,7 @@ const TextStyle ktsMainTitle = TextStyle(
 
 const TextStyle ktsHeading = TextStyle(
   fontSize: 34.0,
-  fontWeight: FontWeight.bold,
+  fontWeight: FontWeight.w900,
 );
 
 const TextStyle ktsAttentionLabel = TextStyle(
@@ -50,4 +50,24 @@ const TextStyle ktsCardAction = TextStyle(
   color: kcAccentT4,
   fontStyle: FontStyle.italic,
   fontWeight: FontWeight.w500,
+);
+
+// Profile Summary Text Styles
+// === === === === ===
+const TextStyle ktsProfileTitle = TextStyle(
+  fontSize: 24.0,
+  fontWeight: FontWeight.w800,
+);
+
+const TextStyle ktsProfileSubtitle = TextStyle(
+  fontSize: 14.0,
+  fontWeight: FontWeight.w500,
+  height: 6.5,
+);
+
+const TextStyle ktsProfileTiny = TextStyle(
+  fontSize: 12.0,
+  fontWeight: FontWeight.w300,
+  height: 1.6,
+  color: kcWhite300,
 );

@@ -6,6 +6,9 @@ class CircularIcon extends StatelessWidget {
   /// If the label is empty, then the result & unit strings will *NOT* be displayed.
   final String label, result, unit;
 
+  /// Whether to display a circular border around the icon or not
+  final bool hasBorder;
+
   final IconData icon;
   final double size;
 
@@ -19,6 +22,7 @@ class CircularIcon extends StatelessWidget {
     this.result = '0.0',
     this.unit = '',
     this.size = 6,
+    this.hasBorder = false,
   }) : super(key: key);
 
   /// Checks if the label for an icon is empty or not.
@@ -66,9 +70,13 @@ class CircularIcon extends StatelessWidget {
           ),
           child: FittedBox(
             child: CircleAvatar(
-              backgroundColor: kcPrimaryS3,
-              foregroundColor: kcWhite400,
-              child: Icon(icon),
+              radius: hasBorder ? size + 18 : null,
+              backgroundColor: kcPrimaryS3.withOpacity(0.3),
+              child: CircleAvatar(
+                backgroundColor: kcPrimaryS3,
+                foregroundColor: kcWhite400,
+                child: Icon(icon),
+              ),
             ),
           ),
         ),

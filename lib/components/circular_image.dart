@@ -27,11 +27,15 @@ class CircularImage extends StatelessWidget {
           ),
           child: FittedBox(
             child: CircleAvatar(
-              backgroundColor: kcPrimaryS3,
-              foregroundColor: kcWhite400,
-              child: Padding(
-                padding: EdgeInsets.all(padding),
-                child: image,
+              radius: size * 1.9,
+              backgroundColor: kcPrimaryT2,
+              child: CircleAvatar(
+                backgroundColor: kcPrimary,
+                foregroundColor: kcWhite400,
+                child: Padding(
+                  padding: EdgeInsets.all(padding),
+                  child: image,
+                ),
               ),
             ),
           ),

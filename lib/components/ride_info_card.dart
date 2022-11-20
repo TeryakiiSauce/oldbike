@@ -9,6 +9,8 @@ class RideInfoCard extends StatelessWidget {
   final DateTime date;
   final double avgSpeed, distTravelled, elevationGained;
 
+  final bool _circleIconBorder = true;
+
   /// This creates a card that displays a summary of a bike ride.
   ///
   /// Information includes:
@@ -30,23 +32,32 @@ class RideInfoCard extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CircularIcon(
-          icon: Icons.flash_on_rounded,
-          label: 'Average Speed',
-          result: _getFormattedResult(avgSpeed),
-          unit: 'km/ h',
+        Expanded(
+          child: CircularIcon(
+            icon: Icons.flash_on_rounded,
+            label: 'Average Speed',
+            result: _getFormattedResult(avgSpeed),
+            unit: 'km/ h',
+            hasBorder: _circleIconBorder,
+          ),
         ),
-        CircularIcon(
-          icon: Icons.location_on_rounded,
-          label: 'Distance Travelled',
-          result: _getFormattedResult(distTravelled),
-          unit: 'km',
+        Expanded(
+          child: CircularIcon(
+            icon: Icons.location_on_rounded,
+            label: 'Distance Travelled',
+            result: _getFormattedResult(distTravelled),
+            unit: 'km',
+            hasBorder: _circleIconBorder,
+          ),
         ),
-        CircularIcon(
-          icon: Icons.trending_up_rounded,
-          label: 'Elevation Gained',
-          result: _getFormattedResult(elevationGained),
-          unit: 'm',
+        Expanded(
+          child: CircularIcon(
+            icon: Icons.trending_up_rounded,
+            label: 'Elevation Gained',
+            result: _getFormattedResult(elevationGained),
+            unit: 'm',
+            hasBorder: _circleIconBorder,
+          ),
         ),
       ],
     );
@@ -111,12 +122,12 @@ class RideInfoCard extends StatelessWidget {
           ),
           spacing,
           _getLabelledIcons(),
-          spacing,
-          const Text(
-            'More >',
-            textAlign: TextAlign.end,
-            style: ktsCardAction,
-          ),
+          // spacing,
+          // const Text(
+          //   'More >',
+          //   textAlign: TextAlign.end,
+          //   style: ktsCardAction,
+          // ),
         ],
       ),
     );

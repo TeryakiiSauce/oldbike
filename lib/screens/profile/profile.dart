@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:oldbike/components/circular_image.dart';
 import 'package:oldbike/components/labelled_widget.dart';
+import 'package:oldbike/utils/text_styles.dart';
 
 class ProfileScreen extends StatefulWidget {
   static const String screen = 'profile';
@@ -19,25 +20,101 @@ class _ProfileScreenState extends State<ProfileScreen> {
       children: [
         LabelledWidget(
           title: 'Profile',
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          child: Column(
             children: [
-              CircularImage(
-                image: Image.asset(
-                    'images/vecteezy_watercolor-sketch-of-cute-cartoon-jumping-dolphin_11017755_378.png'),
-                padding: 5,
-                // size: 15,
-              ),
-              // const SizedBox(
-              //   width: 30.0,
-              // ),
-              Column(
-                // crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: const [
-                  Text('hehr'),
-                  Text('hehr'),
-                  Text('hehr'),
+              Row(
+                children: [
+                  Flexible(
+                    child: CircularImage(
+                      image: Image.asset(
+                          'images/vecteezy_watercolor-sketch-of-cute-cartoon-jumping-dolphin_11017755_378.png'),
+                      padding: 5,
+                      size: 12,
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 30.0,
+                  ),
+                  Flexible(
+                    flex: 2,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: const [
+                        Text(
+                          'Rintarou Okabe',
+                          style: ktsProfileTitle,
+                        ),
+                        Text(
+                          '25 years old, Male',
+                          style: ktsProfileSubtitle,
+                          textHeightBehavior: TextHeightBehavior(
+                            applyHeightToFirstAscent: false,
+                          ),
+                        ),
+                        Text(
+                          '70 kg\n'
+                          '182 cm\n'
+                          'O+ Blood group',
+                          style: ktsProfileTiny,
+                          textHeightBehavior: TextHeightBehavior(
+                            applyHeightToFirstAscent: false,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
+              ),
+              const Divider(
+                height: 50.0,
+                thickness: 5,
+              ),
+              Row(
+                children: [
+                  Flexible(
+                    child: CircularImage(
+                      image: Image.asset(
+                          'images/vecteezy_3d-icon-rendering_12981600_145.png'),
+                      padding: 5,
+                      size: 12,
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 30.0,
+                  ),
+                  Flexible(
+                    flex: 2,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: const [
+                        Text(
+                          'Rintarou Okabe',
+                          style: ktsProfileTitle,
+                        ),
+                        Text(
+                          '25 years old, Male',
+                          style: ktsProfileSubtitle,
+                          textHeightBehavior: TextHeightBehavior(
+                            applyHeightToFirstAscent: false,
+                          ),
+                        ),
+                        Text(
+                          '70 kg\n'
+                          '182 cm\n'
+                          'O+ Blood group',
+                          style: ktsProfileTiny,
+                          textHeightBehavior: TextHeightBehavior(
+                            applyHeightToFirstAscent: false,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              const Divider(
+                height: 50.0,
+                thickness: 5,
               ),
             ],
           ),

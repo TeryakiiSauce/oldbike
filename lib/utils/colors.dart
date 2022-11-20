@@ -19,6 +19,7 @@ const Color kcAccent = Color(0xffD4D2A5);
 // Tints
 // === === === === ===
 const Color kcPrimaryT1 = Color(0xFF534D6A);
+const Color kcPrimaryT2 = Color(0xFF5E5879);
 const Color kcPrimaryT3 = Color(0xff6A6287);
 const Color kcAccentT3 = Color(0xffDDDBB9);
 const Color kcAccentT4 = Color(0xffE0DFBF);
