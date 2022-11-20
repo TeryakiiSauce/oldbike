@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:oldbike/utils/text_styles.dart';
 
 class LabelledWidget extends StatelessWidget {
   final String title;
@@ -15,7 +16,10 @@ class LabelledWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text(title),
+        Text(title, style: ktsHeading),
+        const SizedBox(
+          height: 15.0,
+        ),
         child,
       ],
     );

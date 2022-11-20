@@ -14,6 +14,11 @@ const TextStyle ktsMainTitle = TextStyle(
   fontWeight: FontWeight.bold,
 );
 
+const TextStyle ktsHeading = TextStyle(
+  fontSize: 34.0,
+  fontWeight: FontWeight.bold,
+);
+
 const TextStyle ktsAttentionLabel = TextStyle(
   color: kcAccent,
 );

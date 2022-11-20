@@ -15,7 +15,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      padding: const EdgeInsets.all(10.0),
+      padding: const EdgeInsets.all(20.0),
       children: [
         LabelledWidget(
           title: 'Profile',
@@ -26,18 +26,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 image: Image.asset(
                     'images/vecteezy_watercolor-sketch-of-cute-cartoon-jumping-dolphin_11017755_378.png'),
                 padding: 5,
+                // size: 15,
+              ),
+              // const SizedBox(
+              //   width: 30.0,
+              // ),
+              Column(
+                // crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: const [
+                  Text('hehr'),
+                  Text('hehr'),
+                  Text('hehr'),
+                ],
               ),
             ],
           ),
         ),
-        Divider(
-          indent: 100.0,
-          height: 50.0,
-          endIndent: 100.0,
-          color: Colors.black,
-          thickness: 2.0,
-        ),
-        Text('Credits'),
       ],
     );
   }
