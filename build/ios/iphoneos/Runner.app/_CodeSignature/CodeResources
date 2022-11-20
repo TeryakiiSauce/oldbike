@@ -46,7 +46,7 @@
 		</data>
 		<key>Frameworks/App.framework/App</key>
 		<data>
-		yb0JwNEZvAifGJffuAdcg/AnYks=
+		rl8cPGw2aGwENoNQMrgFeb10SkU=
 		</data>
 		<key>Frameworks/App.framework/Info.plist</key>
 		<data>
@@ -54,11 +54,11 @@
 		</data>
 		<key>Frameworks/App.framework/_CodeSignature/CodeResources</key>
 		<data>
-		h64uYQ5ckHOgloDNa6DJXfZy1yk=
+		nUB0+c6+mljEpm5yCbK60EGCfds=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.json</key>
 		<data>
-		/ypv3Hu2yGx7LW0c2Vk3cOWYZEI=
+		qPobqWzVihZhi3Swnb2u26AOi68=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/FontManifest.json</key>
 		<data>
@@ -68,17 +68,25 @@
 		<data>
 		JOXHnBgB88EQKEt9n0SxfU+JcZU=
 		</data>
-		<key>Frameworks/App.framework/flutter_assets/assets/Old%20Bike%20App%20Logo%20-%20Transparent%202x.png</key>
-		<data>
-		0DRRSSvnrPoiHa1SvZvFv1MccqU=
-		</data>
 		<key>Frameworks/App.framework/flutter_assets/fonts/MaterialIcons-Regular.otf</key>
 		<data>
 		mcmNrC70e/OT89y/p5EgxkVsLrs=
 		</data>
+		<key>Frameworks/App.framework/flutter_assets/images/Old%20Bike%20App%20Logo%20-%20Transparent%202x.png</key>
+		<data>
+		0DRRSSvnrPoiHa1SvZvFv1MccqU=
+		</data>
 		<key>Frameworks/App.framework/flutter_assets/images/robert-bye-tG36rvCeqng-unsplash.jpg</key>
 		<data>
 		1L7PP5EUS/kSb2cYrv/j1zt2ttc=
+		</data>
+		<key>Frameworks/App.framework/flutter_assets/images/vecteezy_3d-icon-rendering_12981600_145.png</key>
+		<data>
+		TJhkfJY1AMJ1+BUP/Tkz9XvQaWA=
+		</data>
+		<key>Frameworks/App.framework/flutter_assets/images/vecteezy_watercolor-sketch-of-cute-cartoon-jumping-dolphin_11017755_378.png</key>
+		<data>
+		Y4JE6zBp8trbZHcZd8+7JMnuas0=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
 		<data>
@@ -261,7 +269,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			t+3gVu3jlZHSqgS+aIjUsNRArv8U+2gGIkoSK3Xnfjs=
+			IW1reJxT+B0bWHT4OAL0p1xxM2dfgB3xFOKzvA3CTpg=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/Info.plist</key>
@@ -275,14 +283,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			mxcoaVOpPdy0+pj6JlXNSzJCSmWWYGKmbYq7krWSzOs=
+			BvPk7QVdpIieiDFwqxW/Mp3jK8TKHPKymcIqRw5V9Mo=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			G49whixJJBFLGPS4iDioIFtmgDEhBQwU5h3/g9nYc2Q=
+			qA0IQYl4Wcm/XhQ/Hex7g0TZklHJL4Dnfji3Dfo05Dc=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/FontManifest.json</key>
@@ -299,13 +307,6 @@
 			dfphGmsBhAnMMrzinB0RaAqT9GdEXHpPWPiH0I7ql2Y=
 			</data>
 		</dict>
-		<key>Frameworks/App.framework/flutter_assets/assets/Old%20Bike%20App%20Logo%20-%20Transparent%202x.png</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			jPuSbiP9zu3EA1g5trx8+Ykrl3mz6qpg5y3EasJj/qo=
-			</data>
-		</dict>
 		<key>Frameworks/App.framework/flutter_assets/fonts/MaterialIcons-Regular.otf</key>
 		<dict>
 			<key>hash2</key>
@@ -313,11 +314,32 @@
 			BugRRJlkJdABYrpi+ZDcvZjsh+EPQ4Uf2ST65b83vlc=
 			</data>
 		</dict>
+		<key>Frameworks/App.framework/flutter_assets/images/Old%20Bike%20App%20Logo%20-%20Transparent%202x.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			jPuSbiP9zu3EA1g5trx8+Ykrl3mz6qpg5y3EasJj/qo=
+			</data>
+		</dict>
 		<key>Frameworks/App.framework/flutter_assets/images/robert-bye-tG36rvCeqng-unsplash.jpg</key>
 		<dict>
 			<key>hash2</key>
 			<data>
 			CC7xExcEsZQJlG4ZDs/6VK6iIZw0QvfVCSJKBs3XRkA=
+			</data>
+		</dict>
+		<key>Frameworks/App.framework/flutter_assets/images/vecteezy_3d-icon-rendering_12981600_145.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			o082IwACSdi81UdVixv+5TcliZhBsDa5Uxo5UexWSmw=
+			</data>
+		</dict>
+		<key>Frameworks/App.framework/flutter_assets/images/vecteezy_watercolor-sketch-of-cute-cartoon-jumping-dolphin_11017755_378.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			vf7xcmUAWvRI+1YFeX45yOT6h42ZpSNrV4W9icrNS+o=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
