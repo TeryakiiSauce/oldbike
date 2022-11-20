@@ -16,7 +16,10 @@ class LabelledWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text(title, style: ktsHeading),
+        Text(
+          title,
+          style: ktsHeading,
+        ),
         const SizedBox(
           height: 10.0,
         ),

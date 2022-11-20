@@ -13,112 +13,91 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  LabelledWidget buildProfileSummary() => LabelledWidget(
+        title: 'Profile',
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            getProfileDetails(),
+          ],
+        ),
+      );
+
+  LabelledWidget buildUserRecentRides() => LabelledWidget(
+        title: 'Recent Rides',
+        child: Container(
+          height: 250.0,
+          width: 300.0,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20.0),
+            color: Colors.amber,
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20.0),
+            child: Image.asset(
+              'images/robert-bye-tG36rvCeqng-unsplash.jpg',
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+      );
+
+  Row getProfileDetails() => Row(
+        children: [
+          Flexible(
+            child: CircularImage(
+              image: Image.asset(
+                  'images/vecteezy_watercolor-sketch-of-cute-cartoon-jumping-dolphin_11017755_378.png'),
+              padding: 5,
+              size: 12,
+            ),
+          ),
+          const SizedBox(
+            width: 30.0,
+          ),
+          Flexible(
+            flex: 2,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: const [
+                Text(
+                  'Rintarou Okabe',
+                  style: ktsProfileTitle,
+                ),
+                Text(
+                  '25 years old, Male',
+                  style: ktsProfileSubtitle,
+                  textHeightBehavior: TextHeightBehavior(
+                    applyHeightToFirstAscent: false,
+                  ),
+                ),
+                Text(
+                  '70 kg\n'
+                  '182 cm\n'
+                  'O+ Blood group',
+                  style: ktsProfileTiny,
+                  textHeightBehavior: TextHeightBehavior(
+                    applyHeightToFirstAscent: false,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      );
+
   @override
   Widget build(BuildContext context) {
+    SizedBox spacing = const SizedBox(
+      height: 35.0,
+    );
+
     return ListView(
       padding: const EdgeInsets.all(20.0),
       children: [
-        LabelledWidget(
-          title: 'Profile',
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Flexible(
-                    child: CircularImage(
-                      image: Image.asset(
-                          'images/vecteezy_watercolor-sketch-of-cute-cartoon-jumping-dolphin_11017755_378.png'),
-                      padding: 5,
-                      size: 12,
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 30.0,
-                  ),
-                  Flexible(
-                    flex: 2,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: const [
-                        Text(
-                          'Rintarou Okabe',
-                          style: ktsProfileTitle,
-                        ),
-                        Text(
-                          '25 years old, Male',
-                          style: ktsProfileSubtitle,
-                          textHeightBehavior: TextHeightBehavior(
-                            applyHeightToFirstAscent: false,
-                          ),
-                        ),
-                        Text(
-                          '70 kg\n'
-                          '182 cm\n'
-                          'O+ Blood group',
-                          style: ktsProfileTiny,
-                          textHeightBehavior: TextHeightBehavior(
-                            applyHeightToFirstAscent: false,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              const Divider(
-                height: 50.0,
-                thickness: 5,
-              ),
-              Row(
-                children: [
-                  Flexible(
-                    child: CircularImage(
-                      image: Image.asset(
-                          'images/vecteezy_3d-icon-rendering_12981600_145.png'),
-                      padding: 5,
-                      size: 12,
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 30.0,
-                  ),
-                  Flexible(
-                    flex: 2,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: const [
-                        Text(
-                          'Rintarou Okabe',
-                          style: ktsProfileTitle,
-                        ),
-                        Text(
-                          '25 years old, Male',
-                          style: ktsProfileSubtitle,
-                          textHeightBehavior: TextHeightBehavior(
-                            applyHeightToFirstAscent: false,
-                          ),
-                        ),
-                        Text(
-                          '70 kg\n'
-                          '182 cm\n'
-                          'O+ Blood group',
-                          style: ktsProfileTiny,
-                          textHeightBehavior: TextHeightBehavior(
-                            applyHeightToFirstAscent: false,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              const Divider(
-                height: 50.0,
-                thickness: 5,
-              ),
-            ],
-          ),
-        ),
+        buildProfileSummary(),
+        spacing,
+        buildUserRecentRides(),
       ],
     );
   }
