@@ -10,7 +10,7 @@
 		</data>
 		<key>flutter_assets/AssetManifest.json</key>
 		<data>
-		/ypv3Hu2yGx7LW0c2Vk3cOWYZEI=
+		qPobqWzVihZhi3Swnb2u26AOi68=
 		</data>
 		<key>flutter_assets/FontManifest.json</key>
 		<data>
@@ -32,9 +32,21 @@
 		<data>
 		bXnx4Nc1/CCilNTEUDsw1Gq24eA=
 		</data>
+		<key>flutter_assets/images/Old%20Bike%20App%20Logo%20-%20Transparent%202x.png</key>
+		<data>
+		0DRRSSvnrPoiHa1SvZvFv1MccqU=
+		</data>
 		<key>flutter_assets/images/robert-bye-tG36rvCeqng-unsplash.jpg</key>
 		<data>
 		1L7PP5EUS/kSb2cYrv/j1zt2ttc=
+		</data>
+		<key>flutter_assets/images/vecteezy_3d-icon-rendering_12981600_145.png</key>
+		<data>
+		TJhkfJY1AMJ1+BUP/Tkz9XvQaWA=
+		</data>
+		<key>flutter_assets/images/vecteezy_watercolor-sketch-of-cute-cartoon-jumping-dolphin_11017755_378.png</key>
+		<data>
+		Y4JE6zBp8trbZHcZd8+7JMnuas0=
 		</data>
 		<key>flutter_assets/isolate_snapshot_data</key>
 		<data>
@@ -42,7 +54,7 @@
 		</data>
 		<key>flutter_assets/kernel_blob.bin</key>
 		<data>
-		nl7kMNopVfK6vd8nawMnPXg+WhU=
+		MN/cjVlLGk/OkEjbXE00xk0/nKM=
 		</data>
 		<key>flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
 		<data>
@@ -63,7 +75,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			G49whixJJBFLGPS4iDioIFtmgDEhBQwU5h3/g9nYc2Q=
+			qA0IQYl4Wcm/XhQ/Hex7g0TZklHJL4Dnfji3Dfo05Dc=
 			</data>
 		</dict>
 		<key>flutter_assets/FontManifest.json</key>
@@ -94,11 +106,32 @@
 			BugRRJlkJdABYrpi+ZDcvZjsh+EPQ4Uf2ST65b83vlc=
 			</data>
 		</dict>
+		<key>flutter_assets/images/Old%20Bike%20App%20Logo%20-%20Transparent%202x.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			jPuSbiP9zu3EA1g5trx8+Ykrl3mz6qpg5y3EasJj/qo=
+			</data>
+		</dict>
 		<key>flutter_assets/images/robert-bye-tG36rvCeqng-unsplash.jpg</key>
 		<dict>
 			<key>hash2</key>
 			<data>
 			CC7xExcEsZQJlG4ZDs/6VK6iIZw0QvfVCSJKBs3XRkA=
+			</data>
+		</dict>
+		<key>flutter_assets/images/vecteezy_3d-icon-rendering_12981600_145.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			o082IwACSdi81UdVixv+5TcliZhBsDa5Uxo5UexWSmw=
+			</data>
+		</dict>
+		<key>flutter_assets/images/vecteezy_watercolor-sketch-of-cute-cartoon-jumping-dolphin_11017755_378.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			vf7xcmUAWvRI+1YFeX45yOT6h42ZpSNrV4W9icrNS+o=
 			</data>
 		</dict>
 		<key>flutter_assets/isolate_snapshot_data</key>
@@ -112,7 +145,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			F5FvrgblLBHCs5/VvkWf3Qi0sJcbFdn2t6jGR3F0Jzs=
+			jPVJUzOm1ddUaDJwss2nZXllV1vq++ey/n2I36/thYg=
 			</data>
 		</dict>
 		<key>flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>

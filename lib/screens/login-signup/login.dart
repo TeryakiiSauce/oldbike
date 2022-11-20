@@ -58,7 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(
                       height: 75.0,
                       child: Image.asset(
-                          'assets/Old Bike App Logo - Transparent 2x.png'),
+                          'images/Old Bike App Logo - Transparent 2x.png'),
                     ),
                     const SizedBox(
                       height: 5.0,

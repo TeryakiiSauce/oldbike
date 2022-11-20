@@ -15,13 +15,14 @@ class RideInfoCard extends StatelessWidget {
   ///   - The average speed.
   ///   - The distance travelled.
   ///   - The elevation gained.
-  const RideInfoCard(
-      {super.key,
-      required this.username,
-      required this.date,
-      this.avgSpeed = 0.0,
-      this.distTravelled = 0.0,
-      this.elevationGained = 0.0});
+  const RideInfoCard({
+    super.key,
+    required this.username,
+    required this.date,
+    this.avgSpeed = 0.0,
+    this.distTravelled = 0.0,
+    this.elevationGained = 0.0,
+  });
 
   /// Returns a `Row()` of three icons that include labels and the statistics of a bike ride.
   Row _getLabelledIcons() {
