@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:oldbike/components/circular_icon.dart';
 import 'package:oldbike/utils/custom_formatting.dart';
+import 'package:oldbike/utils/text_styles.dart';
 
 /// The class below is used to arrange the average speed, distance travelled, & elevation gained icons & labels neatly.
 ///
@@ -13,6 +14,14 @@ class RideSummaryIcons extends StatelessWidget {
   final bool isVertical, invertColors;
   final double avgSpeed, distTravelled, elevationGained;
 
+  final SizedBox _vSpacing = const SizedBox(
+    height: 10.0,
+  );
+
+  final SizedBox _hSpacing = const SizedBox(
+    height: 10.0,
+  );
+
   /// Creates a group of icons, either vertically or horizontally.
   const RideSummaryIcons({
     super.key,
@@ -24,57 +33,145 @@ class RideSummaryIcons extends StatelessWidget {
   });
 
   /// Creates _three_ icons (with labels if specified) on top of each other.
-  Widget getVerticalLayout() => CircularIconLabel(
-      // icon: Icons.flash_on_rounded,
-      // size: 2.0,
-      // invertedColors: true,
-      // label: 'my title',
-      // isVerticalLabel: false,
-      // result: '1235',
-      // unit: 'km/ h',
+  Column getVerticalLayout() => Column(
+        children: [
+          Expanded(
+            child: CircularIcon(
+              labels: [
+                Text(
+                  'Average Speed',
+                  textAlign: TextAlign.center,
+                ),
+                Text(
+                  CustomFormat.getFormattedResult(avgSpeed),
+                  style: ktsCardTitle,
+                ),
+                Text(
+                  'KM/H',
+                ),
+              ],
+              icon: Icons.flash_on_rounded,
+              invertedColors: true,
+              borderThickness: 4,
+              size: 15,
+            ),
+          ),
+          Expanded(
+            child: CircularIcon(
+              labels: [
+                Text(
+                  'Distance Travelled',
+                  textAlign: TextAlign.center,
+                ),
+                Text(
+                  CustomFormat.getFormattedResult(distTravelled),
+                  style: ktsCardTitle,
+                ),
+                Text(
+                  'KM',
+                ),
+              ],
+              icon: Icons.location_on_rounded,
+              invertedColors: true,
+              borderThickness: 4,
+              size: 15,
+            ),
+          ),
+          Expanded(
+            child: CircularIcon(
+              labels: [
+                Text(
+                  'Elevation Gained',
+                  textAlign: TextAlign.center,
+                ),
+                Text(
+                  CustomFormat.getFormattedResult(elevationGained),
+                  style: ktsCardTitle,
+                ),
+                Text(
+                  'M',
+                ),
+              ],
+              icon: Icons.trending_up_rounded,
+              invertedColors: true,
+              borderThickness: 4,
+              size: 15,
+            ),
+          ),
+        ],
       );
 
   /// Creates _three_ icons (with labels if specified) next to each other.
   Row _createHorizontalLayout() => Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        // crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
             child: CircularIcon(
+              labels: [
+                Text(
+                  'Average Speed',
+                  textAlign: TextAlign.center,
+                ),
+                _vSpacing,
+                Text(
+                  CustomFormat.getFormattedResult(avgSpeed),
+                  style: ktsCardTitle,
+                ),
+                _vSpacing,
+                Text(
+                  'KM/H',
+                ),
+              ],
               icon: Icons.flash_on_rounded,
               borderThickness: borderThickness,
               invertedColors: invertColors,
-              child: CircularIconLabel(
-                isVerticalLabel: true,
-                label: 'Average\nSpeed',
-                result: CustomFormat.getFormattedResult(avgSpeed),
-                unit: 'km/ h',
-              ),
+              isVerticalLayout: true,
             ),
           ),
           Expanded(
             child: CircularIcon(
+              labels: [
+                Text(
+                  'Distance Travelled',
+                  textAlign: TextAlign.center,
+                ),
+                _vSpacing,
+                Text(
+                  CustomFormat.getFormattedResult(distTravelled),
+                  style: ktsCardTitle,
+                ),
+                _vSpacing,
+                Text(
+                  'KM',
+                ),
+              ],
               icon: Icons.location_on_rounded,
               borderThickness: borderThickness,
               invertedColors: invertColors,
-              child: CircularIconLabel(
-                isVerticalLabel: true,
-                label: 'Distance\nTravelled',
-                result: CustomFormat.getFormattedResult(distTravelled),
-                unit: 'km',
-              ),
+              isVerticalLayout: true,
             ),
           ),
           Expanded(
             child: CircularIcon(
+              labels: [
+                Text(
+                  'Elevation Gained',
+                  textAlign: TextAlign.center,
+                ),
+                _vSpacing,
+                Text(
+                  CustomFormat.getFormattedResult(elevationGained),
+                  style: ktsCardTitle,
+                ),
+                _vSpacing,
+                Text(
+                  'M',
+                ),
+              ],
               icon: Icons.trending_up_rounded,
               borderThickness: borderThickness,
               invertedColors: invertColors,
-              child: CircularIconLabel(
-                isVerticalLabel: true,
-                label: 'Elevation\nGained',
-                result: CustomFormat.getFormattedResult(elevationGained),
-                unit: 'm',
-              ),
+              isVerticalLayout: true,
             ),
           ),
         ],

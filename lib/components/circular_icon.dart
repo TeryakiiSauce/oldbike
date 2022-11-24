@@ -11,8 +11,8 @@ class CircularIcon extends StatelessWidget {
   final double borderThickness;
   final Color backgroundColor, foregroundColor;
   final double size;
-  final bool invertedColors;
-  final Widget child;
+  final bool invertedColors, isVerticalLayout;
+  final List<Widget> labels;
 
   /// Only creates an `Icon()` with a circle background. The colors can be customized.
   ///
@@ -20,103 +20,90 @@ class CircularIcon extends StatelessWidget {
   const CircularIcon({
     super.key,
     required this.icon,
-    required this.child,
+    required this.labels,
     this.size = 6,
     this.borderThickness = 0,
     this.backgroundColor = kcPrimaryS3,
     this.foregroundColor = kcWhite400,
     this.invertedColors = false,
+    this.isVerticalLayout = false,
   });
 
-  @override
-  Widget build(BuildContext context) {
+  /// This is place the icon on top of the child widget
+  Column _getVerticalLayout() {
+    List<Widget> widgets = [];
+
+    /// I'm not exactly good at maths so I just played with the calculations until I got a result that doesn't break (overflow) the icon from the circle background.
+    widgets.addAll([
+      // This _outer_ CircleAvatar() is for the border of the circular icon.
+      CircleAvatar(
+        radius: borderThickness != 0 ? size + 20 + borderThickness : null,
+        backgroundColor: invertedColors
+            ? foregroundColor.withOpacity(0.3)
+            : backgroundColor.withOpacity(0.3),
+
+        // This _inner_ CircleAvatar() is for the circular icon.
+        child: CircleAvatar(
+          radius: size + 20,
+          backgroundColor: invertedColors ? foregroundColor : backgroundColor,
+          foregroundColor: invertedColors ? backgroundColor : foregroundColor,
+          child: Icon(icon),
+        ),
+      ),
+
+      SizedBox(
+        height: labels.isNotEmpty ? 10.0 : null,
+      ),
+    ]);
+
+    for (Widget label in labels) {
+      widgets.add(label);
+    }
+
     return Column(
-      children: [
-        // This _outer_ CircleAvatar() is for the border of the circular icon.
-        CircleAvatar(
-          radius: borderThickness != 0 ? size + 20 + borderThickness : null,
-          backgroundColor: invertedColors
-              ? foregroundColor.withOpacity(0.3)
-              : backgroundColor.withOpacity(0.3),
-          child: CircleAvatar(
-            radius: size + 20,
-            backgroundColor: invertedColors ? foregroundColor : backgroundColor,
-            foregroundColor: invertedColors ? backgroundColor : foregroundColor,
-            child: Icon(icon),
-          ),
-        ),
-
-        SizedBox(
-          height: child.runtimeType == const CircularIconLabel().runtimeType
-              ? 15.0
-              : null,
-        ),
-
-        // The labels to be displayed.
-        child,
-      ],
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: widgets,
     );
   }
-}
 
-class CircularIconLabel extends StatelessWidget {
-  final String label, result, unit;
-  final bool isVerticalLabel;
+  /// TODO: [done] add documentation.
+  Row _getHorizontalLayout() {
+    List<Widget> widgets = [];
 
-  /// Adds a label to the `CircularIcon()` widget.
-  ///
-  /// By default, the labels are shown horizontally.
-  const CircularIconLabel({
-    Key? key,
-    this.label = '',
-    this.result = '0.0',
-    this.unit = '',
-    this.isVerticalLabel = false,
-  }) : super(key: key);
+    /// I'm not exactly good at maths so I just played with the calculations until I got a result that doesn't break (overflow) the icon from the circle background.
+    widgets.add(
+      // This _outer_ CircleAvatar() is for the border of the circular icon.
+      CircleAvatar(
+        radius: borderThickness != 0 ? size + borderThickness : null,
+        backgroundColor: invertedColors
+            ? foregroundColor.withOpacity(0.3)
+            : backgroundColor.withOpacity(0.3),
 
-  /// Returns the labels on top of each other while the icon remains at the topmost.
-  Column _getVerticalLabel() => Column(
-        children: [
-          Text(
-            label,
-            textAlign: TextAlign.center,
+        // This _inner_ CircleAvatar() is for the circular icon.
+        child: CircleAvatar(
+          radius: size,
+          backgroundColor: invertedColors ? foregroundColor : backgroundColor,
+          foregroundColor: invertedColors ? backgroundColor : foregroundColor,
+          child: Icon(
+            icon,
+            size: size / 0.65,
           ),
-          const SizedBox(
-            height: 10.0,
-          ),
-          Text(
-            result,
-            style: ktsCardTitle,
-          ),
-          const SizedBox(
-            height: 10.0,
-          ),
-          Text(
-            unit.toUpperCase(),
-          ),
-        ],
-      );
+        ),
+      ),
+    );
 
-  /// Returns the labels as a horizontal line. The icon will be at the leftmost position.
-  Row _getHorizontalLabel() => Row(
-        children: [
-          // _getIcon(),
-          Text(
-            label,
-            textAlign: TextAlign.center,
-          ),
-          Text(
-            result,
-            style: ktsCardTitle,
-          ),
-          Text(
-            unit.toUpperCase(),
-          ),
-        ],
-      );
+    for (Widget label in labels) {
+      widgets.add(label);
+    }
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: widgets,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return isVerticalLabel ? _getVerticalLabel() : _getHorizontalLabel();
+    return isVerticalLayout ? _getVerticalLayout() : _getHorizontalLayout();
   }
 }

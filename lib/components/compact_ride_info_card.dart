@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:oldbike/components/ride_summary_icons.dart';
 import 'package:oldbike/utils/custom_formatting.dart';
+import 'package:oldbike/utils/text_styles.dart';
 
 class CompactRideInfoCard extends StatelessWidget {
   final DateTime date;
@@ -27,21 +28,29 @@ class CompactRideInfoCard extends StatelessWidget {
             'images/robert-bye-tG36rvCeqng-unsplash.jpg',
             fit: BoxFit.cover,
             height: height == 0.0 ? null : height,
-            color: Color(0x40000000),
+            color: const Color(0x40000000), // TODO: might need fixing
             colorBlendMode: BlendMode.overlay,
           ),
         ),
         Positioned.fill(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text(CustomFormat.getFormattedDate(date)),
-              RideSummaryIcons(
-                avgSpeed: avgSpeed,
-                distTravelled: distTravelled,
-                elevationGained: elevationGained,
-                // hasBorder: hasBorder,
+              Expanded(
+                child: Text(
+                  CustomFormat.getFormattedDate(date),
+                  style: ktsCardDate,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              Expanded(
+                flex: 5,
+                child: RideSummaryIcons(
+                  avgSpeed: avgSpeed,
+                  distTravelled: distTravelled,
+                  elevationGained: elevationGained,
+                ),
               ),
             ],
           ),
