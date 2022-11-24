@@ -37,3 +37,11 @@ const Color kcWhite100 = Color(0xffffffff);
 const Color kcWhite200 = Color(0xffF1F0F4);
 const Color kcWhite300 = Color(0xffE3E2EA);
 const Color kcWhite400 = Color(0xffD6D3DF);
+
+// Neutral Blacks (lower = lighter)
+// === === === === ===
+const Color kcBlack900 = Color(0xff000000);
+const Color kcBlack800 = Color(0xff121212);
+const Color kcBlack700 = Color(0xff242424);
+const Color kcBlack600 = Color(0xff373737);
+const Color kcBlack500 = Color(0xff494949);

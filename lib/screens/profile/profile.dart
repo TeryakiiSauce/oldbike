@@ -1,7 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:oldbike/components/circular_image.dart';
 import 'package:oldbike/components/labelled_widget.dart';
 import 'package:oldbike/utils/text_styles.dart';
+import 'package:oldbike/components/horizontal_scroll.dart';
+import 'package:oldbike/components/compact_ride_info_card.dart';
 
 class ProfileScreen extends StatefulWidget {
   static const String screen = 'profile';
@@ -13,7 +16,9 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  LabelledWidget buildProfileSummary() => LabelledWidget(
+  LabelledWidget buildProfileSummary({double padding = 0}) => LabelledWidget(
+        titlePadding: padding,
+        childPadding: padding,
         title: 'Profile',
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -23,21 +28,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
       );
 
-  LabelledWidget buildUserRecentRides() => LabelledWidget(
+  LabelledWidget buildUserRecentRides({double padding = 0}) => LabelledWidget(
+        titlePadding: padding,
+        childPadding: 0,
         title: 'Recent Rides',
-        child: Container(
-          height: 250.0,
-          width: 300.0,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20.0),
-            color: Colors.amber,
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(20.0),
-            child: Image.asset(
-              'images/robert-bye-tG36rvCeqng-unsplash.jpg',
-              fit: BoxFit.cover,
-            ),
+        child: HorizontalScroll(
+          height: MediaQuery.of(context).size.height * 0.25,
+          itemsCount: 3,
+          child: CompactRideInfoCard(
+            date: DateTime.now(),
           ),
         ),
       );
@@ -88,16 +87,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    SizedBox spacing = const SizedBox(
-      height: 35.0,
-    );
+    const double padding = 20;
 
     return ListView(
-      padding: const EdgeInsets.all(20.0),
       children: [
-        buildProfileSummary(),
-        spacing,
-        buildUserRecentRides(),
+        buildProfileSummary(padding: padding),
+        buildUserRecentRides(padding: padding),
+
+        // TODO: remove the widget below later
+        const LabelledWidget(
+          title: 'title',
+          titlePadding: padding,
+          childPadding: padding,
+          child: Text('vwe'),
+        ),
       ],
     );
   }

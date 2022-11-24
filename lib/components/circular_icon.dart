@@ -2,47 +2,105 @@ import 'package:flutter/material.dart';
 import 'package:oldbike/utils/text_styles.dart';
 import 'package:oldbike/utils/colors.dart';
 
+// This file includes two classes that are related to each other
+// 1. CircularIcon
+// 2. CircularIconLabel
+
 class CircularIcon extends StatelessWidget {
-  /// If the label is empty, then the result & unit strings will *NOT* be displayed.
-  final String label, result, unit;
-
-  /// Whether to display a circular border around the icon or not
-  final bool hasBorder;
-
   final IconData icon;
+  final double borderThickness;
+  final Color backgroundColor, foregroundColor;
   final double size;
+  final bool invertedColors;
+  final Widget child;
 
-  /// Creates an `Icon` with a circular background.
+  /// Only creates an `Icon()` with a circle background. The colors can be customized.
   ///
-  /// Note: If the `label` is empty, then the result & unit strings will *NOT* be displayed.
+  /// To add a label to the icon, make sure to pass a `CircularIconLabel()` widget to the child property.
   const CircularIcon({
-    Key? key,
+    super.key,
     required this.icon,
+    required this.child,
+    this.size = 6,
+    this.borderThickness = 0,
+    this.backgroundColor = kcPrimaryS3,
+    this.foregroundColor = kcWhite400,
+    this.invertedColors = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        // This _outer_ CircleAvatar() is for the border of the circular icon.
+        CircleAvatar(
+          radius: borderThickness != 0 ? size + 20 + borderThickness : null,
+          backgroundColor: invertedColors
+              ? foregroundColor.withOpacity(0.3)
+              : backgroundColor.withOpacity(0.3),
+          child: CircleAvatar(
+            radius: size + 20,
+            backgroundColor: invertedColors ? foregroundColor : backgroundColor,
+            foregroundColor: invertedColors ? backgroundColor : foregroundColor,
+            child: Icon(icon),
+          ),
+        ),
+
+        SizedBox(
+          height: child.runtimeType == const CircularIconLabel().runtimeType
+              ? 15.0
+              : null,
+        ),
+
+        // The labels to be displayed.
+        child,
+      ],
+    );
+  }
+}
+
+class CircularIconLabel extends StatelessWidget {
+  final String label, result, unit;
+  final bool isVerticalLabel;
+
+  /// Adds a label to the `CircularIcon()` widget.
+  ///
+  /// By default, the labels are shown horizontally.
+  const CircularIconLabel({
+    Key? key,
     this.label = '',
     this.result = '0.0',
     this.unit = '',
-    this.size = 6,
-    this.hasBorder = false,
+    this.isVerticalLabel = false,
   }) : super(key: key);
 
-  /// Checks if the label for an icon is empty or not.
-  ///
-  /// - if the label **is** empty, then nothing other than the icon will be displayed.
-  ///
-  /// - If the label is **not** empty, then the other labels will be shown. These text labels are: result & unit.
-  Widget _getLabel() {
-    if (label == '') return Container();
-
-    return ConstrainedBox(
-      constraints: BoxConstraints(
-        minWidth: (size * 10) + 10, // Added extra spacing, just in case.
-        maxWidth: (size * 10) + 30, // Added extra spacing, just in case.
-        minHeight: 120.0,
-        maxHeight: 140.0,
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+  /// Returns the labels on top of each other while the icon remains at the topmost.
+  Column _getVerticalLabel() => Column(
         children: [
+          Text(
+            label,
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(
+            height: 10.0,
+          ),
+          Text(
+            result,
+            style: ktsCardTitle,
+          ),
+          const SizedBox(
+            height: 10.0,
+          ),
+          Text(
+            unit.toUpperCase(),
+          ),
+        ],
+      );
+
+  /// Returns the labels as a horizontal line. The icon will be at the leftmost position.
+  Row _getHorizontalLabel() => Row(
+        children: [
+          // _getIcon(),
           Text(
             label,
             textAlign: TextAlign.center,
@@ -55,35 +113,10 @@ class CircularIcon extends StatelessWidget {
             unit.toUpperCase(),
           ),
         ],
-      ),
-    );
-  }
+      );
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ConstrainedBox(
-          constraints: BoxConstraints(
-            minHeight: size * 10,
-            minWidth: size * 10,
-          ),
-          child: FittedBox(
-            child: CircleAvatar(
-              radius: hasBorder ? size + 18 : null,
-              backgroundColor: kcPrimaryS3.withOpacity(0.3),
-              child: CircleAvatar(
-                backgroundColor: kcPrimaryS3,
-                foregroundColor: kcWhite400,
-                child: Icon(icon),
-              ),
-            ),
-          ),
-        ),
-
-        // Either displays or hides the label part of the icon
-        _getLabel(),
-      ],
-    );
+    return isVerticalLabel ? _getVerticalLabel() : _getHorizontalLabel();
   }
 }
