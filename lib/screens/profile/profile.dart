@@ -16,6 +16,33 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  final List<CompactRideInfoCard> recentRides = [
+    CompactRideInfoCard(
+      date: DateTime.now(),
+      avgSpeed: 9.52353,
+      distTravelled: 13.54246,
+      elevationGained: 7.57290,
+    ),
+    CompactRideInfoCard(
+      date: DateTime.now(),
+      avgSpeed: 12.43294,
+      distTravelled: 17.12309,
+      elevationGained: 12.96256,
+    ),
+    CompactRideInfoCard(
+      date: DateTime.now(),
+      avgSpeed: 17.25903,
+      distTravelled: 26.25905,
+      elevationGained: 46.23498,
+    ),
+    CompactRideInfoCard(
+      date: DateTime.now(),
+      avgSpeed: 9.34615,
+      distTravelled: 22.23004,
+      elevationGained: 26.34013,
+    ),
+  ];
+
   LabelledWidget buildProfileSummary({double padding = 0}) => LabelledWidget(
         titlePadding: padding,
         childPadding: padding,
@@ -34,10 +61,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
         title: 'Recent Rides',
         child: HorizontalScroll(
           height: MediaQuery.of(context).size.height * 0.25,
-          itemsCount: 3,
-          child: CompactRideInfoCard(
-            date: DateTime.now(),
-          ),
+          itemsCount: recentRides.length,
+          child: recentRides,
         ),
       );
 
@@ -93,14 +118,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       children: [
         buildProfileSummary(padding: padding),
         buildUserRecentRides(padding: padding),
-
-        // TODO: remove the widget below later
-        const LabelledWidget(
-          title: 'title',
-          titlePadding: padding,
-          childPadding: padding,
-          child: Text('vwe'),
-        ),
       ],
     );
   }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class HorizontalScroll extends StatelessWidget {
   final double height;
   final int itemsCount;
-  final Widget child;
+  final List<Widget> child;
 
   const HorizontalScroll({
     Key? key,
@@ -22,7 +22,7 @@ class HorizontalScroll extends StatelessWidget {
             left: 20.0,
             right: index == itemsCount - 1 ? 20.0 : 0,
           ),
-          child: child,
+          child: child[index],
         ),
         scrollDirection: Axis.horizontal,
         itemCount: itemsCount,

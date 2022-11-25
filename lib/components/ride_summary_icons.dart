@@ -18,10 +18,6 @@ class RideSummaryIcons extends StatelessWidget {
     height: 10.0,
   );
 
-  final SizedBox _hSpacing = const SizedBox(
-    height: 10.0,
-  );
-
   /// Creates a group of icons, either vertically or horizontally.
   const RideSummaryIcons({
     super.key,
@@ -38,15 +34,15 @@ class RideSummaryIcons extends StatelessWidget {
           Expanded(
             child: CircularIcon(
               labels: [
-                Text(
-                  'Average Speed',
+                const Text(
+                  'Average\nSpeed',
                   textAlign: TextAlign.center,
                 ),
                 Text(
                   CustomFormat.getFormattedResult(avgSpeed),
                   style: ktsCardTitle,
                 ),
-                Text(
+                const Text(
                   'KM/H',
                 ),
               ],
@@ -59,15 +55,15 @@ class RideSummaryIcons extends StatelessWidget {
           Expanded(
             child: CircularIcon(
               labels: [
-                Text(
-                  'Distance Travelled',
+                const Text(
+                  'Distance\nTravelled',
                   textAlign: TextAlign.center,
                 ),
                 Text(
                   CustomFormat.getFormattedResult(distTravelled),
                   style: ktsCardTitle,
                 ),
-                Text(
+                const Text(
                   'KM',
                 ),
               ],
@@ -80,15 +76,15 @@ class RideSummaryIcons extends StatelessWidget {
           Expanded(
             child: CircularIcon(
               labels: [
-                Text(
-                  'Elevation Gained',
+                const Text(
+                  'Elevation\nGained',
                   textAlign: TextAlign.center,
                 ),
                 Text(
                   CustomFormat.getFormattedResult(elevationGained),
                   style: ktsCardTitle,
                 ),
-                Text(
+                const Text(
                   'M',
                 ),
               ],
@@ -103,13 +99,13 @@ class RideSummaryIcons extends StatelessWidget {
 
   /// Creates _three_ icons (with labels if specified) next to each other.
   Row _createHorizontalLayout() => Row(
-        // crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
             child: CircularIcon(
               labels: [
-                Text(
-                  'Average Speed',
+                const Text(
+                  'Average\nSpeed',
                   textAlign: TextAlign.center,
                 ),
                 _vSpacing,
@@ -118,7 +114,7 @@ class RideSummaryIcons extends StatelessWidget {
                   style: ktsCardTitle,
                 ),
                 _vSpacing,
-                Text(
+                const Text(
                   'KM/H',
                 ),
               ],
@@ -131,8 +127,8 @@ class RideSummaryIcons extends StatelessWidget {
           Expanded(
             child: CircularIcon(
               labels: [
-                Text(
-                  'Distance Travelled',
+                const Text(
+                  'Distance\nTravelled',
                   textAlign: TextAlign.center,
                 ),
                 _vSpacing,
@@ -141,7 +137,7 @@ class RideSummaryIcons extends StatelessWidget {
                   style: ktsCardTitle,
                 ),
                 _vSpacing,
-                Text(
+                const Text(
                   'KM',
                 ),
               ],
@@ -154,8 +150,8 @@ class RideSummaryIcons extends StatelessWidget {
           Expanded(
             child: CircularIcon(
               labels: [
-                Text(
-                  'Elevation Gained',
+                const Text(
+                  'Elevation\nGained',
                   textAlign: TextAlign.center,
                 ),
                 _vSpacing,
@@ -164,7 +160,7 @@ class RideSummaryIcons extends StatelessWidget {
                   style: ktsCardTitle,
                 ),
                 _vSpacing,
-                Text(
+                const Text(
                   'M',
                 ),
               ],

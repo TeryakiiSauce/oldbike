@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:oldbike/utils/text_styles.dart';
 import 'package:oldbike/utils/colors.dart';
 
 // This file includes two classes that are related to each other
@@ -30,7 +29,7 @@ class CircularIcon extends StatelessWidget {
   });
 
   /// This is place the icon on top of the child widget
-  Column _getVerticalLayout() {
+  Expanded _getVerticalLayout() {
     List<Widget> widgets = [];
 
     /// I'm not exactly good at maths so I just played with the calculations until I got a result that doesn't break (overflow) the icon from the circle background.
@@ -60,9 +59,11 @@ class CircularIcon extends StatelessWidget {
       widgets.add(label);
     }
 
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: widgets,
+    return Expanded(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: widgets,
+      ),
     );
   }
 

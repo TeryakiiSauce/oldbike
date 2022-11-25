@@ -39,7 +39,9 @@ const TextStyle ktsCardTitle = TextStyle(
 
 const TextStyle ktsCardDate = TextStyle(
   fontSize: 15.0,
+  fontWeight: FontWeight.w500,
   color: kcWhite400,
+  fontStyle: FontStyle.italic,
 );
 
 const TextStyle ktsCardStats = TextStyle(
@@ -62,7 +64,7 @@ const TextStyle ktsProfileTitle = TextStyle(
 const TextStyle ktsProfileSubtitle = TextStyle(
   fontSize: 14.0,
   fontWeight: FontWeight.w500,
-  height: 6.5,
+  height: 5,
 );
 
 const TextStyle ktsProfileTiny = TextStyle(
