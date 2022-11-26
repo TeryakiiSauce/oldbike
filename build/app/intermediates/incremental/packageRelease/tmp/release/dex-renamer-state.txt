@@ -1,4 +1,0 @@
-#Mon Oct 31 22:31:09 AST 2022
-base.0=X\:\\home\\Documents\\ALL THE COOL THINGS I MADE\\DEVELOPMENT\\Flutter\\oldbike\\build\\app\\intermediates\\dex\\release\\minifyReleaseWithR8\\classes.dex
-renamed.0=classes.dex
-path.0=classes.dex

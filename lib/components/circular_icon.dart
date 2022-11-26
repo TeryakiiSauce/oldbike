@@ -1,81 +1,116 @@
+///
+/// This file aims to create an Icon with a circle background (either with a border or without).
+///
+/// Note: This is similar to the `CircularImage()` widget.
+/// === === === === ===
+
 import 'package:flutter/material.dart';
-import 'package:oldbike/utils/text_styles.dart';
 import 'package:oldbike/utils/colors.dart';
 
 class CircularIcon extends StatelessWidget {
   final IconData icon;
-  final String label, result, unit;
+  final double borderThickness;
+  final Color backgroundColor, foregroundColor;
   final double size;
+  final bool invertColors, isVerticalLayout;
+  final List<Widget> labels;
 
-  /// Creates an `Icon()` with a circular background.
+  /// Creates an `Icon()` with a circle background. The colors can be customized.
   ///
-  /// Note: If the `label` is empty, then the result & unit strings will *NOT* be displayed.
+  /// You can also add widgets to the `labels` list & pass a _bool_ value to `isVerticalLayout` so that the widgets in the list can displayed either vertically or horizontally.
   const CircularIcon({
-    Key? key,
+    super.key,
     required this.icon,
-    this.label = '',
-    this.result = '0.0',
-    this.unit = '',
+    required this.labels,
     this.size = 6,
-  }) : super(key: key);
+    this.borderThickness = 0,
+    this.backgroundColor = kcPrimaryS3,
+    this.foregroundColor = kcWhite400,
+    this.invertColors = false,
+    this.isVerticalLayout = false,
+  });
 
-  /// Checks if the label for an icon is empty or not.
-  ///
-  /// - if the label **is** empty, then nothing other than the icon will be displayed.
-  ///
-  /// - If the label is **not** empty, then the other labels will be shown. These text labels are: result & unit.
-  Column _getLabel() {
-    if (label != '') {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Text(
-            label,
-            textAlign: TextAlign.center,
-          ),
-          Text(
-            result,
-            style: ktsCardTitle,
-          ),
-          Text(
-            unit.toUpperCase(),
-          ),
-        ],
-      );
-    } else {
-      return Column();
+  /// The widgets passed to the `labels` list will be placed at the bottom of the icon as a column.
+  Column _getVerticalLayout() {
+    List<Widget> widgets = [];
+
+    /// Adds the icon and a spacing after it if needed.
+    ///
+    /// Note: I'm not exactly good at maths so I just played with the calculations until I got a result that doesn't break (overflow) the icon from the circle background.
+    widgets.addAll([
+      // This _outer_ CircleAvatar() is for the border of the circular icon.
+      CircleAvatar(
+        radius: borderThickness != 0 ? size + 20 + borderThickness : null,
+        backgroundColor: invertColors
+            ? foregroundColor.withOpacity(0.3)
+            : backgroundColor.withOpacity(0.3),
+
+        // This _inner_ CircleAvatar() is for the circular icon.
+        child: CircleAvatar(
+          radius: size + 20,
+          backgroundColor: invertColors ? foregroundColor : backgroundColor,
+          foregroundColor: invertColors ? backgroundColor : foregroundColor,
+          child: Icon(icon),
+        ),
+      ),
+
+      SizedBox(
+        height: labels.isNotEmpty ? 10.0 : null,
+      ),
+    ]);
+
+    /// Adds the widgets passed from the `labels` list.
+    for (Widget label in labels) {
+      widgets.add(label);
     }
+
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: widgets,
+    );
+  }
+
+  /// The widgets passed to the `labels` list will be placed at the right side of the icon as a row.
+  Row _getHorizontalLayout() {
+    List<Widget> widgets = [];
+
+    /// Adds the icon without any spacing.
+    ///
+    /// I'm not exactly good at maths so I just played with the calculations until I got a result that doesn't break (overflow) the icon from the circle background.
+    widgets.add(
+      // This _outer_ CircleAvatar() is for the border of the circular icon.
+      CircleAvatar(
+        radius: borderThickness != 0 ? size + borderThickness : null,
+        backgroundColor: invertColors
+            ? foregroundColor.withOpacity(0.3)
+            : backgroundColor.withOpacity(0.3),
+
+        // This _inner_ CircleAvatar() is for the circular icon.
+        child: CircleAvatar(
+          radius: size,
+          backgroundColor: invertColors ? foregroundColor : backgroundColor,
+          foregroundColor: invertColors ? backgroundColor : foregroundColor,
+          child: Icon(
+            icon,
+            size: size / 0.65,
+          ),
+        ),
+      ),
+    );
+
+    /// Adds the widgets passed from the `labels` list.
+    for (Widget label in labels) {
+      widgets.add(label);
+    }
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: widgets,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ConstrainedBox(
-          constraints: BoxConstraints(
-            minHeight: size * 10,
-            minWidth: size * 10,
-          ),
-          child: FittedBox(
-            child: CircleAvatar(
-              backgroundColor: kcPrimaryS3,
-              foregroundColor: kcWhite400,
-              child: Icon(
-                icon,
-              ),
-            ),
-          ),
-        ),
-        ConstrainedBox(
-          constraints: BoxConstraints(
-            minWidth: (size * 10) + 10, // Added extra spacing, just in case.
-            maxWidth: (size * 10) + 30, // Added extra spacing, just in case.
-            minHeight: 120.0,
-            maxHeight: 140.0,
-          ),
-          child: _getLabel(),
-        ),
-      ],
-    );
+    return isVerticalLayout ? _getVerticalLayout() : _getHorizontalLayout();
   }
 }

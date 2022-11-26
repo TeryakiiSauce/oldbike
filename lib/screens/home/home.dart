@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:oldbike/utils/colors.dart';
-import 'package:oldbike/screens/login-signup/login.dart';
 import 'package:oldbike/components/ride_info_card.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -54,37 +52,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: kcPrimaryT3,
-      appBar: AppBar(
-        title: const Text('Home'),
-        backgroundColor: kcAppBar,
-        actions: [
-          IconButton(
-            onPressed: () =>
-                Navigator.pushReplacementNamed(context, LoginScreen.screen),
-            icon: const Icon(Icons.exit_to_app_rounded),
-          ),
-        ],
-      ),
-      // bottomNavigationBar: BottomNavigationBar(
-      //   items: const [
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.ac_unit_rounded),
-      //       label: '',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.access_time),
-      //       label: '',
-      //     ),
-      //   ],
-      // ),
-      body: SafeArea(
-        child: Scrollbar(
-          child: ListView(
-            children: getRidesInfoCards(),
-          ),
-        ),
+    return Scrollbar(
+      child: ListView(
+        children: getRidesInfoCards(),
       ),
     );
   }
