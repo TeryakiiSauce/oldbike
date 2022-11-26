@@ -1,3 +1,7 @@
+///
+/// This file includes all the main text styles that can be referenced from anywhere.
+/// === === === === ===
+
 import 'package:flutter/material.dart';
 import 'package:oldbike/utils/colors.dart';
 

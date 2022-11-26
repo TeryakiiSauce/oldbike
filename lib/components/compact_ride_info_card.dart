@@ -1,3 +1,11 @@
+///
+/// This file aims to build a widget similar to what you would see in the 'Recent Rides' section in the _Profile_ screen of the application.
+///
+/// Tip: You can use the `HorizontalScroll()` widget if you'd like to display more than one of this `CompactRideInfoCard()` widget.
+///
+/// Note: This is similar to the `RideInfoCard()` widget.
+/// === === === === ===
+
 import 'package:flutter/material.dart';
 import 'package:oldbike/components/ride_summary_icons.dart';
 import 'package:oldbike/utils/colors.dart';
@@ -9,6 +17,7 @@ class CompactRideInfoCard extends StatelessWidget {
   final double height, avgSpeed, distTravelled, elevationGained;
   final bool hasBorder;
 
+  /// Creates a card similar to what you would see in the _Recent Rides_ section of the _Profile_ screen.
   const CompactRideInfoCard({
     Key? key,
     required this.date,
@@ -23,6 +32,7 @@ class CompactRideInfoCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
+        // Background image
         ClipRRect(
           borderRadius: BorderRadius.circular(20.0),
           child: Image.asset(
@@ -33,12 +43,15 @@ class CompactRideInfoCard extends StatelessWidget {
             colorBlendMode: BlendMode.srcOver,
           ),
         ),
+
+        // The actual content
         Positioned.fill(
           child: Padding(
             padding: const EdgeInsets.all(12.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                // Heading
                 Expanded(
                   child: Center(
                     child: Text(
@@ -47,6 +60,8 @@ class CompactRideInfoCard extends StatelessWidget {
                     ),
                   ),
                 ),
+
+                // Icons & labels
                 Expanded(
                   flex: 5,
                   child: RideSummaryIcons(

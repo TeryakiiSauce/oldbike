@@ -1,3 +1,7 @@
+///
+/// This file aims to create a simple widget which will add a heading title and a child that can be of any widget type.
+/// === === === === ===
+
 import 'package:flutter/material.dart';
 import 'package:oldbike/utils/text_styles.dart';
 
@@ -14,6 +18,7 @@ class LabelledWidget extends StatelessWidget {
   /// This value gives _Horizontal_ padding ONLY.
   final double childPadding;
 
+  /// Creates a basic widget which displays a heading and a child of any widget type.
   const LabelledWidget({
     super.key,
     required this.title,
@@ -27,6 +32,7 @@ class LabelledWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        // Heading title
         Padding(
           padding: EdgeInsets.only(
               top: titlePadding, left: titlePadding, right: titlePadding),
@@ -35,9 +41,12 @@ class LabelledWidget extends StatelessWidget {
             style: ktsHeading,
           ),
         ),
+
         const SizedBox(
           height: 10.0,
         ),
+
+        // The child widget
         Padding(
           padding: EdgeInsets.symmetric(horizontal: childPadding),
           child: child,

@@ -1,3 +1,7 @@
+///
+/// This file aims to mimic a _horizontal scroll_ view.
+/// === === === === ===
+
 import 'package:flutter/material.dart';
 
 class HorizontalScroll extends StatelessWidget {
@@ -5,6 +9,7 @@ class HorizontalScroll extends StatelessWidget {
   final int itemsCount;
   final List<Widget> child;
 
+  /// Mimics a horizontal scroll using the `ListView()` widget.
   const HorizontalScroll({
     Key? key,
     required this.height,

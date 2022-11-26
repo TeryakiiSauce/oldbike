@@ -1,3 +1,9 @@
+///
+/// This file aims to create an Image with a circle background (either with a border or without).
+///
+/// Note: This is similar to the `CircularIcon()` widget.
+/// === === === === ===
+
 import 'package:flutter/material.dart';
 import 'package:oldbike/utils/colors.dart';
 
@@ -7,8 +13,6 @@ class CircularImage extends StatelessWidget {
   final double padding;
 
   /// Creates an `Image` with a circular background.
-  ///
-  /// Note: If the `label` is empty, then the result & unit strings will *NOT* be displayed.
   const CircularImage({
     Key? key,
     required this.image,

@@ -1,3 +1,7 @@
+///
+/// This file includes all the colors that are used in the application.
+/// === === === === ===
+
 import 'package:flutter/material.dart';
 
 /*

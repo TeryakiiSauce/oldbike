@@ -1,3 +1,7 @@
+///
+/// This file includes the theme data as well as the screen routes information.
+/// === === === === ===
+
 import 'package:flutter/material.dart';
 import 'package:oldbike/screens/home/home.dart';
 import 'package:oldbike/screens/login-signup/login.dart';

@@ -1,3 +1,9 @@
+///
+/// This file aims to build a widget similar to what you would see in the _Home_ screen of the application.
+///
+/// Note: This is similar to the `CompactRideInfoCard()` widget.
+/// === === === === ===
+
 import 'package:flutter/material.dart';
 import 'package:oldbike/components/ride_summary_icons.dart';
 import 'package:oldbike/utils/custom_formatting.dart';
@@ -41,11 +47,14 @@ class RideInfoCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          // Rounded image
           ClipRRect(
             borderRadius: BorderRadius.circular(16.0),
             child: Image.asset('images/robert-bye-tG36rvCeqng-unsplash.jpg'),
           ),
           spacing,
+
+          // Username Title
           Text(
             username,
             style: ktsCardTitle,
@@ -53,11 +62,15 @@ class RideInfoCard extends StatelessWidget {
           const SizedBox(
             height: 5.0,
           ),
+
+          // Date & time info
           Text(
             CustomFormat.getFormattedDate(date),
             style: ktsCardDate,
           ),
           spacing,
+
+          // Horizontal icons group
           RideSummaryIcons(
             avgSpeed: avgSpeed,
             distTravelled: distTravelled,

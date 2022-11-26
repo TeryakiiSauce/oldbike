@@ -1,3 +1,7 @@
+///
+/// This file controls the content of each tab and displays the appropriate screens.
+/// === === === === ===
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:oldbike/screens/home/home.dart';

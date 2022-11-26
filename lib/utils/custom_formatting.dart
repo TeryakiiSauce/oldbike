@@ -1,7 +1,11 @@
+///
+/// This file includes extra globally accessible functions that might be useful when trying to format dates, numbers, etc.
+/// === === === === ===
+
 import 'package:intl/intl.dart';
 
 class CustomFormat {
-  /// Returns string number in *one* decimal place if the passed number is between 0 & 10 (0-9). Numbers after `9.9` are formatted to have no decimal places. If the number passed is greater than `99.9`, '99+' will be returned.
+  /// Returns a string number in *one* decimal place if the passed number is between 0 & 10 (0-9). Numbers after `9.9` are formatted to have no decimal places. If the number passed is greater than `99.9`, '99+' will be returned.
   static String getFormattedResult(double num) {
     String result = '';
 
@@ -18,7 +22,9 @@ class CustomFormat {
     return result;
   }
 
-  /// Formats the date (created by the constructor) & returns a `String` date in the following format: `MMM dd, yyyy - HH:mm` (example: `Nov 16, 2022 - 02:07`).
+  /// Formats the date passed & returns a `String` date in the following format: `MMM dd, yyyy - HH:mm`
+  ///
+  /// Example: `Nov 16, 2022 - 02:07`.
   static String getFormattedDate(DateTime date) {
     // Reference: https://stackoverflow.com/a/16126580
     DateFormat formatter = DateFormat('MMM dd, yyyy - HH:mm');

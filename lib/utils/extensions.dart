@@ -1,4 +1,8 @@
-/// Extends the functionalities of a String() object since Dart doesn't include everything.
+///
+/// This file provides extensions to gain more functionalities than the already included ones.
+/// === === === === ===
+
+/// Extends the functionalities of a `String()` object since Dart doesn't include everything.
 ///
 /// For example: Adds a functionality which allows Strings to be converted to capitalize just the first letter or capitalize first letters of every word.
 extension StringExtension on String {

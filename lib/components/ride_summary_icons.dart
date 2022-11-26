@@ -1,3 +1,7 @@
+///
+/// This file aims to create a group of icons (usually three) along with their labels, either vertically or horizontally.
+/// === === === === ===
+
 import 'package:flutter/material.dart';
 import 'package:oldbike/components/circular_icon.dart';
 import 'package:oldbike/utils/custom_formatting.dart';
@@ -8,11 +12,11 @@ import 'package:oldbike/utils/text_styles.dart';
 /// It does this with the help of my _two_ carefully created custom widgets `CircularIcon()` & `CircularIconLabel()` lol. It took me some time for figure it out because navigating through multiple files made me lose focus.
 ///
 class RideSummaryIcons extends StatelessWidget {
-  // To adjust design quickly
-  final double borderThickness = 5.0;
-
   final bool isVertical, invertColors;
   final double avgSpeed, distTravelled, elevationGained;
+
+  // To adjust design quickly
+  final double _borderThickness = 5.0;
 
   final SizedBox _vSpacing = const SizedBox(
     height: 10.0,
@@ -28,7 +32,7 @@ class RideSummaryIcons extends StatelessWidget {
     this.invertColors = true,
   });
 
-  /// Creates _three_ icons (with labels if specified) on top of each other.
+  /// Creates _three_ icons (with labels if specified) on top of each other. [ For CompactRideInfoCard() ]
   Column getVerticalLayout() => Column(
         children: [
           Expanded(
@@ -47,7 +51,7 @@ class RideSummaryIcons extends StatelessWidget {
                 ),
               ],
               icon: Icons.flash_on_rounded,
-              invertedColors: true,
+              invertColors: true,
               borderThickness: 4,
               size: 15,
             ),
@@ -68,7 +72,7 @@ class RideSummaryIcons extends StatelessWidget {
                 ),
               ],
               icon: Icons.location_on_rounded,
-              invertedColors: true,
+              invertColors: true,
               borderThickness: 4,
               size: 15,
             ),
@@ -89,7 +93,7 @@ class RideSummaryIcons extends StatelessWidget {
                 ),
               ],
               icon: Icons.trending_up_rounded,
-              invertedColors: true,
+              invertColors: true,
               borderThickness: 4,
               size: 15,
             ),
@@ -97,7 +101,7 @@ class RideSummaryIcons extends StatelessWidget {
         ],
       );
 
-  /// Creates _three_ icons (with labels if specified) next to each other.
+  /// Creates _three_ icons (with labels if specified) next to each other. [ For RideSummaryIcons() ]
   Row _createHorizontalLayout() => Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -119,8 +123,8 @@ class RideSummaryIcons extends StatelessWidget {
                 ),
               ],
               icon: Icons.flash_on_rounded,
-              borderThickness: borderThickness,
-              invertedColors: invertColors,
+              borderThickness: _borderThickness,
+              invertColors: invertColors,
               isVerticalLayout: true,
             ),
           ),
@@ -142,8 +146,8 @@ class RideSummaryIcons extends StatelessWidget {
                 ),
               ],
               icon: Icons.location_on_rounded,
-              borderThickness: borderThickness,
-              invertedColors: invertColors,
+              borderThickness: _borderThickness,
+              invertColors: invertColors,
               isVerticalLayout: true,
             ),
           ),
@@ -165,8 +169,8 @@ class RideSummaryIcons extends StatelessWidget {
                 ),
               ],
               icon: Icons.trending_up_rounded,
-              borderThickness: borderThickness,
-              invertedColors: invertColors,
+              borderThickness: _borderThickness,
+              invertColors: invertColors,
               isVerticalLayout: true,
             ),
           ),
