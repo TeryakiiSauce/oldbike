@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:oldbike/screens/home/home.dart';
 import 'package:oldbike/screens/login-signup/login.dart';
 import 'package:oldbike/screens/profile/profile.dart';
+import 'package:oldbike/screens/tracking/track_ride.dart';
 import 'package:oldbike/utils/colors.dart';
 
 class TabViewController extends StatefulWidget {
@@ -21,6 +22,8 @@ class TabViewController extends StatefulWidget {
 class _TabViewControllerState extends State<TabViewController> {
   int tabviewScreenIndex = 0;
   late BuildContext currentContext;
+
+  final List<BottomNavigationBarItem> screens = [];
   final List<Map<String, dynamic>> screensMapsList = [];
   final Map<String, List<Widget>> actions = {};
 
@@ -32,6 +35,7 @@ class _TabViewControllerState extends State<TabViewController> {
     });
   }
 
+  /// To add new tabs adjust the lists/ maps below
   @override
   void initState() {
     super.initState();
@@ -41,6 +45,9 @@ class _TabViewControllerState extends State<TabViewController> {
     actions.addAll(
       {
         'home': [
+          Container(),
+        ],
+        'beginTrackingRide': [
           Container(),
         ],
         'profile': [
@@ -69,12 +76,32 @@ class _TabViewControllerState extends State<TabViewController> {
           'actions': actions['home'],
         },
         {
+          'screenWidget': const BeginTrackingRideScreen(),
+          'title': 'Track',
+          'actions': actions['beginTrackingRide'],
+        },
+        {
           'screenWidget': const ProfileScreen(),
           'title': 'Profile',
           'actions': actions['profile'],
         },
       ],
     );
+
+    screens.addAll(const [
+      BottomNavigationBarItem(
+        icon: Icon(Icons.home_rounded),
+        label: 'Home',
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.play_arrow_rounded),
+        label: 'Track',
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.person),
+        label: 'Profile',
+      ),
+    ]);
   }
 
   @override
@@ -103,16 +130,7 @@ class _TabViewControllerState extends State<TabViewController> {
         onTap: (value) {
           switchTabView(value);
         },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_rounded),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-        ],
+        items: screens,
       ),
       body: screenBody,
     );
