@@ -43,7 +43,7 @@ class RideSummaryIcons extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 Text(
-                  CustomFormat.getFormattedResult(avgSpeed),
+                  CustomFormat.getShortNumber(avgSpeed),
                   style: ktsCardTitle,
                 ),
                 const Text(
@@ -64,7 +64,7 @@ class RideSummaryIcons extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 Text(
-                  CustomFormat.getFormattedResult(distTravelled),
+                  CustomFormat.getShortNumber(distTravelled),
                   style: ktsCardTitle,
                 ),
                 const Text(
@@ -85,7 +85,7 @@ class RideSummaryIcons extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 Text(
-                  CustomFormat.getFormattedResult(elevationGained),
+                  CustomFormat.getShortNumber(elevationGained),
                   style: ktsCardTitle,
                 ),
                 const Text(
@@ -114,7 +114,7 @@ class RideSummaryIcons extends StatelessWidget {
                 ),
                 _vSpacing,
                 Text(
-                  CustomFormat.getFormattedResult(avgSpeed),
+                  CustomFormat.getShortNumber(avgSpeed),
                   style: ktsCardTitle,
                 ),
                 _vSpacing,
@@ -137,7 +137,7 @@ class RideSummaryIcons extends StatelessWidget {
                 ),
                 _vSpacing,
                 Text(
-                  CustomFormat.getFormattedResult(distTravelled),
+                  CustomFormat.getShortNumber(distTravelled),
                   style: ktsCardTitle,
                 ),
                 _vSpacing,
@@ -160,7 +160,7 @@ class RideSummaryIcons extends StatelessWidget {
                 ),
                 _vSpacing,
                 Text(
-                  CustomFormat.getFormattedResult(elevationGained),
+                  CustomFormat.getShortNumber(elevationGained),
                   style: ktsCardTitle,
                 ),
                 _vSpacing,
