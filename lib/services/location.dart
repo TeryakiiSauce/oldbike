@@ -1,20 +1,23 @@
 import 'dart:async';
 import 'dart:math';
+import 'package:flutter/foundation.dart';
 import 'package:geolocator/geolocator.dart';
 
 class Location {
   // late double latitude, longitude;
   // double latitude = 0, longitude = 0;
-  late StreamSubscription<Position> _positionStream;
+  // late StreamSubscription<Position> _positionStream;
   late Position currentPosition;
-  double distanceTravelledInMeters = 0;
+  late LocationSettings _locationSettings;
+  // double distanceTravelledInMeters = 0;
   // bool isLocationFound = false;
   // Stopwatch swatch = Stopwatch();
-  List<Position> coordinates = [];
+  // List<Position> coordinates = [];
   bool _isPermissionGranted = false;
 
   Location() {
     _checkPermissionIsGranted();
+    _getLocationSettings();
   }
 
   Future<void> _checkPermissionIsGranted() async {
@@ -52,6 +55,35 @@ class Location {
     }
 
     _isPermissionGranted = true;
+  }
+
+  void _getLocationSettings() {
+    if (defaultTargetPlatform == TargetPlatform.android) {
+      _locationSettings = AndroidSettings(
+        accuracy: LocationAccuracy.best,
+        intervalDuration: const Duration(seconds: 10),
+        foregroundNotificationConfig: const ForegroundNotificationConfig(
+          notificationText:
+              "Old Bike will continue to receive your location even when you aren't using it",
+          notificationTitle: "Running in Background",
+          enableWakeLock: true,
+          enableWifiLock: true,
+        ),
+      );
+    } else if (defaultTargetPlatform == TargetPlatform.iOS ||
+        defaultTargetPlatform == TargetPlatform.macOS) {
+      _locationSettings = AppleSettings(
+        accuracy: LocationAccuracy.bestForNavigation,
+        activityType: ActivityType.fitness,
+        pauseLocationUpdatesAutomatically: true,
+        allowBackgroundLocationUpdates: true,
+        showBackgroundLocationIndicator: true,
+      );
+    } else {
+      _locationSettings = const LocationSettings(
+        accuracy: LocationAccuracy.bestForNavigation,
+      );
+    }
   }
 
   // void timer() {
@@ -128,15 +160,7 @@ class Location {
   // }
 
   Stream<Position> getPositionStream() {
-    LocationSettings locationSettings = AppleSettings(
-      accuracy: LocationAccuracy.bestForNavigation,
-      activityType: ActivityType.fitness,
-      pauseLocationUpdatesAutomatically: true,
-      allowBackgroundLocationUpdates: true,
-      showBackgroundLocationIndicator: true,
-    );
-
-    return Geolocator.getPositionStream(locationSettings: locationSettings)
+    return Geolocator.getPositionStream(locationSettings: _locationSettings)
         .timeout(
       const Duration(seconds: 5),
     );
