@@ -7,6 +7,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:oldbike/services/location.dart';
 import 'package:oldbike/utils/custom_formatting.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:oldbike/utils/platform_based_widgets.dart';
 
 class BeginTrackingRideScreen extends StatefulWidget {
   static const String screen = 'beginTrackingRide';
@@ -48,10 +49,48 @@ class _BeginTrackingRideScreenState extends State<BeginTrackingRideScreen> {
     );
   }
 
+  void getPermission() async {
+    CustomLocationPermission permission = await location.getPermission();
+
+    if (permission != CustomLocationPermission.always &&
+        permission != CustomLocationPermission.whileInUse) {
+      debugPrint('location permissions are NOT granted');
+
+      showDialog(
+        context: context,
+        builder: (context) {
+          final bool isServiceDisabled =
+              permission == CustomLocationPermission.serviceDisabled;
+
+          return DynamicAlertDialog(
+            title: Text(
+              isServiceDisabled ? 'Location Disabled' : 'Location Permission',
+            ),
+            content: Text(
+              isServiceDisabled
+                  ? 'Access to location is disabled on your phone. Click Ok and turn on location service and then give the app permission to use location data.'
+                  : 'Permission to location is required in order for the app to track your progress. Click Ok to open App settings.',
+            ),
+            approveAction: () {
+              isServiceDisabled
+                  ? location.openPrivacyLocationSettings()
+                  : location.openAppSettings();
+
+              Navigator.pop(context);
+            },
+          );
+        },
+      );
+    } else {
+      debugPrint('location permissions are granted');
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     initNetworkListener();
+    getPermission();
   }
 
   @override
@@ -75,87 +114,72 @@ class _BeginTrackingRideScreenState extends State<BeginTrackingRideScreen> {
                       Icons.access_alarm_rounded,
                     ),
                   )
-                : StreamBuilder<ServiceStatus>(
-                    stream: Geolocator.getServiceStatusStream(),
-                    builder: (context, snapshot) {
-                      if (!snapshot.hasData) {
-                        return const Center(
-                          child: Icon(
-                            Icons.signal_cellular_alt_rounded,
-                          ),
-                        );
-                      }
+                : ClipRRect(
+                    borderRadius: BorderRadius.circular(16.0),
+                    child: Stack(
+                      children: [
+                        StreamBuilder<Position>(
+                          stream: location.getPositionStream(),
+                          builder: (context, snapshot) {
+                            if (!snapshot.hasData) {
+                              return const Center(
+                                child: Icon(
+                                  Icons.emergency_share_rounded,
+                                  size: 100.0,
+                                ),
+                              );
+                            }
 
-                      print(snapshot.data!.name);
+                            double lat = snapshot.data!.latitude,
+                                long = snapshot.data!.longitude;
 
-                      return ClipRRect(
-                        borderRadius: BorderRadius.circular(16.0),
-                        child: Stack(
-                          children: [
-                            StreamBuilder<Position>(
-                              stream: location.getPositionStream(),
-                              builder: (context, snapshot) {
-                                if (!snapshot.hasData) {
-                                  return const Center(
-                                    child: Icon(
-                                      Icons.emergency_share_rounded,
-                                      size: 100.0,
-                                    ),
-                                  );
-                                }
+                            // print('$lat, $long');
 
-                                double lat = snapshot.data!.latitude,
-                                    long = snapshot.data!.longitude;
-
-                                // print('$lat, $long');
-
-                                return FlutterMap(
-                                  options: MapOptions(
-                                    center: LatLng(lat, long),
-                                    bounds: LatLngBounds(
-                                      LatLng(lat - 0.001, long + 0.001),
-                                      LatLng(lat + 0.001, long - 0.001),
-                                    ),
-                                    zoom: 18.0,
-                                    minZoom: 2.0,
-                                    maxBounds: LatLngBounds(
-                                      LatLng(-90.0, -180.0),
-                                      LatLng(90.0, 180.0),
-                                    ),
-                                    interactiveFlags: InteractiveFlag.all &
-                                        ~InteractiveFlag.rotate,
-                                    maxZoom: 18,
-                                  ),
-                                  nonRotatedChildren: [
-                                    MarkerLayer(
-                                      markers: [
-                                        Marker(
-                                          // height: 100.0,
-                                          // width: 100.0,
-                                          point: LatLng(lat, long),
-                                          builder: (context) => Icon(
-                                            Icons.circle_rounded,
-                                            color: Colors.indigo[400],
-                                            size: 20.0,
-                                          ),
-                                        )
-                                      ],
-                                    ),
+                            return FlutterMap(
+                              options: MapOptions(
+                                center: LatLng(lat, long),
+                                bounds: LatLngBounds(
+                                  LatLng(lat - 0.001, long + 0.001),
+                                  LatLng(lat + 0.001, long - 0.001),
+                                ),
+                                zoom: 18.0,
+                                minZoom: 2.0,
+                                maxBounds: LatLngBounds(
+                                  LatLng(-90.0, -180.0),
+                                  LatLng(90.0, 180.0),
+                                ),
+                                interactiveFlags: InteractiveFlag.all &
+                                    ~InteractiveFlag.rotate,
+                                maxZoom: 18,
+                              ),
+                              nonRotatedChildren: [
+                                MarkerLayer(
+                                  markers: [
+                                    Marker(
+                                      // height: 100.0,
+                                      // width: 100.0,
+                                      point: LatLng(lat, long),
+                                      builder: (context) => Icon(
+                                        Icons.circle_rounded,
+                                        color: Colors.indigo[400],
+                                        size: 20.0,
+                                      ),
+                                    )
                                   ],
-                                  children: [
-                                    TileLayer(
-                                      urlTemplate:
-                                          'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                                      subdomains: const ['a', 'b', 'c'],
-                                    ),
-                                  ],
-                                );
-                              },
-                            ),
-                          ],
+                                ),
+                              ],
+                              children: [
+                                TileLayer(
+                                  urlTemplate:
+                                      'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                                  subdomains: const ['a', 'b', 'c'],
+                                ),
+                              ],
+                            );
+                          },
                         ),
-                      );
-                    },
+                      ],
+                    ),
                   ),
           ),
         ),

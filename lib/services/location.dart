@@ -1,63 +1,25 @@
 import 'dart:async';
-import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:geolocator/geolocator.dart';
 
+enum CustomLocationPermission {
+  permanentlyDenied,
+  serviceDisabled,
+  denied,
+  whileInUse,
+  always,
+}
+
 class Location {
-  // late double latitude, longitude;
-  // double latitude = 0, longitude = 0;
   // late StreamSubscription<Position> _positionStream;
-  late Position currentPosition;
   late LocationSettings _locationSettings;
-  // double distanceTravelledInMeters = 0;
-  // bool isLocationFound = false;
-  // Stopwatch swatch = Stopwatch();
-  // List<Position> coordinates = [];
-  bool _isPermissionGranted = false;
+  late Position currentPosition;
 
   Location() {
-    _checkPermissionIsGranted().catchError((e) => print(e));
-    _getLocationSettings();
+    _initLocationSettings();
   }
 
-  Future<void> _checkPermissionIsGranted() async {
-    bool serviceEnabled;
-    LocationPermission permission;
-
-    // Test if location services are enabled.
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-
-    if (!serviceEnabled) {
-      // Location services are not enabled don't continue
-      // accessing the position and request users of the
-      // App to enable the location services.
-      return Future.error('Location services are disabled.');
-    }
-
-    permission = await Geolocator.checkPermission();
-
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        // Permissions are denied, next time you could try
-        // requesting permissions again (this is also where
-        // Android's shouldShowRequestPermissionRationale
-        // returned true. According to Android guidelines
-        // your App should show an explanatory UI now.
-        return Future.error('Location permissions are denied');
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      // Permissions are denied forever, handle appropriately.
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
-    }
-
-    _isPermissionGranted = true;
-  }
-
-  void _getLocationSettings() {
+  void _initLocationSettings() {
     if (defaultTargetPlatform == TargetPlatform.android) {
       _locationSettings = AndroidSettings(
         accuracy: LocationAccuracy.best,
@@ -84,6 +46,48 @@ class Location {
         accuracy: LocationAccuracy.bestForNavigation,
       );
     }
+  }
+
+  Future<CustomLocationPermission> getPermission() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // Test if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      // Location services are not enabled don't continue
+      // accessing the position and request users of the
+      // App to enable the location services.
+      // return Future.error('Location services are disabled.');
+      return CustomLocationPermission.serviceDisabled;
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        // Permissions are denied, next time you could try
+        // requesting permissions again (this is also where
+        // Android's shouldShowRequestPermissionRationale
+        // returned true. According to Android guidelines
+        // your App should show an explanatory UI now.
+        // return Future.error('Location permissions are denied');
+        return CustomLocationPermission.denied;
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever, handle appropriately.
+      // return Future.error(
+      //     'Location permissions are permanently denied, we cannot request permissions.');
+      return CustomLocationPermission.permanentlyDenied;
+    }
+
+    if (permission == LocationPermission.whileInUse) {
+      return CustomLocationPermission.whileInUse;
+    }
+
+    return CustomLocationPermission.always;
   }
 
   // void timer() {
@@ -167,27 +171,27 @@ class Location {
   }
 
   // TODO: [done]
-  Future<void> getCurrentLocation() async {
-    if (!_isPermissionGranted) return;
+  // Future<void> getCurrentLocation() async {
+  //   if (!_isPermissionGranted) return;
 
-    try {
-      currentPosition = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.medium,
-        // timeLimit: const Duration(seconds: 10),
-      );
+  //   try {
+  //     currentPosition = await Geolocator.getCurrentPosition(
+  //       desiredAccuracy: LocationAccuracy.medium,
+  //       // timeLimit: const Duration(seconds: 10),
+  //     );
 
-      // isLocationFound = true;
-    } catch (e) {
-      print(e); // TODO: display popup
-      // isLocationFound = false;
-    }
-  }
+  //     // isLocationFound = true;
+  //   } catch (e) {
+  //     print(e); // TODO: display popup
+  //     // isLocationFound = false;
+  //   }
+  // }
 
-  Future<void> openSettings() async {
+  Future<void> openAppSettings() async {
     await Geolocator.openAppSettings();
   }
 
-  Future<void> openLocation() async {
+  Future<void> openPrivacyLocationSettings() async {
     await Geolocator.openLocationSettings();
   }
 }

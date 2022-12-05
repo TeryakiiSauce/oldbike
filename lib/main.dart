@@ -29,6 +29,7 @@ class OldBikeApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Old Bike',
       theme: ThemeData.dark().copyWith(
+        useMaterial3: true,
         scaffoldBackgroundColor: kcPrimary,
         inputDecorationTheme: InputDecorationTheme(
           border: OutlineInputBorder(
