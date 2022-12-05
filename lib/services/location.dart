@@ -16,7 +16,7 @@ class Location {
   bool _isPermissionGranted = false;
 
   Location() {
-    _checkPermissionIsGranted();
+    _checkPermissionIsGranted().catchError((e) => print(e));
     _getLocationSettings();
   }
 
@@ -160,10 +160,10 @@ class Location {
   // }
 
   Stream<Position> getPositionStream() {
-    return Geolocator.getPositionStream(locationSettings: _locationSettings)
-        .timeout(
-      const Duration(seconds: 5),
-    );
+    return Geolocator.getPositionStream(locationSettings: _locationSettings);
+    // .timeout(
+    // const Duration(seconds: 5),
+    // );
   }
 
   // TODO: [done]

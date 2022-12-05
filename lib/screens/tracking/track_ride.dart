@@ -1,10 +1,12 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:oldbike/services/location.dart';
 import 'package:oldbike/utils/custom_formatting.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 class BeginTrackingRideScreen extends StatefulWidget {
   static const String screen = 'beginTrackingRide';
@@ -19,34 +21,43 @@ class BeginTrackingRideScreen extends StatefulWidget {
 class _BeginTrackingRideScreenState extends State<BeginTrackingRideScreen> {
   final Location location = Location();
   final DateTime startTime = DateTime.now();
+  late StreamSubscription networkConnectionListener;
+  bool isConnectedToInternet = false;
 
-  // bool isLocationFound = false;
-  //
-  Future<void> initLocation() async {
-    await location.getCurrentLocation();
+  void initNetworkListener() {
+    networkConnectionListener =
+        InternetConnectionChecker().onStatusChange.listen(
+      (status) {
+        switch (status) {
+          case InternetConnectionStatus.connected:
+            // print('connected to internet.');
+            setState(() {
+              isConnectedToInternet = true;
+            });
+            break;
+          case InternetConnectionStatus.disconnected:
+            // print('NOT connected to internet.');
+            setState(() {
+              isConnectedToInternet = false;
+            });
+            break;
+        }
 
-    // setState(() {
-    //   isLocationFound = location.isLocationFound;
-    // });  
-    //
-    //todo: if func
-    //
-    // refreshLocation();
+        print('connected to internet = $isConnectedToInternet');
+      },
+    );
   }
-
-  // Future<void> refreshLocation() async {
-  //   await location.getCurrentLocationStream();
-  //
-  //   setState(() {
-  //     isLocationFound = location.isLocationFound;
-  //   });
-  // }
 
   @override
   void initState() {
     super.initState();
-    // initLocation();
-    // refreshLocation();
+    initNetworkListener();
+  }
+
+  @override
+  void dispose() {
+    networkConnectionListener.cancel();
+    super.dispose();
   }
 
   @override
@@ -58,73 +69,94 @@ class _BeginTrackingRideScreenState extends State<BeginTrackingRideScreen> {
           flex: 10,
           child: Padding(
             padding: const EdgeInsets.all(16.0),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(16.0),
-              child: Stack(
-                children: [
-                  StreamBuilder<Position>(
-                    stream: location.getPositionStream(),
+            child: !isConnectedToInternet
+                ? const Center(
+                    child: Icon(
+                      Icons.access_alarm_rounded,
+                    ),
+                  )
+                : StreamBuilder<ServiceStatus>(
+                    stream: Geolocator.getServiceStatusStream(),
                     builder: (context, snapshot) {
                       if (!snapshot.hasData) {
                         return const Center(
                           child: Icon(
-                            Icons.emergency_share_rounded,
-                            size: 100.0,
+                            Icons.signal_cellular_alt_rounded,
                           ),
                         );
                       }
 
-                      double lat = snapshot.data!.latitude,
-                          long = snapshot.data!.longitude;
+                      print(snapshot.data!.name);
 
-                      // print('$lat, $long');
+                      return ClipRRect(
+                        borderRadius: BorderRadius.circular(16.0),
+                        child: Stack(
+                          children: [
+                            StreamBuilder<Position>(
+                              stream: location.getPositionStream(),
+                              builder: (context, snapshot) {
+                                if (!snapshot.hasData) {
+                                  return const Center(
+                                    child: Icon(
+                                      Icons.emergency_share_rounded,
+                                      size: 100.0,
+                                    ),
+                                  );
+                                }
 
-                      return FlutterMap(
-                        options: MapOptions(
-                          center: LatLng(lat, long),
-                          bounds: LatLngBounds(
-                            LatLng(lat - 0.001, long + 0.001),
-                            LatLng(lat + 0.001, long - 0.001),
-                          ),
-                          zoom: 18.0,
-                          minZoom: 2.0,
-                          maxBounds: LatLngBounds(
-                            LatLng(-90.0, -180.0),
-                            LatLng(90.0, 180.0),
-                          ),
-                          interactiveFlags:
-                              InteractiveFlag.all & ~InteractiveFlag.rotate,
-                          maxZoom: 18,
+                                double lat = snapshot.data!.latitude,
+                                    long = snapshot.data!.longitude;
+
+                                // print('$lat, $long');
+
+                                return FlutterMap(
+                                  options: MapOptions(
+                                    center: LatLng(lat, long),
+                                    bounds: LatLngBounds(
+                                      LatLng(lat - 0.001, long + 0.001),
+                                      LatLng(lat + 0.001, long - 0.001),
+                                    ),
+                                    zoom: 18.0,
+                                    minZoom: 2.0,
+                                    maxBounds: LatLngBounds(
+                                      LatLng(-90.0, -180.0),
+                                      LatLng(90.0, 180.0),
+                                    ),
+                                    interactiveFlags: InteractiveFlag.all &
+                                        ~InteractiveFlag.rotate,
+                                    maxZoom: 18,
+                                  ),
+                                  nonRotatedChildren: [
+                                    MarkerLayer(
+                                      markers: [
+                                        Marker(
+                                          // height: 100.0,
+                                          // width: 100.0,
+                                          point: LatLng(lat, long),
+                                          builder: (context) => Icon(
+                                            Icons.circle_rounded,
+                                            color: Colors.indigo[400],
+                                            size: 20.0,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                  children: [
+                                    TileLayer(
+                                      urlTemplate:
+                                          'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                                      subdomains: const ['a', 'b', 'c'],
+                                    ),
+                                  ],
+                                );
+                              },
+                            ),
+                          ],
                         ),
-                        nonRotatedChildren: [
-                          MarkerLayer(
-                            markers: [
-                              Marker(
-                                // height: 100.0,
-                                // width: 100.0,
-                                point: LatLng(lat, long),
-                                builder: (context) => Icon(
-                                  Icons.circle_rounded,
-                                  color: Colors.indigo[400],
-                                  size: 20.0,
-                                ),
-                              )
-                            ],
-                          ),
-                        ],
-                        children: [
-                          TileLayer(
-                            urlTemplate:
-                                'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                            subdomains: const ['a', 'b', 'c'],
-                          ),
-                        ],
                       );
                     },
                   ),
-                ],
-              ),
-            ),
           ),
         ),
         Expanded(
