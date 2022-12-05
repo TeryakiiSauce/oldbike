@@ -27,7 +27,7 @@ class _BeginTrackingRideScreenState extends State<BeginTrackingRideScreen> {
 
     // setState(() {
     //   isLocationFound = location.isLocationFound;
-    // });
+    // });  
     //
     //todo: if func
     //

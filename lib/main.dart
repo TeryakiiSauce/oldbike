@@ -12,7 +12,7 @@ import 'package:oldbike/tab_view_controller.dart';
 import 'package:oldbike/utils/colors.dart';
 
 void main() async {
-  // WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
