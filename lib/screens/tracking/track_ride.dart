@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geolocator/geolocator.dart';
@@ -43,20 +42,20 @@ class _BeginTrackingRideScreenState extends State<BeginTrackingRideScreen> {
       (status) {
         switch (status) {
           case InternetConnectionStatus.connected:
-            // print('connected to internet.');
+            debugPrint('connected to internet.');
             setState(() {
               isConnectedToInternet = true;
             });
             break;
           case InternetConnectionStatus.disconnected:
-            // print('NOT connected to internet.');
+            debugPrint('NOT connected to internet.');
             setState(() {
               isConnectedToInternet = false;
             });
             break;
         }
 
-        debugPrint('internet connection = $isConnectedToInternet');
+        // debugPrint('internet connection = $isConnectedToInternet');
       },
     );
   }
@@ -100,7 +99,10 @@ class _BeginTrackingRideScreenState extends State<BeginTrackingRideScreen> {
 
   void initPositionListener() {
     currentPositionListener = location.positionStream.listen(
-      (tempPosition) {
+      (tempPosition) async {
+        // This fixes the issue (app crash) while the phone is moving faster than the updates of the map tiles which most probably happens due to internet disconnectivity
+        if (!await InternetConnectionChecker().hasConnection) return;
+
         setState(() {
           position = tempPosition;
         });
@@ -126,11 +128,21 @@ class _BeginTrackingRideScreenState extends State<BeginTrackingRideScreen> {
       ];
 
   List<Widget> buildNoConnectionScreen() => [
-        Expanded(
-          child: Center(
-            child: Text('no internet connection'),
-          ),
-        )
+        Column(
+          children: const [
+            Icon(
+              Icons.wifi_off_rounded,
+              size: 100.0,
+            ),
+            SizedBox(
+              height: 20.0,
+            ),
+            Text(
+              'Internet connection lost, tracking paused',
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
       ];
 
   Widget buildMapDisplay() => ClipRRect(
@@ -140,7 +152,7 @@ class _BeginTrackingRideScreenState extends State<BeginTrackingRideScreen> {
             FlutterMap(
               options: MapOptions(
                 center: LatLng(position.latitude, position.longitude),
-                // TODO: Those two lines can crash the app if the current location is at the max boundries.
+                // TODO: Those two lines can crash the app if the current location is at the max boundaries.
                 bounds: LatLngBounds(
                   LatLng(position.latitude - 0.001, position.longitude + 0.001),
                   LatLng(position.latitude + 0.001, position.longitude - 0.001),
@@ -189,9 +201,9 @@ class _BeginTrackingRideScreenState extends State<BeginTrackingRideScreen> {
 
     return Center(
       child: Text(
-        'speed: ${CustomFormat.getFormattedNumber(speed * 3.6, decimalPlaces: 2)} km/h\n'
+        'speed: ${CustomFormat.getFormattedNumber(speed * 3.6, decimalPlace: 2)} km/h\n'
         'time elapsed: ${timeTaken.inMinutes}:${timeTaken.inSeconds % 60} minute(s)\n'
-        'distance travelled: ${CustomFormat.getFormattedNumber(distanceTravelled, decimalPlaces: 2)} km\n'
+        'distance travelled: ${CustomFormat.getFormattedNumber(distanceTravelled, decimalPlace: 2)} km\n'
         'altitude: ${position.altitude} m\n'
         'floors climbed: ${position.floor ?? 0} floor(s)\n',
         textAlign: TextAlign.center,
@@ -221,7 +233,7 @@ class _BeginTrackingRideScreenState extends State<BeginTrackingRideScreen> {
             ),
             IconButton(
               onPressed: () {
-                // TODO: show an alert before canceling subscription
+                // TODO: show an alert before cancelling subscription
                 currentPositionListener.cancel();
                 // TODO: move to another page and show result
               },
@@ -253,7 +265,8 @@ class _BeginTrackingRideScreenState extends State<BeginTrackingRideScreen> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: isConnectedToInternet
           ? buildTrackScreen()
           : buildNoConnectionScreen(),
