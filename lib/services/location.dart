@@ -13,10 +13,13 @@ enum CustomLocationPermission {
 class Location {
   // late StreamSubscription<Position> _positionStream;
   late LocationSettings _locationSettings;
-  late Position currentPosition;
+  // late Position currentPosition;
+  late Stream<Position> positionStream;
 
   Location() {
     _initLocationSettings();
+    positionStream =
+        Geolocator.getPositionStream(locationSettings: _locationSettings);
   }
 
   void _initLocationSettings() {
@@ -163,12 +166,12 @@ class Location {
   //   _positionStream.cancel();
   // }
 
-  Stream<Position> getPositionStream() {
-    return Geolocator.getPositionStream(locationSettings: _locationSettings);
-    // .timeout(
-    // const Duration(seconds: 5),
-    // );
-  }
+  // Stream<Position> getPositionStream() {
+  //   return Geolocator.getPositionStream(locationSettings: _locationSettings);
+  //   // .timeout(
+  //   // const Duration(seconds: 5),
+  //   // );
+  // }
 
   // TODO: [done]
   // Future<void> getCurrentLocation() async {
