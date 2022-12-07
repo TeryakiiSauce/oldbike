@@ -3,23 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:oldbike/screens/tracking/statistics.dart';
 import 'package:oldbike/services/location.dart';
 import 'package:oldbike/utils/custom_formatting.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:oldbike/utils/platform_based_widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class BeginTrackingRideScreen extends StatefulWidget {
+class RideTrackingScreen extends StatefulWidget {
   static const String screen = 'beginTrackingRide';
+  static bool isRecording = false;
 
-  const BeginTrackingRideScreen({super.key});
+  const RideTrackingScreen({super.key});
 
   @override
-  State<BeginTrackingRideScreen> createState() =>
-      _BeginTrackingRideScreenState();
+  State<RideTrackingScreen> createState() => _RideTrackingScreenState();
 }
 
-class _BeginTrackingRideScreenState extends State<BeginTrackingRideScreen> {
+class _RideTrackingScreenState extends State<RideTrackingScreen> {
   final Location location = Location();
   final DateTime startTime = DateTime.now();
   late StreamSubscription networkConnectionListener;
@@ -223,6 +224,7 @@ class _BeginTrackingRideScreenState extends State<BeginTrackingRideScreen> {
                       ? currentPositionListener.resume()
                       : currentPositionListener.pause();
                 });
+                RideTrackingScreen.isRecording = true;
               },
               icon: FaIcon(
                 currentPositionListener.isPaused
@@ -233,8 +235,10 @@ class _BeginTrackingRideScreenState extends State<BeginTrackingRideScreen> {
             ),
             IconButton(
               onPressed: () {
+                RideTrackingScreen.isRecording = false;
                 // TODO: show an alert before cancelling subscription
-                currentPositionListener.cancel();
+                // currentPositionListener.cancel();
+                Navigator.pushNamed(context, StatisticsScreen.screen);
                 // TODO: move to another page and show result
               },
               icon: const FaIcon(

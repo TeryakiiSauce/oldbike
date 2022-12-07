@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:oldbike/screens/home/home.dart';
 import 'package:oldbike/screens/login-signup/login.dart';
 import 'package:oldbike/screens/profile/profile.dart';
+import 'package:oldbike/screens/tracking/statistics.dart';
 import 'package:oldbike/tab_view_controller.dart';
 import 'package:oldbike/utils/colors.dart';
 
@@ -49,6 +50,7 @@ class OldBikeApp extends StatelessWidget {
         LoginScreen.screen: (context) => const LoginScreen(),
         HomeScreen.screen: (context) => const HomeScreen(),
         ProfileScreen.screen: (context) => const ProfileScreen(),
+        StatisticsScreen.screen: (context) => const StatisticsScreen(),
       },
       initialRoute: LoginScreen.screen,
     );

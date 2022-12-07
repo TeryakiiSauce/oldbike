@@ -5,14 +5,16 @@ import 'package:flutter/material.dart';
 class DynamicAlertDialog extends StatelessWidget {
   final Widget title;
   final Widget content;
-  final Function() approveAction;
+  final VoidCallback? approveAction;
+  final VoidCallback? cancelAction;
   // final List<Widget> actions;
 
   const DynamicAlertDialog({
     Key? key,
     this.title = const Text(''),
     this.content = const Text(''),
-    required this.approveAction,
+    this.approveAction,
+    this.cancelAction,
     // this.actions = const [],
   }) : super(key: key);
 

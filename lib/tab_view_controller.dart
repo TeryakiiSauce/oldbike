@@ -7,8 +7,17 @@ import 'package:flutter/services.dart';
 import 'package:oldbike/screens/home/home.dart';
 import 'package:oldbike/screens/login-signup/login.dart';
 import 'package:oldbike/screens/profile/profile.dart';
+import 'package:oldbike/screens/tracking/statistics.dart';
 import 'package:oldbike/screens/tracking/track_ride.dart';
 import 'package:oldbike/utils/colors.dart';
+import 'package:oldbike/utils/platform_based_widgets.dart';
+
+enum TabScreen {
+  home,
+  track,
+  profile,
+  statistics,
+}
 
 class TabViewController extends StatefulWidget {
   static const String screen = 'tabview';
@@ -20,20 +29,73 @@ class TabViewController extends StatefulWidget {
 }
 
 class _TabViewControllerState extends State<TabViewController> {
-  int tabviewScreenIndex = 0;
   late BuildContext currentContext;
 
+  // int tabScreenIndex = TabScreens.home.index;
+  TabScreen currentTabScreen = TabScreen.home;
   final List<BottomNavigationBarItem> screens = [];
   final List<Map<String, dynamic>> screensMapsList = [];
   final Map<String, List<Widget>> actions = {};
 
-  Future<void> switchTabView(int screenIndex) async {
+  Future<void> switchTabView(int tabIndex) async {
     await HapticFeedback.selectionClick();
 
+    TabScreen tempScreen = TabScreen.values.elementAt(tabIndex);
+
+    bool isCurrentlyTracking = RideTrackingScreen.isRecording;
+    if (isCurrentlyTracking) {
+      tempScreen = TabScreen.track;
+
+      showDialog(
+        context: context,
+        builder: (context) => DynamicAlertDialog(
+          approveAction: () {
+            print('screen: ${TabScreen.values.elementAt(tabIndex)}');
+            tempScreen = TabScreen.values.elementAt(tabIndex);
+            print('temp screen: $tempScreen');
+            Navigator.pop(context);
+            print('ok pressed');
+          },
+          title: const Text('Done Tracking?'),
+          content: const Text(
+              'Are you sure you want to stop tracking your progress? Statistics will automatically be saved.'),
+        ),
+      );
+    }
+
+    print('2nd temp index: $tempScreen');
+
     setState(() {
-      tabviewScreenIndex = screenIndex;
+      currentTabScreen = tempScreen;
     });
   }
+
+  // Widget displayScreen({TabScreen screen = TabScreen.home}) {
+  //   return screensMapsList[screen.index]['screenWidget'];
+  // }
+
+  // TabScreen getTabScreen(int index) {
+  //   switch (index) {
+  //     case value:
+
+  //       break;
+  //     default:
+  //   }
+
+  //   return ;
+  // }
+
+  // int getTabScreenIndex(TabScreen screen) {
+  //   int index = screen.index;
+
+  //   switch (index) {
+  //     case value:
+
+  //       break;
+  //     default:
+  //   }
+  //   return index;
+  // }
 
   /// To add new tabs adjust the lists/ maps below
   @override
@@ -65,6 +127,9 @@ class _TabViewControllerState extends State<TabViewController> {
             icon: const Icon(Icons.exit_to_app_rounded),
           ),
         ],
+        'statistics': [
+          Container(),
+        ],
       },
     );
 
@@ -76,7 +141,7 @@ class _TabViewControllerState extends State<TabViewController> {
           'actions': actions['home'],
         },
         {
-          'screenWidget': const BeginTrackingRideScreen(),
+          'screenWidget': const RideTrackingScreen(),
           'title': 'Track',
           'actions': actions['beginTrackingRide'],
         },
@@ -84,6 +149,11 @@ class _TabViewControllerState extends State<TabViewController> {
           'screenWidget': const ProfileScreen(),
           'title': 'Profile',
           'actions': actions['profile'],
+        },
+        {
+          'screenWidget': const StatisticsScreen(),
+          'title': 'Statistics',
+          'actions': actions['statistics'],
         },
       ],
     );
@@ -106,11 +176,12 @@ class _TabViewControllerState extends State<TabViewController> {
 
   @override
   Widget build(BuildContext context) {
-    final Text appBarTitle = Text(screensMapsList[tabviewScreenIndex]['title']);
+    final Text appBarTitle =
+        Text(screensMapsList[currentTabScreen.index]['title']);
     final List<Widget> actionsList =
-        screensMapsList[tabviewScreenIndex]['actions'];
+        screensMapsList[currentTabScreen.index]['actions'];
     final Widget screenBody =
-        screensMapsList[tabviewScreenIndex]['screenWidget'];
+        screensMapsList[currentTabScreen.index]['screenWidget'];
 
     return Scaffold(
       backgroundColor: kcPrimaryT3,
@@ -125,10 +196,10 @@ class _TabViewControllerState extends State<TabViewController> {
         selectedItemColor: kcAccent,
         // showSelectedLabels: false,
         // showUnselectedLabels: false,
-        currentIndex: tabviewScreenIndex,
+        currentIndex: currentTabScreen.index,
         enableFeedback: true,
-        onTap: (value) {
-          switchTabView(value);
+        onTap: (tabSelectedIndex) {
+          switchTabView(tabSelectedIndex);
         },
         items: screens,
       ),
