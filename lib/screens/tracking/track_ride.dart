@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:oldbike/models/screen.dart';
 import 'package:oldbike/screens/tracking/statistics.dart';
 import 'package:oldbike/services/location.dart';
 import 'package:oldbike/utils/custom_formatting.dart';
@@ -11,7 +12,7 @@ import 'package:oldbike/utils/platform_based_widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class RideTrackingScreen extends StatefulWidget {
-  static const String screen = 'beginTrackingRide';
+  static const TabScreen screen = TabScreen.track;
   static bool isRecording = false;
 
   const RideTrackingScreen({super.key});
@@ -238,7 +239,11 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
                 RideTrackingScreen.isRecording = false;
                 // TODO: show an alert before cancelling subscription
                 // currentPositionListener.cancel();
-                Navigator.pushNamed(context, StatisticsScreen.screen);
+                // Screen.displayScreen(
+                //     context: context, screen: TabScreen.statistics);
+                setState(() {
+                  Screen.currentTabScreen = TabScreen.statistics;
+                });
                 // TODO: move to another page and show result
               },
               icon: const FaIcon(

@@ -2,12 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:oldbike/components/circular_image.dart';
 import 'package:oldbike/components/labelled_widget.dart';
+import 'package:oldbike/models/screen.dart';
 import 'package:oldbike/utils/text_styles.dart';
 import 'package:oldbike/components/horizontal_scroll.dart';
 import 'package:oldbike/components/compact_ride_info_card.dart';
 
 class ProfileScreen extends StatefulWidget {
-  static const String screen = 'profile';
+  static const TabScreen screen = TabScreen.profile;
 
   const ProfileScreen({super.key});
 

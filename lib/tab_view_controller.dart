@@ -4,20 +4,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:oldbike/screens/home/home.dart';
-import 'package:oldbike/screens/login-signup/login.dart';
-import 'package:oldbike/screens/profile/profile.dart';
-import 'package:oldbike/screens/tracking/statistics.dart';
 import 'package:oldbike/screens/tracking/track_ride.dart';
 import 'package:oldbike/utils/colors.dart';
 import 'package:oldbike/utils/platform_based_widgets.dart';
-
-enum TabScreen {
-  home,
-  track,
-  profile,
-  statistics,
-}
+import 'package:oldbike/models/screen.dart';
 
 class TabViewController extends StatefulWidget {
   static const String screen = 'tabview';
@@ -29,13 +19,7 @@ class TabViewController extends StatefulWidget {
 }
 
 class _TabViewControllerState extends State<TabViewController> {
-  late BuildContext currentContext;
-
-  // int tabScreenIndex = TabScreens.home.index;
-  TabScreen currentTabScreen = TabScreen.home;
-  final List<BottomNavigationBarItem> screens = [];
-  final List<Map<String, dynamic>> screensMapsList = [];
-  final Map<String, List<Widget>> actions = {};
+  late Screen screen;
 
   Future<void> switchTabView(int tabIndex) async {
     await HapticFeedback.selectionClick();
@@ -63,147 +47,61 @@ class _TabViewControllerState extends State<TabViewController> {
       );
     }
 
-    print('2nd temp index: $tempScreen');
+    debugPrint('switched to screen: ${tempScreen.name.toUpperCase()} screen.');
 
     setState(() {
-      currentTabScreen = tempScreen;
+      Screen.currentTabScreen = tempScreen;
     });
   }
 
-  // Widget displayScreen({TabScreen screen = TabScreen.home}) {
-  //   return screensMapsList[screen.index]['screenWidget'];
-  // }
+  List<BottomNavigationBarItem> getNavBarItems() => screen.buildBottomNavBar(
+        {
+          TabScreen.home: [
+            const Icon(Icons.home_rounded),
+            'Home',
+          ],
+          TabScreen.track: [
+            const Icon(Icons.play_arrow_rounded),
+            'Track',
+          ],
+          TabScreen.profile: [
+            const Icon(Icons.person),
+            'Profile',
+          ],
+        },
+      );
 
-  // TabScreen getTabScreen(int index) {
-  //   switch (index) {
-  //     case value:
-
-  //       break;
-  //     default:
-  //   }
-
-  //   return ;
-  // }
-
-  // int getTabScreenIndex(TabScreen screen) {
-  //   int index = screen.index;
-
-  //   switch (index) {
-  //     case value:
-
-  //       break;
-  //     default:
-  //   }
-  //   return index;
-  // }
-
-  /// To add new tabs adjust the lists/ maps below
   @override
   void initState() {
     super.initState();
-
-    currentContext = context;
-
-    actions.addAll(
-      {
-        'home': [
-          Container(),
-        ],
-        'beginTrackingRide': [
-          Container(),
-        ],
-        'profile': [
-          IconButton(
-            onPressed: () async {
-              await HapticFeedback.lightImpact();
-
-              if (!mounted) {
-                return; // Reference: https://stackoverflow.com/a/73342013
-              }
-
-              Navigator.pushReplacementNamed(
-                  currentContext, LoginScreen.screen);
-            },
-            icon: const Icon(Icons.exit_to_app_rounded),
-          ),
-        ],
-        'statistics': [
-          Container(),
-        ],
-      },
-    );
-
-    screensMapsList.addAll(
-      [
-        {
-          'screenWidget': const HomeScreen(),
-          'title': 'Home',
-          'actions': actions['home'],
-        },
-        {
-          'screenWidget': const RideTrackingScreen(),
-          'title': 'Track',
-          'actions': actions['beginTrackingRide'],
-        },
-        {
-          'screenWidget': const ProfileScreen(),
-          'title': 'Profile',
-          'actions': actions['profile'],
-        },
-        {
-          'screenWidget': const StatisticsScreen(),
-          'title': 'Statistics',
-          'actions': actions['statistics'],
-        },
-      ],
-    );
-
-    screens.addAll(const [
-      BottomNavigationBarItem(
-        icon: Icon(Icons.home_rounded),
-        label: 'Home',
-      ),
-      BottomNavigationBarItem(
-        icon: Icon(Icons.play_arrow_rounded),
-        label: 'Track',
-      ),
-      BottomNavigationBarItem(
-        icon: Icon(Icons.person),
-        label: 'Profile',
-      ),
-    ]);
+    Screen.currentTabScreen = TabScreen.home;
   }
 
   @override
   Widget build(BuildContext context) {
-    final Text appBarTitle =
-        Text(screensMapsList[currentTabScreen.index]['title']);
-    final List<Widget> actionsList =
-        screensMapsList[currentTabScreen.index]['actions'];
-    final Widget screenBody =
-        screensMapsList[currentTabScreen.index]['screenWidget'];
+    screen = Screen(context: context);
 
     return Scaffold(
       backgroundColor: kcPrimaryT3,
       appBar: AppBar(
-        title: appBarTitle,
+        title: screen.getScreenTitle(screen: Screen.currentTabScreen),
         backgroundColor: kcAppBar,
-        actions: actionsList,
+        actions: screen.getActions(screen: Screen.currentTabScreen),
       ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: kcPrimaryS4,
         iconSize: 30.0,
         selectedItemColor: kcAccent,
         // showSelectedLabels: false,
-        // showUnselectedLabels: false,
-        currentIndex: currentTabScreen.index,
+        showUnselectedLabels: false,
+        currentIndex: Screen.currentTabScreen.index,
         enableFeedback: true,
         onTap: (tabSelectedIndex) {
           switchTabView(tabSelectedIndex);
         },
-        items: screens,
+        items: getNavBarItems(),
       ),
-      body: screenBody,
+      body: screen.getScreenWidget(screen: Screen.currentTabScreen),
     );
   }
 }

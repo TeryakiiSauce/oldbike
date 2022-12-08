@@ -48,9 +48,9 @@ class OldBikeApp extends StatelessWidget {
       routes: {
         TabViewController.screen: (context) => const TabViewController(),
         LoginScreen.screen: (context) => const LoginScreen(),
-        HomeScreen.screen: (context) => const HomeScreen(),
-        ProfileScreen.screen: (context) => const ProfileScreen(),
-        StatisticsScreen.screen: (context) => const StatisticsScreen(),
+        HomeScreen.screen.name: (context) => const HomeScreen(),
+        ProfileScreen.screen.name: (context) => const ProfileScreen(),
+        StatisticsScreen.screen.name: (context) => const StatisticsScreen(),
       },
       initialRoute: LoginScreen.screen,
     );

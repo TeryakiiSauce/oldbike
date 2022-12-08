@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:oldbike/models/screen.dart';
 
 class StatisticsScreen extends StatelessWidget {
-  static const String screen = 'statistics';
+  static const TabScreen screen = TabScreen.statistics;
 
   final double speed, distance, altitude;
   final Duration timeElapsed;
@@ -19,15 +20,13 @@ class StatisticsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        children: [
-          Text('speed: $speed km/h'),
-          Text('time elapsed: $timeElapsed minute(s)'),
-          Text('distance: $distance km'),
-          Text('altitude: $altitude m'),
-        ],
-      ),
+    return Column(
+      children: [
+        Text('speed: $speed km/h'),
+        Text('time elapsed: $timeElapsed minute(s)'),
+        Text('distance: $distance km'),
+        Text('altitude: $altitude m'),
+      ],
     );
   }
 }

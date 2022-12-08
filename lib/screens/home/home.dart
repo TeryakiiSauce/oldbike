@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:oldbike/components/ride_info_card.dart';
+import 'package:oldbike/models/screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  static const String screen = 'home';
+  static const TabScreen screen = TabScreen.home;
 
   const HomeScreen({super.key});
 
