@@ -1,19 +1,22 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:oldbike/models/screen.dart';
 import 'package:oldbike/screens/tracking/statistics.dart';
 import 'package:oldbike/services/location.dart';
+import 'package:oldbike/utils/base_screen_template.dart';
+import 'package:oldbike/utils/colors.dart';
 import 'package:oldbike/utils/custom_formatting.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:oldbike/utils/platform_based_widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class RideTrackingScreen extends StatefulWidget {
   static const TabScreen screen = TabScreen.track;
-  static bool isRecording = false;
 
   const RideTrackingScreen({super.key});
 
@@ -220,12 +223,13 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
           children: [
             IconButton(
               onPressed: () {
+                HapticFeedback.selectionClick();
+
                 setState(() {
                   currentPositionListener.isPaused
                       ? currentPositionListener.resume()
                       : currentPositionListener.pause();
                 });
-                RideTrackingScreen.isRecording = true;
               },
               icon: FaIcon(
                 currentPositionListener.isPaused
@@ -235,20 +239,33 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
               ),
             ),
             IconButton(
-              onPressed: () {
-                RideTrackingScreen.isRecording = false;
-                // TODO: show an alert before cancelling subscription
-                // currentPositionListener.cancel();
-                // Screen.displayScreen(
-                //     context: context, screen: TabScreen.statistics);
-                setState(() {
-                  Screen.currentTabScreen = TabScreen.statistics;
-                });
-                // TODO: move to another page and show result
-              },
-              icon: const FaIcon(
+              onPressed: currentPositionListener.isPaused
+                  ? null
+                  : () {
+                      HapticFeedback.selectionClick();
+
+                      if (currentPositionListener.isPaused) return;
+
+                      // TODO: show an alert here
+
+                      setState(() {
+                        currentPositionListener.pause();
+                      });
+
+                      PersistentNavBarNavigator.pushNewScreen(
+                        context,
+                        screen: const StatisticsScreen(),
+                        withNavBar: true,
+                        pageTransitionAnimation:
+                            PageTransitionAnimation.cupertino,
+                      );
+                    },
+              icon: FaIcon(
                 FontAwesomeIcons.circleStop,
                 size: 50.0,
+                color:
+                    // TODO: change to darker white color. Instead of 400 maybe try 600.
+                    currentPositionListener.isPaused ? kcWhite400 : kcWhite100,
               ),
             ),
           ],
@@ -273,12 +290,15 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: isConnectedToInternet
-          ? buildTrackScreen()
-          : buildNoConnectionScreen(),
+    return BaseScreenTemplate(
+      title: 'Track',
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: isConnectedToInternet
+            ? buildTrackScreen()
+            : buildNoConnectionScreen(),
+      ),
     );
   }
 }

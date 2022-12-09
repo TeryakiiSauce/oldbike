@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:oldbike/components/ride_info_card.dart';
 import 'package:oldbike/models/screen.dart';
+import 'package:oldbike/utils/base_screen_template.dart';
 
 class HomeScreen extends StatefulWidget {
   static const TabScreen screen = TabScreen.home;
@@ -12,8 +13,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<RideInfoCard> getRidesInfoCards() {
-    List<RideInfoCard> cardsList = [];
+  List<Widget> getRidesInfoCards() {
+    List<Widget> cardsList = [];
 
     cardsList.addAll(
       [
@@ -53,9 +54,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scrollbar(
-      child: ListView(
-        children: getRidesInfoCards(),
+    return BaseScreenTemplate(
+      title: 'Old Bike Feed',
+      body: Scrollbar(
+        child: ListView(
+          children: getRidesInfoCards(),
+        ),
       ),
     );
   }

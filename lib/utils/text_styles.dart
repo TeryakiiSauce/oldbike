@@ -33,6 +33,10 @@ const TextStyle ktsSmallLabelWithSpacing = TextStyle(
   letterSpacing: 3.0,
 );
 
+const TextStyle ktsAppBar = TextStyle(
+  color: kcWhite100,
+);
+
 // Card Text Styles
 // === === === === ===
 const TextStyle ktsCardTitle = TextStyle(

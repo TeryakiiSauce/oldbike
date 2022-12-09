@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:oldbike/components/circular_image.dart';
 import 'package:oldbike/components/labelled_widget.dart';
 import 'package:oldbike/models/screen.dart';
+import 'package:oldbike/utils/base_screen_template.dart';
 import 'package:oldbike/utils/text_styles.dart';
 import 'package:oldbike/components/horizontal_scroll.dart';
 import 'package:oldbike/components/compact_ride_info_card.dart';
@@ -115,11 +116,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     const double padding = 20;
 
-    return ListView(
-      children: [
-        buildProfileSummary(padding: padding),
-        buildUserRecentRides(padding: padding),
-      ],
+    return BaseScreenTemplate(
+      title: 'Profile',
+      body: ListView(
+        children: [
+          buildProfileSummary(padding: padding),
+          buildUserRecentRides(padding: padding),
+        ],
+      ),
     );
   }
 }
