@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:oldbike/models/screen.dart';
-import 'package:oldbike/utils/base_screen_template.dart';
+import 'package:oldbike/components/base_screen_template.dart';
+import 'package:oldbike/utils/custom_formatting.dart';
 
-class StatisticsScreen extends StatelessWidget {
+class StatisticsScreen extends StatefulWidget {
   static const TabScreen screen = TabScreen.statistics;
 
   final double speed, distance, altitude;
@@ -20,7 +21,26 @@ class StatisticsScreen extends StatelessWidget {
   });
 
   @override
+  State<StatisticsScreen> createState() => _StatisticsScreenState();
+}
+
+class _StatisticsScreenState extends State<StatisticsScreen> {
+  String speed = '', distance = '', altitude = '', timeElapsed = '';
+
+  void reformatResults() {
+    speed = CustomFormat.getFormattedNumber(widget.speed, decimalPlace: 2);
+    distance =
+        CustomFormat.getFormattedNumber(widget.distance, decimalPlace: 2);
+    altitude =
+        CustomFormat.getFormattedNumber(widget.altitude, decimalPlace: 2);
+    timeElapsed =
+        '${widget.timeElapsed.inMinutes}:${widget.timeElapsed.inSeconds % 60}';
+  }
+
+  @override
   Widget build(BuildContext context) {
+    reformatResults();
+
     return BaseScreenTemplate(
       title: 'Your Statistics',
       body: Padding(

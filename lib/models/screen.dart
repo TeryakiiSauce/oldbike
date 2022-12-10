@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:oldbike/screens/home/home.dart';
 import 'package:oldbike/screens/profile/profile.dart';
-import 'package:oldbike/screens/tracking/track_ride.dart';
+import 'package:oldbike/screens/tracking/location_usage_agreement.dart';
 import 'package:oldbike/utils/colors.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
@@ -10,17 +10,18 @@ enum TabScreen {
   track,
   profile,
   statistics,
+  locationUsageAgreement,
 }
 
 class Screen {
   static TabScreen currentTabScreen = TabScreen.home;
   final BuildContext context;
-  final Color activeTabIconColor = kcAccentT3,
-      inactiveTabIconColor = CupertinoColors.inactiveGray;
+  final Color activeTabIconColor = kcAccentT3;
+  final Color inactiveTabIconColor = kcPrimaryT8;
 
   final List<Widget> _tabScreens = const [
     HomeScreen(),
-    RideTrackingScreen(),
+    LocationUsageAgreementScreen(),
     ProfileScreen(),
   ];
   List<Widget> get tabScreens => _tabScreens;

@@ -35,7 +35,7 @@ class CircularImage extends StatelessWidget {
               backgroundColor: kcPrimaryT2,
               child: CircleAvatar(
                 backgroundColor: kcPrimary,
-                foregroundColor: kcWhite400,
+                foregroundColor: kcPrimaryT11,
                 child: Padding(
                   padding: EdgeInsets.all(padding),
                   child: image,

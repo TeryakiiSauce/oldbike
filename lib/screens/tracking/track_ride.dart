@@ -7,11 +7,11 @@ import 'package:latlong2/latlong.dart';
 import 'package:oldbike/models/screen.dart';
 import 'package:oldbike/screens/tracking/statistics.dart';
 import 'package:oldbike/services/location.dart';
-import 'package:oldbike/utils/base_screen_template.dart';
+import 'package:oldbike/components/base_screen_template.dart';
 import 'package:oldbike/utils/colors.dart';
 import 'package:oldbike/utils/custom_formatting.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:oldbike/utils/platform_based_widgets.dart';
+import 'package:oldbike/components/platform_based_widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
@@ -26,7 +26,9 @@ class RideTrackingScreen extends StatefulWidget {
 
 class _RideTrackingScreenState extends State<RideTrackingScreen> {
   final Location location = Location();
-  final DateTime startTime = DateTime.now();
+  DateTime startTime = DateTime.now(),
+      pausedAt = DateTime.now(),
+      resumedAt = DateTime.now();
   late StreamSubscription networkConnectionListener;
   late StreamSubscription currentPositionListener;
   bool isConnectedToInternet = false;
@@ -40,6 +42,11 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
     speed: 0.0,
     speedAccuracy: 0.0,
   );
+  double speedInMps = 0.0,
+      speedInKph = 0.0,
+      distanceTravelled = 0.0,
+      altitude = 0.0;
+  Duration timeTaken = const Duration(seconds: 0);
 
   void initNetworkListener() {
     networkConnectionListener =
@@ -108,6 +115,8 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
         // This fixes the issue (app crash) while the phone is moving faster than the updates of the map tiles which most probably happens due to internet disconnectivity
         if (!await InternetConnectionChecker().hasConnection) return;
 
+        // TODO: check for signal
+
         setState(() {
           position = tempPosition;
         });
@@ -157,7 +166,7 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
             FlutterMap(
               options: MapOptions(
                 center: LatLng(position.latitude, position.longitude),
-                // TODO: Those two lines can crash the app if the current location is at the max boundaries.
+                // TODO: [Too lazy to fix since it's unlikely to be a problem] Those two lines can crash the app if the current location is at the max boundaries.
                 bounds: LatLngBounds(
                   LatLng(position.latitude - 0.001, position.longitude + 0.001),
                   LatLng(position.latitude + 0.001, position.longitude - 0.001),
@@ -200,77 +209,111 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
       );
 
   Widget buildStatsDisplay() {
-    double speed = position.speed;
-    Duration timeTaken = position.timestamp!.difference(startTime);
-    double distanceTravelled = (speed * timeTaken.inSeconds) / 1000;
+    speedInMps = position.speed;
+    speedInKph = speedInMps * 3.6;
+    timeTaken = position.timestamp!.difference(startTime);
+    distanceTravelled = (speedInMps * timeTaken.inSeconds) / 1000;
+    altitude = position.altitude;
 
     return Center(
       child: Text(
-        'speed: ${CustomFormat.getFormattedNumber(speed * 3.6, decimalPlace: 2)} km/h\n'
+        'speed: ${CustomFormat.getFormattedNumber(speedInKph, decimalPlace: 2)} km/h\n'
         'time elapsed: ${timeTaken.inMinutes}:${timeTaken.inSeconds % 60} minute(s)\n'
         'distance travelled: ${CustomFormat.getFormattedNumber(distanceTravelled, decimalPlace: 2)} km\n'
-        'altitude: ${position.altitude} m\n'
-        'floors climbed: ${position.floor ?? 0} floor(s)\n',
+        'altitude: ${CustomFormat.getFormattedNumber(altitude, decimalPlace: 2)} m\n',
+        // 'floors climbed: ${position.floor ?? 0} floor(s)\n',
         textAlign: TextAlign.center,
       ),
     );
   }
 
-  Widget buildTrackingButtons() => Center(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            IconButton(
-              onPressed: () {
-                HapticFeedback.selectionClick();
+  Widget buildTrackingButtons() {
+    bool isPaused = currentPositionListener.isPaused;
+
+    return Center(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          IconButton(
+            onPressed: () {
+              HapticFeedback.selectionClick();
+
+              debugPrint(!isPaused ? 'tracking paused' : 'tracker is running');
+
+              Duration pausedDuration = const Duration();
+              DateTime newStartTime = DateTime.now();
+
+              if (!isPaused) {
+                pausedAt = DateTime.now();
+              } else {
+                resumedAt = DateTime.now();
+                pausedDuration = resumedAt.difference(pausedAt);
+                newStartTime = startTime.add(pausedDuration);
 
                 setState(() {
-                  currentPositionListener.isPaused
-                      ? currentPositionListener.resume()
-                      : currentPositionListener.pause();
+                  startTime = newStartTime;
                 });
-              },
-              icon: FaIcon(
-                currentPositionListener.isPaused
-                    ? FontAwesomeIcons.solidCirclePlay
-                    : FontAwesomeIcons.solidCirclePause,
-                size: 70.0,
-              ),
+              }
+
+              debugPrint('st = $startTime\n'
+                  'pt = $pausedAt\n'
+                  'rt = $resumedAt\n'
+                  'pd = ${pausedDuration.inSeconds} sec\n'
+                  'new st = $newStartTime');
+
+              setState(() {
+                isPaused
+                    ? currentPositionListener.resume()
+                    : currentPositionListener.pause();
+              });
+            },
+            icon: FaIcon(
+              isPaused
+                  ? FontAwesomeIcons.solidCirclePlay
+                  : FontAwesomeIcons.solidCirclePause,
+              size: 70.0,
             ),
-            IconButton(
-              onPressed: currentPositionListener.isPaused
-                  ? null
-                  : () {
-                      HapticFeedback.selectionClick();
+          ),
+          IconButton(
+            onPressed: isPaused
+                ? null
+                : () {
+                    if (isPaused) return;
+                    HapticFeedback.selectionClick();
 
-                      if (currentPositionListener.isPaused) return;
+                    // TODO: show an alert here
 
-                      // TODO: show an alert here
+                    setState(() {
+                      currentPositionListener.pause();
+                      startTime = DateTime.now();
+                      pausedAt = DateTime.now();
+                      resumedAt = DateTime.now();
+                    });
 
-                      setState(() {
-                        currentPositionListener.pause();
-                      });
-
-                      PersistentNavBarNavigator.pushNewScreen(
-                        context,
-                        screen: const StatisticsScreen(),
-                        withNavBar: true,
-                        pageTransitionAnimation:
-                            PageTransitionAnimation.cupertino,
-                      );
-                    },
-              icon: FaIcon(
-                FontAwesomeIcons.circleStop,
-                size: 50.0,
-                color:
-                    // TODO: change to darker white color. Instead of 400 maybe try 600.
-                    currentPositionListener.isPaused ? kcWhite400 : kcWhite100,
-              ),
+                    PersistentNavBarNavigator.pushNewScreen(
+                      context,
+                      withNavBar: true,
+                      pageTransitionAnimation:
+                          PageTransitionAnimation.cupertino,
+                      screen: StatisticsScreen(
+                        speed: speedInKph,
+                        altitude: altitude,
+                        distance: distanceTravelled,
+                        timeElapsed: timeTaken,
+                      ),
+                    );
+                  },
+            icon: FaIcon(
+              FontAwesomeIcons.circleStop,
+              size: 50.0,
+              color: isPaused ? kcPrimaryT9 : kcPrimaryT13,
             ),
-          ],
-        ),
-      );
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   void initState() {

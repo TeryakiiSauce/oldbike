@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:oldbike/screens/login-signup/login.dart';
+import 'package:oldbike/tab_view_controller.dart';
 import 'package:oldbike/utils/colors.dart';
 import 'package:oldbike/utils/text_styles.dart';
 
@@ -23,18 +23,19 @@ class BaseScreenTemplate extends StatelessWidget {
         backgroundColor: kcAppBar,
         middle: Text(
           title,
-          style: ktsAppBar,
+          style: ktsNormal,
         ),
-        trailing: IconButton(
-            onPressed: () {
-              HapticFeedback.lightImpact();
-              // TODO: fix this logout button
-              Navigator.pushReplacementNamed(context, LoginScreen.screen);
-            },
-            icon: const Icon(
-              CupertinoIcons.power,
-              size: 20.0,
-            )),
+        trailing: CupertinoButton(
+          onPressed: () {
+            HapticFeedback.lightImpact();
+            Navigator.pop(TabViewController.tabControllerContext);
+          },
+          child: const Icon(
+            CupertinoIcons.power,
+            size: 15.0,
+            color: kcAccent,
+          ),
+        ),
       ),
       body: body,
     );

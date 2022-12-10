@@ -11,6 +11,7 @@ import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class TabViewController extends StatefulWidget {
   static const String screen = 'tabview';
+  static late BuildContext tabControllerContext;
 
   const TabViewController({super.key});
 
@@ -25,9 +26,10 @@ class _TabViewControllerState extends State<TabViewController> {
   @override
   Widget build(BuildContext context) {
     screen = Screen(context: context);
+    TabViewController.tabControllerContext = context;
 
     return PersistentTabView(
-      context,
+      TabViewController.tabControllerContext,
       backgroundColor: kcPrimaryS4,
       controller: controller,
       onItemSelected: (value) => HapticFeedback.selectionClick(),
