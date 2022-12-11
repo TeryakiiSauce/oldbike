@@ -112,15 +112,17 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
   void initPositionListener() {
     currentPositionListener = location.positionStream.listen(
       (tempPosition) async {
-        // This fixes the issue (app crash) while the phone is moving faster than the updates of the map tiles which most probably happens due to internet disconnectivity
+        // This fixes the issue (app crash) while the phone is moving faster than the updates of the map tiles which most probably happens due to internet disconnectivity.
         if (!await InternetConnectionChecker().hasConnection) return;
 
-        // TODO: check for signal
+        // ignore: todo
+        // TODO: [I give up] check for signal
 
         setState(() {
           position = tempPosition;
         });
       },
+      cancelOnError: false,
     );
   }
 
@@ -166,6 +168,7 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
             FlutterMap(
               options: MapOptions(
                 center: LatLng(position.latitude, position.longitude),
+                // ignore: todo
                 // TODO: [Too lazy to fix since it's unlikely to be a problem] Those two lines can crash the app if the current location is at the max boundaries.
                 bounds: LatLngBounds(
                   LatLng(position.latitude - 0.001, position.longitude + 0.001),
@@ -281,8 +284,6 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
                 : () {
                     if (isPaused) return;
                     HapticFeedback.selectionClick();
-
-                    // TODO: show an alert here
 
                     setState(() {
                       currentPositionListener.pause();
