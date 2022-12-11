@@ -46,6 +46,7 @@ dependencies:
   internet_connection_checker: ^1.0.0+1
   font_awesome_flutter: ^10.3.0
   persistent_bottom_nav_bar: ^5.0.2
+  wakelock: ^0.6.2
 
 dev_dependencies:
   flutter_test:

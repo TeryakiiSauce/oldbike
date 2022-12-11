@@ -14,6 +14,7 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:oldbike/components/platform_based_widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:wakelock/wakelock.dart';
 
 class RideTrackingScreen extends StatefulWidget {
   static const TabScreen screen = TabScreen.track;
@@ -42,10 +43,17 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
     speed: 0.0,
     speedAccuracy: 0.0,
   );
+  // TODO: create a class for the statistics
   double speedInMps = 0.0,
       speedInKph = 0.0,
       distanceTravelled = 0.0,
-      altitude = 0.0;
+      currentAltitude = 0.0,
+      previousAltitude = 0.0,
+      maxAltitude = 0.0,
+      minAltitude = 0.0,
+      uphill = 0.0,
+      downhill = 0.0,
+      elevationGained = 0.0;
   Duration timeTaken = const Duration(seconds: 0);
 
   void initNetworkListener() {
@@ -126,16 +134,37 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
     );
   }
 
+  void statisticsCalculations() {
+    speedInMps = position.speed;
+    speedInKph = speedInMps * 3.6;
+    timeTaken = position.timestamp!.difference(startTime);
+    distanceTravelled = (speedInMps * timeTaken.inSeconds) / 1000;
+    previousAltitude =
+        currentAltitude == 0 ? position.altitude : currentAltitude;
+    currentAltitude = position.altitude;
+
+    if (minAltitude == 0) minAltitude = currentAltitude;
+    if (currentAltitude > maxAltitude) maxAltitude = currentAltitude;
+    if (currentAltitude < minAltitude) minAltitude = currentAltitude;
+
+    if (currentAltitude > previousAltitude) {
+      uphill += currentAltitude - previousAltitude;
+    } else if (currentAltitude < previousAltitude) {
+      downhill += previousAltitude - currentAltitude;
+    }
+
+    elevationGained = uphill - downhill;
+  }
+
   List<Widget> buildTrackScreen() => [
         Expanded(
-          flex: 3,
+          flex: 2,
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: buildMapDisplay(),
           ),
         ),
         Expanded(
-          flex: 1,
           child: buildStatsDisplay(),
         ),
         Expanded(
@@ -212,18 +241,38 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
       );
 
   Widget buildStatsDisplay() {
-    speedInMps = position.speed;
-    speedInKph = speedInMps * 3.6;
-    timeTaken = position.timestamp!.difference(startTime);
-    distanceTravelled = (speedInMps * timeTaken.inSeconds) / 1000;
-    altitude = position.altitude;
+    // speedInMps = position.speed;
+    // speedInKph = speedInMps * 3.6;
+    // timeTaken = position.timestamp!.difference(startTime);
+    // distanceTravelled = (speedInMps * timeTaken.inSeconds) / 1000;
+    // previousAltitude =
+    //     currentAltitude == 0 ? position.altitude : currentAltitude;
+    // currentAltitude = position.altitude;
+
+    // if (minAltitude == 0) minAltitude = currentAltitude;
+    // if (currentAltitude > maxAltitude) maxAltitude = currentAltitude;
+    // if (currentAltitude < minAltitude) minAltitude = currentAltitude;
+
+    // if (currentAltitude > previousAltitude) {
+    //   uphill += currentAltitude - previousAltitude;
+    // } else if (currentAltitude < previousAltitude) {
+    //   downhill += previousAltitude - currentAltitude;
+    // }
+
+    // elevationGained = uphill - downhill;
+    statisticsCalculations();
 
     return Center(
       child: Text(
         'speed: ${CustomFormat.getFormattedNumber(speedInKph, decimalPlace: 2)} km/h\n'
         'time elapsed: ${timeTaken.inMinutes}:${timeTaken.inSeconds % 60} minute(s)\n'
         'distance travelled: ${CustomFormat.getFormattedNumber(distanceTravelled, decimalPlace: 2)} km\n'
-        'altitude: ${CustomFormat.getFormattedNumber(altitude, decimalPlace: 2)} m\n',
+        'altitude: ${CustomFormat.getFormattedNumber(currentAltitude, decimalPlace: 2)} m\n'
+        'min altitude: ${CustomFormat.getFormattedNumber(minAltitude, decimalPlace: 2)} m\n'
+        'max altitude: ${CustomFormat.getFormattedNumber(maxAltitude, decimalPlace: 2)} m\n'
+        'uphill distance: ${CustomFormat.getFormattedNumber(uphill, decimalPlace: 2)} m\n'
+        'downhill distance: ${CustomFormat.getFormattedNumber(downhill, decimalPlace: 2)} m\n'
+        'elevation gained: ${CustomFormat.getFormattedNumber(elevationGained, decimalPlace: 2)} m\n',
         // 'floors climbed: ${position.floor ?? 0} floor(s)\n',
         textAlign: TextAlign.center,
       ),
@@ -241,6 +290,7 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
           IconButton(
             onPressed: () {
               HapticFeedback.selectionClick();
+              Wakelock.enable();
 
               debugPrint(!isPaused ? 'tracking paused' : 'tracker is running');
 
@@ -284,6 +334,7 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
                 : () {
                     if (isPaused) return;
                     HapticFeedback.selectionClick();
+                    Wakelock.disable();
 
                     setState(() {
                       currentPositionListener.pause();
@@ -299,9 +350,14 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
                           PageTransitionAnimation.cupertino,
                       screen: StatisticsScreen(
                         speed: speedInKph,
-                        altitude: altitude,
+                        // altitude: currentAltitude,
                         distance: distanceTravelled,
                         timeElapsed: timeTaken,
+                        downhill: downhill,
+                        uphill: uphill,
+                        elevationGained: elevationGained,
+                        maxAltitude: maxAltitude,
+                        minAltitude: minAltitude,
                       ),
                     );
                   },
