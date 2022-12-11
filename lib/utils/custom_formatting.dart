@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 
 class CustomFormat {
   /// Returns a string number in *one* decimal place if the passed number is between 0 & 10 (0-9). Numbers after `9.9` are formatted to have no decimal places. If the number passed is greater than `99.9`, '99+' will be returned.
-  static String getFormattedResult(double num) {
+  static String getShortNumber(double num) {
     String result = '';
 
     if (num > 99.9) {
@@ -20,6 +20,11 @@ class CustomFormat {
     }
 
     return result;
+  }
+
+  /// Returns a string number with a custom decimal place (default is zero).
+  static String getFormattedNumber(double num, {int decimalPlace = 0}) {
+    return num.toStringAsFixed(decimalPlace);
   }
 
   /// Formats the date passed & returns a `String` date in the following format: `MMM dd, yyyy - HH:mm`

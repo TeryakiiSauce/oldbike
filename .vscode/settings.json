@@ -7,7 +7,10 @@
         "Ceqng",
         "Color",
         "colors",
+        "Dialog",
+        "disconnectivity",
         "geolocator",
+        "latlong",
         "natalart",
         "Okabe",
         "Pramuji",
@@ -16,7 +19,10 @@
         "Septiawan",
         "signup",
         "tabview",
+        "timelapse",
         "vecteezy",
-        "watercolor"
+        "Wakelock",
+        "watercolor",
+        "Wifi"
     ]
 }

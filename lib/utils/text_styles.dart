@@ -33,24 +33,30 @@ const TextStyle ktsSmallLabelWithSpacing = TextStyle(
   letterSpacing: 3.0,
 );
 
+const TextStyle ktsNormal = TextStyle(
+  color: kcWhite100,
+);
+
+const TextStyle ktsNormalDark = TextStyle(
+  color: kcBlack700,
+);
+
 // Card Text Styles
 // === === === === ===
 const TextStyle ktsCardTitle = TextStyle(
   fontSize: 34.0,
   fontWeight: FontWeight.w900,
-  color: kcWhite200,
+  color: kcPrimaryT13,
 );
 
 const TextStyle ktsCardDate = TextStyle(
   fontSize: 15.0,
   fontWeight: FontWeight.w500,
-  color: kcWhite400,
+  color: kcPrimaryT11,
   fontStyle: FontStyle.italic,
 );
 
-const TextStyle ktsCardStats = TextStyle(
-  color: kcWhite100,
-);
+const TextStyle ktsCardStats = ktsNormal;
 
 const TextStyle ktsCardAction = TextStyle(
   color: kcAccentT4,
@@ -75,5 +81,5 @@ const TextStyle ktsProfileTiny = TextStyle(
   fontSize: 12.0,
   fontWeight: FontWeight.w300,
   height: 1.6,
-  color: kcWhite300,
+  color: kcPrimaryT12,
 );

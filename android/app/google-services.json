@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "540069102176",
+    "project_id": "oldbike-bd954",
+    "storage_bucket": "oldbike-bd954.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:540069102176:android:37c3e49a643dc4ae9db905",
+        "android_client_info": {
+          "package_name": "com.teryakiisauce.oldbike"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "540069102176-71gooih4568sadnqhia73ljfrokue8g9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4Cx5PnO5xurUOjwjEh0SuOMEaq_gcqe4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "540069102176-71gooih4568sadnqhia73ljfrokue8g9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "540069102176-knicrd4ctibk2ctf9jvaaun54rabbmlg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.teryakiisauce.oldbike"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

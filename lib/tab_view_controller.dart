@@ -2,16 +2,16 @@
 /// This file controls the content of each tab and displays the appropriate screens.
 /// === === === === ===
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:oldbike/screens/home/home.dart';
-import 'package:oldbike/screens/login-signup/login.dart';
-import 'package:oldbike/screens/profile/profile.dart';
-import 'package:oldbike/screens/tracking/track_ride.dart';
 import 'package:oldbike/utils/colors.dart';
+import 'package:oldbike/models/screen.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class TabViewController extends StatefulWidget {
   static const String screen = 'tabview';
+  static late BuildContext tabControllerContext;
 
   const TabViewController({super.key});
 
@@ -20,119 +20,22 @@ class TabViewController extends StatefulWidget {
 }
 
 class _TabViewControllerState extends State<TabViewController> {
-  int tabviewScreenIndex = 0;
-  late BuildContext currentContext;
-
-  final List<BottomNavigationBarItem> screens = [];
-  final List<Map<String, dynamic>> screensMapsList = [];
-  final Map<String, List<Widget>> actions = {};
-
-  Future<void> switchTabView(int screenIndex) async {
-    await HapticFeedback.selectionClick();
-
-    setState(() {
-      tabviewScreenIndex = screenIndex;
-    });
-  }
-
-  /// To add new tabs adjust the lists/ maps below
-  @override
-  void initState() {
-    super.initState();
-
-    currentContext = context;
-
-    actions.addAll(
-      {
-        'home': [
-          Container(),
-        ],
-        'beginTrackingRide': [
-          Container(),
-        ],
-        'profile': [
-          IconButton(
-            onPressed: () async {
-              await HapticFeedback.lightImpact();
-
-              if (!mounted) {
-                return; // Reference: https://stackoverflow.com/a/73342013
-              }
-
-              Navigator.pushReplacementNamed(
-                  currentContext, LoginScreen.screen);
-            },
-            icon: const Icon(Icons.exit_to_app_rounded),
-          ),
-        ],
-      },
-    );
-
-    screensMapsList.addAll(
-      [
-        {
-          'screenWidget': const HomeScreen(),
-          'title': 'Home',
-          'actions': actions['home'],
-        },
-        {
-          'screenWidget': const BeginTrackingRideScreen(),
-          'title': 'Track',
-          'actions': actions['beginTrackingRide'],
-        },
-        {
-          'screenWidget': const ProfileScreen(),
-          'title': 'Profile',
-          'actions': actions['profile'],
-        },
-      ],
-    );
-
-    screens.addAll(const [
-      BottomNavigationBarItem(
-        icon: Icon(Icons.home_rounded),
-        label: 'Home',
-      ),
-      BottomNavigationBarItem(
-        icon: Icon(Icons.play_arrow_rounded),
-        label: 'Track',
-      ),
-      BottomNavigationBarItem(
-        icon: Icon(Icons.person),
-        label: 'Profile',
-      ),
-    ]);
-  }
+  late Screen screen;
+  PersistentTabController controller = PersistentTabController(initialIndex: 0);
 
   @override
   Widget build(BuildContext context) {
-    final Text appBarTitle = Text(screensMapsList[tabviewScreenIndex]['title']);
-    final List<Widget> actionsList =
-        screensMapsList[tabviewScreenIndex]['actions'];
-    final Widget screenBody =
-        screensMapsList[tabviewScreenIndex]['screenWidget'];
+    screen = Screen(context: context);
+    TabViewController.tabControllerContext = context;
 
-    return Scaffold(
-      backgroundColor: kcPrimaryT3,
-      appBar: AppBar(
-        title: appBarTitle,
-        backgroundColor: kcAppBar,
-        actions: actionsList,
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: kcPrimaryS4,
-        iconSize: 30.0,
-        selectedItemColor: kcAccent,
-        // showSelectedLabels: false,
-        // showUnselectedLabels: false,
-        currentIndex: tabviewScreenIndex,
-        enableFeedback: true,
-        onTap: (value) {
-          switchTabView(value);
-        },
-        items: screens,
-      ),
-      body: screenBody,
+    return PersistentTabView(
+      TabViewController.tabControllerContext,
+      backgroundColor: kcPrimaryS4,
+      controller: controller,
+      onItemSelected: (value) => HapticFeedback.selectionClick(),
+      screens: screen.tabScreens,
+      items: screen.tabIcons,
+      navBarStyle: NavBarStyle.style12,
     );
   }
 }

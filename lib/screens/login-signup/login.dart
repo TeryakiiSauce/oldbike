@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:oldbike/components/app_logo.dart';
 import 'package:oldbike/utils/text_styles.dart';
 import 'package:oldbike/tab_view_controller.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String screen = 'login';
@@ -55,20 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     spacing,
-                    SizedBox(
-                      height: 75.0,
-                      child: Image.asset(
-                          'images/Old Bike App Logo - Transparent 2x.png'),
-                    ),
-                    const SizedBox(
-                      height: 5.0,
-                    ),
-                    const Center(
-                      child: Text(
-                        'OLD BIKE',
-                        style: ktsSmallLabelWithSpacing,
-                      ),
-                    ),
+                    const AppLogo(),
                     spacing,
                     const Text(
                       'Sign In',
@@ -149,15 +138,15 @@ class _LoginScreenState extends State<LoginScreen> {
                               width: 5.0,
                             ),
                             GestureDetector(
-                              onTap: () async {
-                                await HapticFeedback.selectionClick();
-
-                                if (!mounted) {
-                                  return;
-                                }
-
-                                Navigator.pushReplacementNamed(
-                                    context, TabViewController.screen);
+                              onTap: () {
+                                HapticFeedback.selectionClick();
+                                PersistentNavBarNavigator.pushNewScreen(
+                                  context,
+                                  withNavBar: false,
+                                  pageTransitionAnimation:
+                                      PageTransitionAnimation.cupertino,
+                                  screen: const TabViewController(),
+                                );
                               },
                               child: const Text(
                                 'Skip',

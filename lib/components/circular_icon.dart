@@ -25,7 +25,7 @@ class CircularIcon extends StatelessWidget {
     this.size = 6,
     this.borderThickness = 0,
     this.backgroundColor = kcPrimaryS3,
-    this.foregroundColor = kcWhite400,
+    this.foregroundColor = kcPrimaryT11,
     this.invertColors = false,
     this.isVerticalLayout = false,
   });
