@@ -43,9 +43,21 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
     speed: 0.0,
     speedAccuracy: 0.0,
   );
+  Position previousPosition = Position(
+    latitude: 51.509865,
+    longitude: -0.118092,
+    timestamp: DateTime.now(),
+    accuracy: 0.0,
+    altitude: 0.0,
+    heading: 0.0,
+    speed: 0.0,
+    speedAccuracy: 0.0,
+  );
   // TODO: create a class for the statistics
-  double speedInMps = 0.0,
-      speedInKph = 0.0,
+  double currentSpeedInMps = 0.0,
+      currentSpeedInKph = 0.0,
+      averageSpeedInKph = 0.0,
+      topSpeedInKph = 0.0,
       distanceTravelled = 0.0,
       currentAltitude = 0.0,
       previousAltitude = 0.0,
@@ -126,6 +138,11 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
         // ignore: todo
         // TODO: [I give up] check for signal
 
+        if (position.latitude != previousPosition.latitude &&
+            position.longitude != previousPosition.longitude) {
+          previousPosition = position;
+        }
+
         setState(() {
           position = tempPosition;
         });
@@ -135,10 +152,21 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
   }
 
   void statisticsCalculations() {
-    speedInMps = position.speed;
-    speedInKph = speedInMps * 3.6;
+    currentSpeedInMps = position.speed;
+    currentSpeedInKph = currentSpeedInMps * 3.6;
     timeTaken = position.timestamp!.difference(startTime);
-    distanceTravelled = (speedInMps * timeTaken.inSeconds) / 1000;
+    // distanceTravelled = (speedInMps * timeTaken.inSeconds) / 1000;
+    distanceTravelled += Geolocator.distanceBetween(
+          previousPosition.latitude,
+          previousPosition.longitude,
+          position.latitude,
+          position.longitude,
+        ) /
+        1000;
+
+    averageSpeedInKph = distanceTravelled / (timeTaken.inSeconds / 3600);
+    if (currentSpeedInKph > topSpeedInKph) topSpeedInKph = currentSpeedInKph;
+
     previousAltitude =
         currentAltitude == 0 ? position.altitude : currentAltitude;
     currentAltitude = position.altitude;
@@ -264,7 +292,9 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
 
     return Center(
       child: Text(
-        'speed: ${CustomFormat.getFormattedNumber(speedInKph, decimalPlace: 2)} km/h\n'
+        'top speed: ${CustomFormat.getFormattedNumber(topSpeedInKph, decimalPlace: 2)} km/h\n'
+        'current speed: ${CustomFormat.getFormattedNumber(currentSpeedInKph, decimalPlace: 2)} km/h\n'
+        'avg speed: ${CustomFormat.getFormattedNumber(averageSpeedInKph, decimalPlace: 2)} km/h\n'
         'time elapsed: ${timeTaken.inMinutes}:${timeTaken.inSeconds % 60} minute(s)\n'
         'distance travelled: ${CustomFormat.getFormattedNumber(distanceTravelled, decimalPlace: 2)} km\n'
         'altitude: ${CustomFormat.getFormattedNumber(currentAltitude, decimalPlace: 2)} m\n'
@@ -349,7 +379,7 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
                       pageTransitionAnimation:
                           PageTransitionAnimation.cupertino,
                       screen: StatisticsScreen(
-                        speed: speedInKph,
+                        speed: currentSpeedInKph,
                         // altitude: currentAltitude,
                         distance: distanceTravelled,
                         timeElapsed: timeTaken,
@@ -358,6 +388,9 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
                         elevationGained: elevationGained,
                         maxAltitude: maxAltitude,
                         minAltitude: minAltitude,
+                        avgSpeed: averageSpeedInKph,
+                        topSpeed: topSpeedInKph,
+                        upload: false, // TODO: toggle on
                       ),
                     );
                   },

@@ -13,7 +13,9 @@ class StatisticsScreen extends StatefulWidget {
       maxAltitude,
       uphill,
       downhill,
-      elevationGained;
+      elevationGained,
+      topSpeed,
+      avgSpeed;
   final Duration timeElapsed;
   final bool upload;
 
@@ -21,6 +23,8 @@ class StatisticsScreen extends StatefulWidget {
     super.key,
     this.upload = false,
     this.speed = 0.0,
+    this.topSpeed = 0.0,
+    this.avgSpeed = 0.0,
     this.distance = 0.0,
     // this.altitude = 0.0,
     this.minAltitude = 0.0,
@@ -46,10 +50,16 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
       uphill = '',
       downhill = '',
       elevationGained = '',
-      timeElapsed = '';
+      timeElapsed = '',
+      topSpeed = '',
+      avgSpeed = '';
 
   void reformatResults() {
+    topSpeed =
+        CustomFormat.getFormattedNumber(widget.topSpeed, decimalPlace: 2);
     speed = CustomFormat.getFormattedNumber(widget.speed, decimalPlace: 2);
+    avgSpeed =
+        CustomFormat.getFormattedNumber(widget.avgSpeed, decimalPlace: 2);
     distance =
         CustomFormat.getFormattedNumber(widget.distance, decimalPlace: 2);
     // altitude =
@@ -79,7 +89,9 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
         child: Center(
           child: Column(
             children: [
-              Text('speed: $speed km/h'),
+              Text('top speed: $topSpeed km/h'),
+              Text('current speed: $speed km/h'),
+              Text('avg speed: $avgSpeed km/h'),
               Text('time elapsed: $timeElapsed minute(s)'),
               Text('distance: $distance km'),
               Text('min altitude: $minAltitude m'),
