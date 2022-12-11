@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:oldbike/components/app_logo.dart';
+import 'package:oldbike/screens/login-signup/signup.dart';
 import 'package:oldbike/utils/text_styles.dart';
 import 'package:oldbike/tab_view_controller.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
@@ -115,14 +116,20 @@ class _LoginScreenState extends State<LoginScreen> {
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Text('Don\'t have an account?'),
-                            SizedBox(
+                          children: [
+                            const Text('Don\'t have an account?'),
+                            const SizedBox(
                               width: 5.0,
                             ),
-                            Text(
-                              'Create Account',
-                              style: ktsAttentionLabel,
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, SignUpScreen.screen);
+                              },
+                              child: const Text(
+                                'Create Account',
+                                style: ktsAttentionLabel,
+                              ),
                             ),
                           ],
                         ),
