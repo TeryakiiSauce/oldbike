@@ -4,12 +4,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:oldbike/models/ride_stats.dart';
 import 'package:oldbike/models/screen.dart';
 import 'package:oldbike/screens/tracking/statistics.dart';
 import 'package:oldbike/services/location.dart';
 import 'package:oldbike/components/base_screen_template.dart';
 import 'package:oldbike/utils/colors.dart';
-import 'package:oldbike/utils/custom_formatting.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:oldbike/components/platform_based_widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -54,19 +54,28 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
     speedAccuracy: 0.0,
   );
   // TODO: create a class for the statistics
-  double currentSpeedInMps = 0.0,
-      currentSpeedInKph = 0.0,
-      averageSpeedInKph = 0.0,
-      topSpeedInKph = 0.0,
-      distanceTravelled = 0.0,
-      currentAltitude = 0.0,
-      previousAltitude = 0.0,
-      maxAltitude = 0.0,
-      minAltitude = 0.0,
-      uphill = 0.0,
-      downhill = 0.0,
-      elevationGained = 0.0;
-  Duration timeTaken = const Duration(seconds: 0);
+  // double distanceTravelled = 0.0,
+  //     currentAltitude = 0.0,
+  //     previousAltitude = 0.0,
+  //     maxAltitude = 0.0,
+  //     minAltitude = 0.0,
+  //     uphillDistance = 0.0,
+  //     downhillDistance = 0.0,
+  //     topSpeed = 0.0;
+  RideStatistics rideStats = RideStatistics(
+    currentSpeed: 0.0,
+    averageSpeed: 0.0,
+    distanceTravelled: 0.0,
+    downhillDistance: 0.0,
+    elevationGained: 0.0,
+    altitude: 0.0,
+    previousAltitude: 0.0,
+    maxAltitude: 0.0,
+    minAltitude: 0.0,
+    timeElapsed: const Duration(),
+    topSpeed: 0.0,
+    uphillDistance: 0.0,
+  );
 
   void initNetworkListener() {
     networkConnectionListener =
@@ -152,36 +161,49 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
   }
 
   void statisticsCalculations() {
-    currentSpeedInMps = position.speed;
-    currentSpeedInKph = currentSpeedInMps * 3.6;
-    timeTaken = position.timestamp!.difference(startTime);
-    // distanceTravelled = (speedInMps * timeTaken.inSeconds) / 1000;
-    distanceTravelled += Geolocator.distanceBetween(
+    // All speeds units are in Kph
+    rideStats.currentSpeed = position.speed * 3.6;
+    rideStats.timeElapsed = position.timestamp!.difference(startTime);
+    rideStats.distanceTravelled += Geolocator.distanceBetween(
           previousPosition.latitude,
           previousPosition.longitude,
           position.latitude,
           position.longitude,
         ) /
         1000;
+    rideStats.averageSpeed =
+        rideStats.distanceTravelled / (rideStats.timeElapsed.inSeconds / 3600);
 
-    averageSpeedInKph = distanceTravelled / (timeTaken.inSeconds / 3600);
-    if (currentSpeedInKph > topSpeedInKph) topSpeedInKph = currentSpeedInKph;
-
-    previousAltitude =
-        currentAltitude == 0 ? position.altitude : currentAltitude;
-    currentAltitude = position.altitude;
-
-    if (minAltitude == 0) minAltitude = currentAltitude;
-    if (currentAltitude > maxAltitude) maxAltitude = currentAltitude;
-    if (currentAltitude < minAltitude) minAltitude = currentAltitude;
-
-    if (currentAltitude > previousAltitude) {
-      uphill += currentAltitude - previousAltitude;
-    } else if (currentAltitude < previousAltitude) {
-      downhill += previousAltitude - currentAltitude;
+    if (rideStats.currentSpeed > rideStats.topSpeed) {
+      rideStats.topSpeed = rideStats.currentSpeed;
     }
 
-    elevationGained = uphill - downhill;
+    rideStats.previousAltitude =
+        rideStats.altitude == 0.0 ? position.altitude : rideStats.altitude;
+    rideStats.altitude = position.altitude;
+
+    if (rideStats.minAltitude == 0.0) {
+      rideStats.minAltitude = rideStats.altitude;
+    }
+
+    if (rideStats.altitude > rideStats.maxAltitude) {
+      rideStats.maxAltitude = rideStats.altitude;
+    }
+
+    if (rideStats.altitude < rideStats.minAltitude) {
+      rideStats.minAltitude = rideStats.altitude;
+    }
+
+    if (rideStats.altitude > rideStats.previousAltitude) {
+      rideStats.uphillDistance +=
+          rideStats.altitude - rideStats.previousAltitude;
+    } else if (rideStats.altitude < rideStats.previousAltitude) {
+      rideStats.downhillDistance +=
+          rideStats.previousAltitude - rideStats.altitude;
+    }
+
+    rideStats.elevationGained =
+        rideStats.uphillDistance - rideStats.downhillDistance;
   }
 
   List<Widget> buildTrackScreen() => [
@@ -269,41 +291,11 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
       );
 
   Widget buildStatsDisplay() {
-    // speedInMps = position.speed;
-    // speedInKph = speedInMps * 3.6;
-    // timeTaken = position.timestamp!.difference(startTime);
-    // distanceTravelled = (speedInMps * timeTaken.inSeconds) / 1000;
-    // previousAltitude =
-    //     currentAltitude == 0 ? position.altitude : currentAltitude;
-    // currentAltitude = position.altitude;
-
-    // if (minAltitude == 0) minAltitude = currentAltitude;
-    // if (currentAltitude > maxAltitude) maxAltitude = currentAltitude;
-    // if (currentAltitude < minAltitude) minAltitude = currentAltitude;
-
-    // if (currentAltitude > previousAltitude) {
-    //   uphill += currentAltitude - previousAltitude;
-    // } else if (currentAltitude < previousAltitude) {
-    //   downhill += previousAltitude - currentAltitude;
-    // }
-
-    // elevationGained = uphill - downhill;
     statisticsCalculations();
 
     return Center(
       child: Text(
-        'top speed: ${CustomFormat.getFormattedNumber(topSpeedInKph, decimalPlace: 2)} km/h\n'
-        'current speed: ${CustomFormat.getFormattedNumber(currentSpeedInKph, decimalPlace: 2)} km/h\n'
-        'avg speed: ${CustomFormat.getFormattedNumber(averageSpeedInKph, decimalPlace: 2)} km/h\n'
-        'time elapsed: ${timeTaken.inMinutes}:${timeTaken.inSeconds % 60} minute(s)\n'
-        'distance travelled: ${CustomFormat.getFormattedNumber(distanceTravelled, decimalPlace: 2)} km\n'
-        'altitude: ${CustomFormat.getFormattedNumber(currentAltitude, decimalPlace: 2)} m\n'
-        'min altitude: ${CustomFormat.getFormattedNumber(minAltitude, decimalPlace: 2)} m\n'
-        'max altitude: ${CustomFormat.getFormattedNumber(maxAltitude, decimalPlace: 2)} m\n'
-        'uphill distance: ${CustomFormat.getFormattedNumber(uphill, decimalPlace: 2)} m\n'
-        'downhill distance: ${CustomFormat.getFormattedNumber(downhill, decimalPlace: 2)} m\n'
-        'elevation gained: ${CustomFormat.getFormattedNumber(elevationGained, decimalPlace: 2)} m\n',
-        // 'floors climbed: ${position.floor ?? 0} floor(s)\n',
+        rideStats.displayCurrentStats(),
         textAlign: TextAlign.center,
       ),
     );
@@ -379,17 +371,7 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
                       pageTransitionAnimation:
                           PageTransitionAnimation.cupertino,
                       screen: StatisticsScreen(
-                        speed: currentSpeedInKph,
-                        // altitude: currentAltitude,
-                        distance: distanceTravelled,
-                        timeElapsed: timeTaken,
-                        downhill: downhill,
-                        uphill: uphill,
-                        elevationGained: elevationGained,
-                        maxAltitude: maxAltitude,
-                        minAltitude: minAltitude,
-                        avgSpeed: averageSpeedInKph,
-                        topSpeed: topSpeedInKph,
+                        statsInfo: rideStats,
                         upload: false, // TODO: toggle on
                       ),
                     );
