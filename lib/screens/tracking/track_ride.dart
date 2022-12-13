@@ -162,59 +162,62 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
 
   void statisticsCalculations() {
     // All speeds units are in Kph
-    rideStats.currentSpeed = position.speed * 3.6;
-    rideStats.timeElapsed = position.timestamp!.difference(startTime);
-    rideStats.distanceTravelled += Geolocator.distanceBetween(
-          previousPosition.latitude,
-          previousPosition.longitude,
-          position.latitude,
-          position.longitude,
-        ) /
-        1000;
-    rideStats.averageSpeed =
-        rideStats.distanceTravelled / (rideStats.timeElapsed.inSeconds / 3600);
+    setState(() {
+      rideStats.currentSpeed = position.speed * 3.6;
+      rideStats.timeElapsed = position.timestamp!.difference(startTime);
+      rideStats.distanceTravelled += Geolocator.distanceBetween(
+            previousPosition.latitude,
+            previousPosition.longitude,
+            position.latitude,
+            position.longitude,
+          ) /
+          1000;
+      rideStats.averageSpeed = rideStats.distanceTravelled /
+          (rideStats.timeElapsed.inSeconds / 3600);
 
-    if (rideStats.currentSpeed > rideStats.topSpeed) {
-      rideStats.topSpeed = rideStats.currentSpeed;
-    }
+      if (rideStats.currentSpeed > rideStats.topSpeed) {
+        rideStats.topSpeed = rideStats.currentSpeed;
+      }
 
-    rideStats.previousAltitude =
-        rideStats.altitude == 0.0 ? position.altitude : rideStats.altitude;
-    rideStats.altitude = position.altitude;
+      rideStats.previousAltitude =
+          rideStats.altitude == 0.0 ? position.altitude : rideStats.altitude;
+      rideStats.altitude = position.altitude;
 
-    if (rideStats.minAltitude == 0.0) {
-      rideStats.minAltitude = rideStats.altitude;
-    }
+      if (rideStats.minAltitude == 0.0) {
+        rideStats.minAltitude = rideStats.altitude;
+      }
 
-    if (rideStats.altitude > rideStats.maxAltitude) {
-      rideStats.maxAltitude = rideStats.altitude;
-    }
+      if (rideStats.altitude > rideStats.maxAltitude) {
+        rideStats.maxAltitude = rideStats.altitude;
+      }
 
-    if (rideStats.altitude < rideStats.minAltitude) {
-      rideStats.minAltitude = rideStats.altitude;
-    }
+      if (rideStats.altitude < rideStats.minAltitude) {
+        rideStats.minAltitude = rideStats.altitude;
+      }
 
-    if (rideStats.altitude > rideStats.previousAltitude) {
-      rideStats.uphillDistance +=
-          rideStats.altitude - rideStats.previousAltitude;
-    } else if (rideStats.altitude < rideStats.previousAltitude) {
-      rideStats.downhillDistance +=
-          rideStats.previousAltitude - rideStats.altitude;
-    }
+      if (rideStats.altitude > rideStats.previousAltitude) {
+        rideStats.uphillDistance +=
+            rideStats.altitude - rideStats.previousAltitude;
+      } else if (rideStats.altitude < rideStats.previousAltitude) {
+        rideStats.downhillDistance +=
+            rideStats.previousAltitude - rideStats.altitude;
+      }
 
-    rideStats.elevationGained =
-        rideStats.uphillDistance - rideStats.downhillDistance;
+      rideStats.elevationGained =
+          rideStats.uphillDistance - rideStats.downhillDistance;
+    });
   }
 
   List<Widget> buildTrackScreen() => [
         Expanded(
-          flex: 2,
+          flex: 4,
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: buildMapDisplay(),
           ),
         ),
         Expanded(
+          flex: 2,
           child: buildStatsDisplay(),
         ),
         Expanded(
@@ -292,13 +295,7 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
 
   Widget buildStatsDisplay() {
     statisticsCalculations();
-
-    return Center(
-      child: Text(
-        rideStats.displayCurrentStats(),
-        textAlign: TextAlign.center,
-      ),
-    );
+    return rideStats.displayCurrentStats();
   }
 
   Widget buildTrackingButtons() {
