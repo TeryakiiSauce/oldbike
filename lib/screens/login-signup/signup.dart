@@ -16,7 +16,7 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  late User userInfo;
+  late MyUser userInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -24,19 +24,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
       color: Colors.amber,
       child: IconButton(
         onPressed: () {
-          userInfo = User(
-            username: 'teryakii',
+          userInfo = MyUser(
+            // username: 'teryakii',
             firstName: 'teryakii',
             lastName: 'sauce',
             email: 'teryakii@sauce.com',
             gender: 'male',
             bloodGroup: 'A+',
+            password: '123456',
             dob: DateTime.parse('2000-01-01'),
             height: 179,
             weight: 60,
           );
 
           userInfo.createUser();
+          Navigator.pop(context);
         },
         icon: const Icon(
           Icons.arrow_circle_right,

@@ -48,6 +48,7 @@ dependencies:
   persistent_bottom_nav_bar: ^5.0.2
   wakelock: ^0.6.2
   firebase_auth: ^4.2.0
+  cloud_firestore: ^4.2.0
 
 dev_dependencies:
   flutter_test:
