@@ -127,7 +127,6 @@ class RideStatistics {
     );
   }
 
-// TODO: upload to firebase
   Column displaySummarizedStats() {
     convertStatsFormat();
     List<Text> list = [];

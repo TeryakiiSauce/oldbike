@@ -26,6 +26,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
     if (widget.upload) uploadStats();
   }
 
+  // TODO: upload to firebase
   void uploadStats() {}
 
   @override

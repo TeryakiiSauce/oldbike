@@ -53,15 +53,6 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
     speed: 0.0,
     speedAccuracy: 0.0,
   );
-  // TODO: create a class for the statistics
-  // double distanceTravelled = 0.0,
-  //     currentAltitude = 0.0,
-  //     previousAltitude = 0.0,
-  //     maxAltitude = 0.0,
-  //     minAltitude = 0.0,
-  //     uphillDistance = 0.0,
-  //     downhillDistance = 0.0,
-  //     topSpeed = 0.0;
   RideStatistics rideStats = RideStatistics(
     currentSpeed: 0.0,
     averageSpeed: 0.0,
