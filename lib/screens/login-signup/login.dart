@@ -233,10 +233,8 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     // If user is already logged in, immediately go to the home screen.
     if (widget.displaySignInPage) {
-      print('user NOT logged in');
       return displayLogInScreen();
     } else if (user.getUserInfo() != null) {
-      print('user logged in');
       return displayAlreadyLoggedInScreen();
     } else {
       return displayLogInScreen();
