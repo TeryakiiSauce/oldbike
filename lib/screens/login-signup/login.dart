@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:oldbike/components/app_logo.dart';
+import 'package:oldbike/components/custom_notice_screen.dart';
 import 'package:oldbike/components/platform_based_widgets.dart';
 import 'package:oldbike/models/user.dart';
 import 'package:oldbike/screens/login-signup/signup.dart';
 import 'package:oldbike/utils/text_styles.dart';
 import 'package:oldbike/tab_view_controller.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String screen = 'login';
+  final bool displaySignInPage;
 
-  const LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({
+    Key? key,
+    this.displaySignInPage = false,
+  }) : super(key: key);
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -41,8 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget displayLogInScreen() {
     const SizedBox spacing = SizedBox(
       height: 30.0,
     );
@@ -77,6 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       TextFormField(
+                        keyboardType: TextInputType.emailAddress,
                         onChanged: (value) => user.email = value,
                         decoration: const InputDecoration(
                           prefixIcon: Icon(Icons.person),
@@ -119,7 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       HapticFeedback.selectionClick();
 
                       if (await user.signIn()) {
-                        PersistentNavBarNavigator.pushNewScreen(
+                        pushNewScreen(
                           context,
                           withNavBar: false,
                           pageTransitionAnimation:
@@ -179,8 +184,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           GestureDetector(
                             onTap: () {
                               HapticFeedback.selectionClick();
-                              user.signInAnon();
-                              PersistentNavBarNavigator.pushNewScreen(
+                              // user.signInAnon();
+                              pushNewScreen(
                                 context,
                                 withNavBar: false,
                                 pageTransitionAnimation:
@@ -205,5 +210,36 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  Widget displayAlreadyLoggedInScreen() {
+    return CustomNoticeScreen(
+      signOutButton: false,
+      appBarTitle: 'Already Logged In',
+      title: 'Already Logged In',
+      content: 'Press continue to proceed',
+      onButtonPressed: () {
+        pushNewScreen(
+          context,
+          withNavBar: false,
+          pageTransitionAnimation: PageTransitionAnimation.cupertino,
+          screen: const TabViewController(),
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // If user is already logged in, immediately go to the home screen.
+    if (widget.displaySignInPage) {
+      print('user NOT logged in');
+      return displayLogInScreen();
+    } else if (user.getUserInfo() != null) {
+      print('user logged in');
+      return displayAlreadyLoggedInScreen();
+    } else {
+      return displayLogInScreen();
+    }
   }
 }

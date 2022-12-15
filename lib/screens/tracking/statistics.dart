@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:oldbike/models/ride_stats.dart';
 import 'package:oldbike/models/screen.dart';
@@ -27,7 +28,10 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
   }
 
   // TODO: upload to firebase
-  void uploadStats() {}
+  void uploadStats() {
+    final FirebaseFirestore firestore = FirebaseFirestore.instance;
+    firestore.collection('rides_statistics').doc();
+  }
 
   @override
   Widget build(BuildContext context) {

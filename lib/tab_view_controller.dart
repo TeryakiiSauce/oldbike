@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:oldbike/utils/colors.dart';
 import 'package:oldbike/models/screen.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 
 class TabViewController extends StatefulWidget {
   static const String screen = 'tabview';

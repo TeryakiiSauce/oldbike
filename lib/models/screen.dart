@@ -3,7 +3,7 @@ import 'package:oldbike/screens/home/home.dart';
 import 'package:oldbike/screens/profile/profile.dart';
 import 'package:oldbike/screens/tracking/location_usage_agreement.dart';
 import 'package:oldbike/utils/colors.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 
 enum TabScreen {
   home,

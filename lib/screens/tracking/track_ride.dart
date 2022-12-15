@@ -13,7 +13,7 @@ import 'package:oldbike/utils/colors.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:oldbike/components/platform_based_widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 import 'package:wakelock/wakelock.dart';
 
 class RideTrackingScreen extends StatefulWidget {
@@ -353,7 +353,7 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
                       resumedAt = DateTime.now();
                     });
 
-                    PersistentNavBarNavigator.pushNewScreen(
+                    pushNewScreen(
                       context,
                       withNavBar: true,
                       pageTransitionAnimation:
