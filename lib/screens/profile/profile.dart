@@ -1,7 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:oldbike/components/app_logo.dart';
 import 'package:oldbike/components/circular_image.dart';
 import 'package:oldbike/components/labelled_widget.dart';
+import 'package:oldbike/components/no_data_found_notice.dart';
+import 'package:oldbike/models/my_user.dart';
 import 'package:oldbike/models/screen.dart';
 import 'package:oldbike/components/base_screen_template.dart';
 import 'package:oldbike/utils/text_styles.dart';
@@ -18,32 +23,8 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  final List<CompactRideInfoCard> recentRides = [
-    CompactRideInfoCard(
-      date: DateTime.now(),
-      avgSpeed: 9.52353,
-      distTravelled: 13.54246,
-      elevationGained: 7.57290,
-    ),
-    CompactRideInfoCard(
-      date: DateTime.now(),
-      avgSpeed: 12.43294,
-      distTravelled: 17.12309,
-      elevationGained: 12.96256,
-    ),
-    CompactRideInfoCard(
-      date: DateTime.now(),
-      avgSpeed: 17.25903,
-      distTravelled: 26.25905,
-      elevationGained: 46.23498,
-    ),
-    CompactRideInfoCard(
-      date: DateTime.now(),
-      avgSpeed: 9.34615,
-      distTravelled: 22.23004,
-      elevationGained: 26.34013,
-    ),
-  ];
+  final firestore = FirebaseFirestore.instance;
+  final User? userInfo = MyUser(email: '', password: '').getUserInfo();
 
   LabelledWidget buildProfileSummary({double padding = 0}) => LabelledWidget(
         titlePadding: padding,
@@ -61,10 +42,58 @@ class _ProfileScreenState extends State<ProfileScreen> {
         titlePadding: padding,
         childPadding: 0,
         title: 'Recent Rides',
-        child: HorizontalScroll(
-          height: MediaQuery.of(context).size.height * 0.25,
-          itemsCount: recentRides.length,
-          child: recentRides,
+        child: userInfo == null
+            ? const NoDataFoundNotice()
+            : StreamBuilder<QuerySnapshot>(
+                stream: firestore
+                    .collection('rides-statistics')
+                    .doc(userInfo!.uid)
+                    .collection('rides')
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  final rides = snapshot.data?.docs.reversed;
+                  List<Widget> rideStatsWidgets = [];
+
+                  for (var i = 0; i < 3; i++) {
+                    final ride = rides?.elementAt(i);
+
+                    if (ride == null) return Container();
+
+                    final rideStats = CompactRideInfoCard(
+                      date: DateTime.parse(ride.id),
+                      avgSpeed: ride.get('averageSpeed'),
+                      distTravelled: ride.get('distanceTravelled'),
+                      elevationGained: ride.get('elevationGained'),
+                    );
+
+                    rideStatsWidgets.add(rideStats);
+                  }
+
+                  return HorizontalScroll(
+                    height: MediaQuery.of(context).size.height * 0.25,
+                    itemsCount: 3,
+                    child: rideStatsWidgets,
+                  );
+                },
+              ),
+      );
+
+  LabelledWidget buildAllTimeStats({double padding = 0}) => LabelledWidget(
+        titlePadding: padding,
+        childPadding: padding,
+        title: 'All Time Stats',
+        child: CompactRideInfoCard(date: DateTime.now()),
+      );
+
+  Widget moreButton() => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 30.0),
+        child: GestureDetector(
+          onTap: () {},
+          child: const Text(
+            'Show all',
+            textAlign: TextAlign.end,
+            style: ktsCardAction,
+          ),
         ),
       );
 
@@ -115,13 +144,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     const double padding = 20;
+    const spacing = SizedBox(height: padding);
+    const muchMoreSpacing = SizedBox(height: 100.0);
 
     return BaseScreenTemplate(
       title: 'Profile',
       body: ListView(
         children: [
           buildProfileSummary(padding: padding),
+          spacing,
           buildUserRecentRides(padding: padding),
+          userInfo == null ? Container() : spacing,
+          userInfo == null ? Container() : moreButton(),
+          spacing,
+          buildAllTimeStats(padding: padding),
+          muchMoreSpacing,
+          const AppLogo(),
+          spacing,
+          const Text(
+            'Elias Rahma, 2022',
+            textAlign: TextAlign.center,
+            style: ktsProfileTiny,
+          ),
+          muchMoreSpacing,
         ],
       ),
     );
