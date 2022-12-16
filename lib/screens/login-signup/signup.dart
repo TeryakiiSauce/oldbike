@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:oldbike/models/user.dart';
+import 'package:oldbike/models/my_user.dart';
 
 class SignUpScreen extends StatefulWidget {
   static const String screen = 'signup';

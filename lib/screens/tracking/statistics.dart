@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:oldbike/models/my_user.dart';
 import 'package:oldbike/models/ride_stats.dart';
 import 'package:oldbike/models/screen.dart';
 import 'package:oldbike/components/base_screen_template.dart';
@@ -7,12 +9,12 @@ import 'package:oldbike/components/base_screen_template.dart';
 class StatisticsScreen extends StatefulWidget {
   static const TabScreen screen = TabScreen.statistics;
   final RideStatistics statsInfo;
-  final bool upload;
+  final bool doUpload;
 
   const StatisticsScreen({
     super.key,
     required this.statsInfo,
-    this.upload = false,
+    this.doUpload = false,
   });
 
   @override
@@ -20,21 +22,29 @@ class StatisticsScreen extends StatefulWidget {
 }
 
 class _StatisticsScreenState extends State<StatisticsScreen> {
-  @override
-  void initState() {
-    super.initState();
+  final User? userInfo = MyUser(email: '', password: '').getUserInfo();
 
-    if (widget.upload) uploadStats();
-  }
+  void uploadStats() async {
+    debugPrint(
+        'User ID: ${userInfo?.uid}\ndata to be uploaded: ${widget.statsInfo.toJSON()}');
 
-  // TODO: upload to firebase
-  void uploadStats() {
-    final FirebaseFirestore firestore = FirebaseFirestore.instance;
-    firestore.collection('rides_statistics').doc();
+    // Reference: https://stackoverflow.com/a/55328839
+    final CollectionReference rideStatsReference =
+        FirebaseFirestore.instance.collection('/rides-statistics');
+
+    await rideStatsReference
+        .doc(userInfo!.uid)
+        .collection('rides')
+        .doc('${DateTime.now()}')
+        .set(widget.statsInfo.toJSON());
+
+    debugPrint('uploaded ride info to database');
   }
 
   @override
   Widget build(BuildContext context) {
+    if (widget.doUpload) uploadStats();
+
     return BaseScreenTemplate(
       title: 'Your Statistics',
       body: Padding(

@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:oldbike/components/app_logo.dart';
 import 'package:oldbike/components/custom_notice_screen.dart';
 import 'package:oldbike/components/platform_based_widgets.dart';
-import 'package:oldbike/models/user.dart';
+import 'package:oldbike/models/my_user.dart';
 import 'package:oldbike/screens/login-signup/signup.dart';
 import 'package:oldbike/utils/text_styles.dart';
 import 'package:oldbike/tab_view_controller.dart';

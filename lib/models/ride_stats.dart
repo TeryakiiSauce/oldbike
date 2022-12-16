@@ -104,6 +104,20 @@ class RideStatistics {
     timeElapsedStr = '${timeElapsed.inMinutes}:${timeElapsed.inSeconds % 60}';
   }
 
+  Map<String, dynamic> toJSON() {
+    return {
+      'topSpeed': topSpeed,
+      'averageSpeed': averageSpeed,
+      'timeElapsed': timeElapsed.toString(),
+      'distanceTravelled': distanceTravelled,
+      'minimumAltitude': minAltitude,
+      'maxAltitude': maxAltitude,
+      'uphillDistance': uphillDistance,
+      'downhillDistance': downhillDistance,
+      'elevationGained': elevationGained,
+    };
+  }
+
   Column displayCurrentStats() {
     convertStatsFormat();
     List<Text> list = [];

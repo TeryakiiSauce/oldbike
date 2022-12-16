@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:oldbike/models/my_user.dart';
 import 'package:oldbike/models/ride_stats.dart';
 import 'package:oldbike/models/screen.dart';
 import 'package:oldbike/screens/tracking/statistics.dart';
@@ -33,6 +35,7 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
   late StreamSubscription networkConnectionListener;
   late StreamSubscription currentPositionListener;
   bool isConnectedToInternet = false;
+  bool doUpload = false;
   Position position = Position(
     latitude: 51.509865,
     longitude: -0.118092,
@@ -319,11 +322,11 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
                 });
               }
 
-              debugPrint('st = $startTime\n'
-                  'pt = $pausedAt\n'
-                  'rt = $resumedAt\n'
-                  'pd = ${pausedDuration.inSeconds} sec\n'
-                  'new st = $newStartTime');
+              // debugPrint('st = $startTime\n'
+              //     'pt = $pausedAt\n'
+              //     'rt = $resumedAt\n'
+              //     'pd = ${pausedDuration.inSeconds} sec\n'
+              //     'new st = $newStartTime');
 
               setState(() {
                 isPaused
@@ -353,6 +356,26 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
                       resumedAt = DateTime.now();
                     });
 
+                    final User? userInfo =
+                        MyUser(email: '', password: '').getUserInfo();
+
+                    if (userInfo == null) {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          // TODO: [not important] Add a feature to allow user to export their statistics.
+                          return DynamicAlertDialog(
+                            title: const Text('Not Signed In!'),
+                            content: const Text(
+                                'While in anonymous mode, your statistics will not be uploaded.'),
+                            approveAction: () => Navigator.pop(context),
+                          );
+                        },
+                      );
+                    } else {
+                      doUpload = true;
+                    }
+
                     pushNewScreen(
                       context,
                       withNavBar: true,
@@ -360,9 +383,11 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
                           PageTransitionAnimation.cupertino,
                       screen: StatisticsScreen(
                         statsInfo: rideStats,
-                        upload: false, // TODO: toggle on
+                        doUpload: doUpload,
                       ),
                     );
+
+                    doUpload = false;
                   },
             icon: FaIcon(
               FontAwesomeIcons.circleStop,

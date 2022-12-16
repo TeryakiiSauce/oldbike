@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:oldbike/models/user.dart';
+import 'package:oldbike/models/my_user.dart';
 import 'package:oldbike/screens/login-signup/login.dart';
 import 'package:oldbike/utils/colors.dart';
 import 'package:oldbike/utils/text_styles.dart';
@@ -28,8 +28,8 @@ class _BaseScreenTemplateState extends State<BaseScreenTemplate> {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint('user email: ${user.getUserInfo()?.email}');
-    debugPrint('user email: ${user.getUserInfo()?.uid}');
+    // print('user email: ${user.getUserInfo()?.email}');
+    // print('user ID: ${user.getUserInfo()?.uid}');
 
     return Scaffold(
       backgroundColor: kcPrimaryT3,
