@@ -7,6 +7,7 @@ import 'package:oldbike/components/circular_image.dart';
 import 'package:oldbike/components/labelled_widget.dart';
 import 'package:oldbike/components/no_data_found_notice.dart';
 import 'package:oldbike/models/my_user.dart';
+import 'package:oldbike/models/ride_stats.dart';
 import 'package:oldbike/models/screen.dart';
 import 'package:oldbike/components/base_screen_template.dart';
 import 'package:oldbike/utils/text_styles.dart';
@@ -56,17 +57,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                   for (var i = 0; i < 3; i++) {
                     final ride = rides?.elementAt(i);
-
                     if (ride == null) return Container();
 
-                    final rideStats = CompactRideInfoCard(
+                    // final RideStatistics rideStats =
+                    //     ride.data() as RideStatistics;
+                    final RideStatistics rideStats = RideStatistics(
+                      averageSpeed: 0.0,
+                      currentSpeed: 0.0,
+                      distanceTravelled: 0.0,
+                      downhillDistance: 0.0,
+                      elevationGained: 0.0,
+                      altitude: 0.0,
+                      previousAltitude: 0.0,
+                      minAltitude: 0.0,
+                      maxAltitude: 0.0,
+                      timeElapsed: const Duration(),
+                      topSpeed: 0.0,
+                      uphillDistance: 0.0,
+                    );
+                    rideStats.createObjectFromJSON(ride);
+
+                    final rideWidget = RideInfoCard(
                       date: DateTime.parse(ride.id),
-                      avgSpeed: ride.get('averageSpeed'),
-                      distTravelled: ride.get('distanceTravelled'),
-                      elevationGained: ride.get('elevationGained'),
+                      rideStatistics: rideStats,
                     );
 
-                    rideStatsWidgets.add(rideStats);
+                    rideStatsWidgets.add(rideWidget);
                   }
 
                   return HorizontalScroll(
@@ -82,7 +98,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
         titlePadding: padding,
         childPadding: padding,
         title: 'All Time Stats',
-        child: CompactRideInfoCard(date: DateTime.now()),
+        child: RideInfoCard(
+          date: DateTime.now(),
+          makeAsButton: false,
+        ),
       );
 
   Widget moreButton() => Padding(
@@ -156,7 +175,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           buildUserRecentRides(padding: padding),
           userInfo == null ? Container() : spacing,
           userInfo == null ? Container() : moreButton(),
-          spacing,
+          userInfo == null ? spacing : Container(),
           buildAllTimeStats(padding: padding),
           muchMoreSpacing,
           const AppLogo(),

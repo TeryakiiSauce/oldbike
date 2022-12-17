@@ -18,28 +18,28 @@ class _HomeScreenState extends State<HomeScreen> {
 
     cardsList.addAll(
       [
-        RideInfoCard(
+        FeedRideInfoCard(
           username: 'Mason Bart',
           date: DateTime.now(),
           avgSpeed: 7.56360,
           distTravelled: 123.25257,
           elevationGained: 33.52390,
         ),
-        RideInfoCard(
+        FeedRideInfoCard(
           username: 'Tylor Smith',
           date: DateTime.now(),
           avgSpeed: 13.96563,
           distTravelled: 6.46512,
           elevationGained: 1.91236,
         ),
-        RideInfoCard(
+        FeedRideInfoCard(
           username: 'John Wick',
           date: DateTime.now(),
           avgSpeed: 8.34590,
           distTravelled: 7.12490,
           elevationGained: 2.63481,
         ),
-        RideInfoCard(
+        FeedRideInfoCard(
           username: 'May Jordan',
           date: DateTime.now(),
           avgSpeed: 15.79402,

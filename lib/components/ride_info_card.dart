@@ -1,7 +1,7 @@
 ///
 /// This file aims to build a widget similar to what you would see in the _Home_ screen of the application.
 ///
-/// Note: This is similar to the `CompactRideInfoCard()` widget.
+/// Note: This is similar to the `RideInfoCard()` widget.
 /// === === === === ===
 
 import 'package:flutter/material.dart';
@@ -10,7 +10,7 @@ import 'package:oldbike/utils/custom_formatting.dart';
 import 'package:oldbike/utils/text_styles.dart';
 import 'package:oldbike/utils/colors.dart';
 
-class RideInfoCard extends StatelessWidget {
+class FeedRideInfoCard extends StatelessWidget {
   final String username;
   final DateTime date;
   final double avgSpeed, distTravelled, elevationGained;
@@ -21,7 +21,7 @@ class RideInfoCard extends StatelessWidget {
   ///   - The average speed.
   ///   - The distance travelled.
   ///   - The elevation gained.
-  const RideInfoCard({
+  const FeedRideInfoCard({
     super.key,
     required this.username,
     required this.date,

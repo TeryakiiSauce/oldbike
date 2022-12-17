@@ -49,7 +49,7 @@ class Location {
     }
   }
 
-  Future<CustomLocationPermission> getPermission() async {
+  Future<CustomLocationPermission> checkPermission() async {
     bool serviceEnabled;
     LocationPermission permission;
 

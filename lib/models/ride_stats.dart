@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:oldbike/utils/custom_formatting.dart';
+import 'package:duration/duration.dart';
 
 class RideStatistics {
   double topSpeed,
@@ -110,12 +112,24 @@ class RideStatistics {
       'averageSpeed': averageSpeed,
       'timeElapsed': timeElapsed.toString(),
       'distanceTravelled': distanceTravelled,
-      'minimumAltitude': minAltitude,
+      'minAltitude': minAltitude,
       'maxAltitude': maxAltitude,
       'uphillDistance': uphillDistance,
       'downhillDistance': downhillDistance,
       'elevationGained': elevationGained,
     };
+  }
+
+  void createObjectFromJSON(QueryDocumentSnapshot<Object?>? rideStatsDoc) {
+    averageSpeed = rideStatsDoc?.get('averageSpeed');
+    distanceTravelled = rideStatsDoc?.get('distanceTravelled');
+    downhillDistance = rideStatsDoc?.get('downhillDistance');
+    elevationGained = rideStatsDoc?.get('elevationGained');
+    maxAltitude = rideStatsDoc?.get('maxAltitude');
+    minAltitude = rideStatsDoc?.get('minAltitude');
+    timeElapsed = parseTime(rideStatsDoc?.get('timeElapsed'));
+    topSpeed = rideStatsDoc?.get('topSpeed');
+    uphillDistance = rideStatsDoc?.get('uphillDistance');
   }
 
   Column displayCurrentStats() {

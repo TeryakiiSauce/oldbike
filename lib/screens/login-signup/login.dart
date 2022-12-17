@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:oldbike/components/app_logo.dart';
 import 'package:oldbike/components/custom_notice_screen.dart';
-import 'package:oldbike/components/platform_based_widgets.dart';
 import 'package:oldbike/models/my_user.dart';
 import 'package:oldbike/screens/login-signup/signup.dart';
+import 'package:oldbike/utils/popup_alerts.dart';
 import 'package:oldbike/utils/text_styles.dart';
 import 'package:oldbike/tab_view_controller.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
@@ -46,6 +46,51 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  void onLoginButtonPressed() async {
+    // ignore: todo
+    // TODO: [could't figure out a proper way to do it, the package that I've used before is now obsolete] Display spinner when button is clicked
+
+    HapticFeedback.selectionClick();
+
+    if (await user.signIn()) {
+      pushNewScreen(
+        context,
+        withNavBar: false,
+        pageTransitionAnimation: PageTransitionAnimation.cupertino,
+        screen: const TabViewController(),
+      );
+    } else {
+      showDialog(
+        context: context,
+        builder: (context) => CustomPopupAlerts.displayLoginError(context),
+      );
+    }
+  }
+
+  void onSkipButtonPressed() {
+    HapticFeedback.selectionClick();
+    // user.signInAnon();
+    pushNewScreen(
+      context,
+      withNavBar: false,
+      pageTransitionAnimation: PageTransitionAnimation.cupertino,
+      screen: const TabViewController(),
+    );
+  }
+
+  void onCreateAccountButtonPressed() {
+    Navigator.pushNamed(context, SignUpScreen.screen);
+  }
+
+  void onContinueButtonClicked() {
+    pushNewScreen(
+      context,
+      withNavBar: false,
+      pageTransitionAnimation: PageTransitionAnimation.cupertino,
+      screen: const TabViewController(),
+    );
+  }
+
   Widget displayLogInScreen() {
     const SizedBox spacing = SizedBox(
       height: 30.0,
@@ -63,19 +108,27 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  spacing,
-                  const AppLogo(),
-                  spacing,
-                  const Text(
-                    'Sign In',
-                    style: ktsMainTitle,
+                  // Header
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: const [
+                      spacing,
+                      AppLogo(),
+                      spacing,
+                      Text(
+                        'Sign In',
+                        style: ktsMainTitle,
+                      ),
+                      spacing,
+                      Text(
+                        'The app\nfor tracking all\nyour bike rides',
+                        style: ktsNormalLargeLabel,
+                      ),
+                      spacing,
+                    ],
                   ),
-                  spacing,
-                  const Text(
-                    'The app\nfor tracking all\nyour bike rides',
-                    style: ktsNormalLargeLabel,
-                  ),
-                  spacing,
+
+                  // Input Text Fields
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -97,9 +150,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         decoration: InputDecoration(
                           prefixIcon: const Icon(Icons.lock),
                           suffixIcon: GestureDetector(
-                            onTap: () {
-                              togglePasswordVisibility();
-                            },
+                            onTap: () => togglePasswordVisibility(),
                             child: getVisibilityIcon(),
                           ),
                           hintText: 'Password',
@@ -113,45 +164,25 @@ class _LoginScreenState extends State<LoginScreen> {
                         textAlign: TextAlign.right,
                         style: ktsAttentionLabel,
                       ),
+                      spacing,
                     ],
                   ),
-                  spacing,
+
+                  // Login Button
                   IconButton(
-                    onPressed: () async {
-                      // ignore: todo
-                      // TODO: [could't figure out a proper way to do it, the package that I've used before is now obsolete] Display spinner when button is clicked
-
-                      HapticFeedback.selectionClick();
-
-                      if (await user.signIn()) {
-                        pushNewScreen(
-                          context,
-                          withNavBar: false,
-                          pageTransitionAnimation:
-                              PageTransitionAnimation.cupertino,
-                          screen: const TabViewController(),
-                        );
-                      } else {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return const DynamicAlertDialog(
-                              title: Text('Incorrect email or password'),
-                              content: Text(
-                                  'Please retry entering your details correctly.'),
-                            );
-                          },
-                        );
-                      }
-                    },
+                    onPressed: () => onLoginButtonPressed(),
                     icon: const Icon(
                       Icons.arrow_circle_right_rounded,
                       size: 100.0,
                     ),
                   ),
-                  spacing,
+
+                  // 'Create account' + 'Skip' buttons
                   Column(
                     children: [
+                      spacing,
+
+                      // Create Account Button
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -160,9 +191,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             width: 5.0,
                           ),
                           GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamed(context, SignUpScreen.screen);
-                            },
+                            onTap: () => onCreateAccountButtonPressed(),
                             child: const Text(
                               'Create Account',
                               style: ktsAttentionLabel,
@@ -170,10 +199,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ],
                       ),
+
                       const SizedBox(
                         height: 15.0,
                         width: 5.0,
                       ),
+
+                      // Skip Button
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -182,17 +214,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             width: 5.0,
                           ),
                           GestureDetector(
-                            onTap: () {
-                              HapticFeedback.selectionClick();
-                              // user.signInAnon();
-                              pushNewScreen(
-                                context,
-                                withNavBar: false,
-                                pageTransitionAnimation:
-                                    PageTransitionAnimation.cupertino,
-                                screen: const TabViewController(),
-                              );
-                            },
+                            onTap: () => onSkipButtonPressed(),
                             child: const Text(
                               'Skip',
                               style: ktsAttentionLabel,
@@ -200,9 +222,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ],
                       ),
+                      spacing,
                     ],
                   ),
-                  spacing,
                 ],
               ),
             ),
@@ -218,14 +240,7 @@ class _LoginScreenState extends State<LoginScreen> {
       appBarTitle: 'Already Logged In',
       title: 'Already Logged In',
       content: 'Press continue to proceed',
-      onButtonPressed: () {
-        pushNewScreen(
-          context,
-          withNavBar: false,
-          pageTransitionAnimation: PageTransitionAnimation.cupertino,
-          screen: const TabViewController(),
-        );
-      },
+      onButtonPressed: () => onContinueButtonClicked(),
     );
   }
 
