@@ -51,7 +51,7 @@ class CustomPopupAlerts {
     );
   }
 
-  static Widget display(BuildContext context) {
+  static Widget displayConfirmationToDeleteRideStats(BuildContext context) {
     return DynamicAlertDialog(
       title: const Text('Confirmation'),
       content: const Text(

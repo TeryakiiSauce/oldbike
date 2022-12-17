@@ -46,7 +46,9 @@ class RideInfoCard extends StatelessWidget {
               Navigator.pop(context);
               showDialog(
                 context: context,
-                builder: (context) => CustomPopupAlerts.display(context),
+                builder: (context) =>
+                    CustomPopupAlerts.displayConfirmationToDeleteRideStats(
+                        context),
               );
             },
             child: const Text('Delete'),
