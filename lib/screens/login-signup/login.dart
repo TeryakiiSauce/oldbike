@@ -220,8 +220,8 @@ class _LoginScreenState extends State<LoginScreen> {
     return CustomNoticeScreen(
       signOutButton: false,
       appBarTitle: 'Already Logged In',
-      title: 'Already Logged In',
-      content: 'Press continue to proceed',
+      title: 'Already Logged In ⛄︎',
+      content: 'Please press Continue to proceed...',
       onButtonPressed: () => onContinueButtonClicked(),
     );
   }

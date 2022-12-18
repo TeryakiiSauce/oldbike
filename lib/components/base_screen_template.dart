@@ -25,6 +25,10 @@ class BaseScreenTemplate extends StatefulWidget {
 class _BaseScreenTemplateState extends State<BaseScreenTemplate> {
   MyUser user = MyUser(email: '', password: '');
 
+  void goToLoginScreen(NavigatorState navigatorState) {
+    navigatorState.context.go('/');
+  }
+
   @override
   Widget build(BuildContext context) {
     // print('user email: ${user.getUserInfo()?.email}');
@@ -40,10 +44,11 @@ class _BaseScreenTemplateState extends State<BaseScreenTemplate> {
         ),
         trailing: widget.signOutButton
             ? CupertinoButton(
-                onPressed: () {
+                onPressed: () async {
+                  NavigatorState navigatorState = Navigator.of(context);
                   HapticFeedback.lightImpact();
-                  user.signOut();
-                  context.go('/');
+                  await user.signOut();
+                  goToLoginScreen(navigatorState);
                 },
                 child: const Icon(
                   CupertinoIcons.power,

@@ -35,7 +35,7 @@ class MyUser {
     return _auth.currentUser;
   }
 
-  void signOut() async {
+  Future<void> signOut() async {
     await _auth.signOut();
   }
 

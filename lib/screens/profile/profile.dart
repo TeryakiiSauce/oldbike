@@ -25,7 +25,8 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   final firestore = FirebaseFirestore.instance;
-  final User? userInfo = MyUser(email: '', password: '').getUserInfo();
+  final MyUser myUser = MyUser(email: '', password: '');
+  late final User? userInfo;
 
   LabelledWidget buildProfileSummary({double padding = 0}) => LabelledWidget(
         titlePadding: padding,
@@ -168,6 +169,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ],
       );
+
+  @override
+  void initState() {
+    super.initState();
+    userInfo = myUser.getUserInfo();
+  }
 
   @override
   Widget build(BuildContext context) {
