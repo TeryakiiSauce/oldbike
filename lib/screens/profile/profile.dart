@@ -24,9 +24,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  final firestore = FirebaseFirestore.instance;
-  final MyUser myUser = MyUser(email: '', password: '');
-  late final User? userInfo;
+  final User? userInfo = MyUser.getUserInfo();
 
   LabelledWidget buildProfileSummary({double padding = 0}) => LabelledWidget(
         titlePadding: padding,
@@ -47,7 +45,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         child: userInfo == null
             ? const NoDataFoundNotice()
             : StreamBuilder<QuerySnapshot>(
-                stream: firestore
+                stream: FirebaseFirestore.instance
                     .collection('rides-statistics')
                     .doc(userInfo!.uid)
                     .collection('rides')
@@ -112,6 +110,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
         child: rideStatsWidgets,
       );
 
+  Column buildUserInfo() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: const [
+        Text(
+          'Rintarou Okabe',
+          style: ktsProfileTitle,
+        ),
+        Text(
+          '25 years old, Male',
+          style: ktsProfileSubtitle,
+          textHeightBehavior: TextHeightBehavior(
+            applyHeightToFirstAscent: false,
+          ),
+        ),
+        Text(
+          '70 kg\n'
+          '182 cm\n'
+          'O+ Blood group',
+          style: ktsProfileTiny,
+          textHeightBehavior: TextHeightBehavior(
+            applyHeightToFirstAscent: false,
+          ),
+        ),
+      ],
+    );
+  }
+
   Row getProfileDetails() => Row(
         children: [
           Flexible(
@@ -127,40 +153,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
           Flexible(
             flex: 2,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: const [
-                Text(
-                  'Rintarou Okabe',
-                  style: ktsProfileTitle,
-                ),
-                Text(
-                  '25 years old, Male',
-                  style: ktsProfileSubtitle,
-                  textHeightBehavior: TextHeightBehavior(
-                    applyHeightToFirstAscent: false,
-                  ),
-                ),
-                Text(
-                  '70 kg\n'
-                  '182 cm\n'
-                  'O+ Blood group',
-                  style: ktsProfileTiny,
-                  textHeightBehavior: TextHeightBehavior(
-                    applyHeightToFirstAscent: false,
-                  ),
-                ),
-              ],
-            ),
+            child: buildUserInfo(),
           ),
         ],
       );
-
-  @override
-  void initState() {
-    super.initState();
-    userInfo = myUser.getUserInfo();
-  }
 
   @override
   Widget build(BuildContext context) {

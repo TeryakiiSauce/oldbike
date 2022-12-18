@@ -78,7 +78,7 @@ class CustomPopupAlerts {
 
         debugPrint('Deleting document with ID: $date');
 
-        final User? userInfo = MyUser(email: '', password: '').getUserInfo();
+        final User? userInfo = MyUser.getUserInfo();
 
         final CollectionReference rideStatsReference =
             FirebaseFirestore.instance.collection('/rides-statistics');

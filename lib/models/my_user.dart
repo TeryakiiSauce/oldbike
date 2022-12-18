@@ -21,8 +21,10 @@ class MyUser {
     this.weight,
   });
 
-  User? getUserInfo() {
-    return _auth.currentUser;
+  static User? getUserInfo() {
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    debugPrint('current user: ${auth.currentUser}');
+    return auth.currentUser;
   }
 
   Future<void> signOut() async {

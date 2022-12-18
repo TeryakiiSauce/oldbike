@@ -358,8 +358,7 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
                       resumedAt = DateTime.now();
                     });
 
-                    final User? userInfo =
-                        MyUser(email: '', password: '').getUserInfo();
+                    final User? userInfo = MyUser.getUserInfo();
 
                     if (userInfo == null) {
                       // TODO: [not important] Add a feature to allow user to export their statistics.

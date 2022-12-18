@@ -140,7 +140,7 @@ class RideStatistics {
   }
 
   Future<void> uploadRideStats() async {
-    final User? userInfo = MyUser(email: '', password: '').getUserInfo();
+    final User? userInfo = MyUser.getUserInfo();
 
     debugPrint(
       'User ID: ${userInfo?.uid}\ndata to be uploaded: ${toJSON()}',
