@@ -45,11 +45,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         child: userInfo == null
             ? const NoDataFoundNotice()
             : StreamBuilder<QuerySnapshot>(
-                stream: FirebaseFirestore.instance
-                    .collection('rides-statistics')
-                    .doc(userInfo!.uid)
-                    .collection('rides')
-                    .snapshots(),
+                stream: RideStatistics.snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.data == null || snapshot.data?.size == 0) {
                     return showHorizontalScroll(
@@ -110,32 +106,38 @@ class _ProfileScreenState extends State<ProfileScreen> {
         child: rideStatsWidgets,
       );
 
-  Column buildUserInfo() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: const [
-        Text(
-          'Rintarou Okabe',
-          style: ktsProfileTitle,
-        ),
-        Text(
-          '25 years old, Male',
-          style: ktsProfileSubtitle,
-          textHeightBehavior: TextHeightBehavior(
-            applyHeightToFirstAscent: false,
+  StreamBuilder buildUserInfo() {
+    // final MyUser userDetails = MyUser.createObject();
+
+    return StreamBuilder<QuerySnapshot>(
+        // stream: Fire,
+        builder: (context, snapshot) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: const [
+          Text(
+            'Rintarou Okabe',
+            style: ktsProfileTitle,
           ),
-        ),
-        Text(
-          '70 kg\n'
-          '182 cm\n'
-          'O+ Blood group',
-          style: ktsProfileTiny,
-          textHeightBehavior: TextHeightBehavior(
-            applyHeightToFirstAscent: false,
+          Text(
+            '25 years old, Male',
+            style: ktsProfileSubtitle,
+            textHeightBehavior: TextHeightBehavior(
+              applyHeightToFirstAscent: false,
+            ),
           ),
-        ),
-      ],
-    );
+          Text(
+            '70 kg\n'
+            '182 cm\n'
+            'O+ Blood group',
+            style: ktsProfileTiny,
+            textHeightBehavior: TextHeightBehavior(
+              applyHeightToFirstAscent: false,
+            ),
+          ),
+        ],
+      );
+    });
   }
 
   Row getProfileDetails() => Row(

@@ -27,6 +27,32 @@ class MyUser {
     return auth.currentUser;
   }
 
+  static MyUser createObject(QueryDocumentSnapshot<Object?>? userDataDoc) {
+    return MyUser(
+      email: '',
+      password: '',
+      firstName: userDataDoc?.get('firstName'),
+      lastName: userDataDoc?.get('lastName'),
+      gender: userDataDoc?.get('gender'),
+      bloodGroup: userDataDoc?.get('bloodGroup'),
+      dob: userDataDoc?.get('dob'),
+      height: userDataDoc?.get('height'),
+      weight: userDataDoc?.get('weight'),
+    );
+  }
+
+  static CollectionReference collection() {
+    return FirebaseFirestore.instance.collection('/users-info');
+  }
+
+  static DocumentReference<Object?> document(String? email) {
+    return collection().doc(email);
+  }
+
+  static Stream<QuerySnapshot<Object?>> snapshots() {
+    return collection().snapshots();
+  }
+
   Future<void> signOut() async {
     await _auth.signOut();
   }
@@ -69,29 +95,12 @@ class MyUser {
     };
   }
 
-  static MyUser createObject(QueryDocumentSnapshot<Object?>? userDataDoc) =>
-      MyUser(
-        email: '',
-        password: '',
-        firstName: userDataDoc?.get('firstName'),
-        lastName: userDataDoc?.get('lastName'),
-        gender: userDataDoc?.get('gender'),
-        bloodGroup: userDataDoc?.get('bloodGroup'),
-        dob: userDataDoc?.get('dob'),
-        height: userDataDoc?.get('height'),
-        weight: userDataDoc?.get('weight'),
-      );
-
   Future<void> uploadUserInfo() async {
     debugPrint(
       'Email: $email\ndata to be uploaded: ${toJSON()}',
     );
 
-    // Reference: https://stackoverflow.com/a/55328839
-    final CollectionReference userInfoReference =
-        FirebaseFirestore.instance.collection('/users-info');
-
-    await userInfoReference.doc(email).set(toJSON());
+    await MyUser.document(email).set(toJSON());
 
     debugPrint('uploaded user info to database');
   }

@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:oldbike/models/my_user.dart';
 import 'package:oldbike/utils/custom_formatting.dart';
@@ -48,21 +47,37 @@ class RideStatistics {
   });
 
   static RideStatistics createObject(
-          QueryDocumentSnapshot<Object?>? rideStatsDoc) =>
-      RideStatistics(
-        averageSpeed: rideStatsDoc?.get('averageSpeed'),
-        currentSpeed: 0.0,
-        distanceTravelled: rideStatsDoc?.get('distanceTravelled'),
-        downhillDistance: rideStatsDoc?.get('downhillDistance'),
-        elevationGained: rideStatsDoc?.get('elevationGained'),
-        altitude: 0.0,
-        previousAltitude: 0.0,
-        minAltitude: rideStatsDoc?.get('minAltitude'),
-        maxAltitude: rideStatsDoc?.get('maxAltitude'),
-        timeElapsed: parseTime(rideStatsDoc?.get('timeElapsed')),
-        topSpeed: rideStatsDoc?.get('topSpeed'),
-        uphillDistance: rideStatsDoc?.get('uphillDistance'),
-      );
+      QueryDocumentSnapshot<Object?>? rideStatsDoc) {
+    return RideStatistics(
+      averageSpeed: rideStatsDoc?.get('averageSpeed'),
+      currentSpeed: 0.0,
+      distanceTravelled: rideStatsDoc?.get('distanceTravelled'),
+      downhillDistance: rideStatsDoc?.get('downhillDistance'),
+      elevationGained: rideStatsDoc?.get('elevationGained'),
+      altitude: 0.0,
+      previousAltitude: 0.0,
+      minAltitude: rideStatsDoc?.get('minAltitude'),
+      maxAltitude: rideStatsDoc?.get('maxAltitude'),
+      timeElapsed: parseTime(rideStatsDoc?.get('timeElapsed')),
+      topSpeed: rideStatsDoc?.get('topSpeed'),
+      uphillDistance: rideStatsDoc?.get('uphillDistance'),
+    );
+  }
+
+  static CollectionReference<Map<String, dynamic>> collection() {
+    return FirebaseFirestore.instance
+        .collection('/rides-statistics')
+        .doc(MyUser.getUserInfo()?.uid)
+        .collection('rides');
+  }
+
+  static DocumentReference<Map<String, dynamic>> document(DateTime dateID) {
+    return collection().doc('$dateID');
+  }
+
+  static Stream<QuerySnapshot<Map<String, dynamic>>> snapshots() {
+    return collection().snapshots();
+  }
 
   void convertStatsFormat() {
     const int decimalPlaces = 2;
@@ -140,21 +155,11 @@ class RideStatistics {
   }
 
   Future<void> uploadRideStats() async {
-    final User? userInfo = MyUser.getUserInfo();
-
     debugPrint(
-      'User ID: ${userInfo?.uid}\ndata to be uploaded: ${toJSON()}',
+      'User ID: ${MyUser.getUserInfo()?.uid}\ndata to be uploaded: ${toJSON()}',
     );
 
-    // Reference: https://stackoverflow.com/a/55328839
-    final CollectionReference rideStatsReference =
-        FirebaseFirestore.instance.collection('/rides-statistics');
-
-    await rideStatsReference
-        .doc(userInfo!.uid)
-        .collection('rides')
-        .doc('${DateTime.now()}')
-        .set(toJSON());
+    await RideStatistics.document(DateTime.now()).set(toJSON());
 
     debugPrint('uploaded ride stats to database');
   }

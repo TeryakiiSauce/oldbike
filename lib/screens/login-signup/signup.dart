@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:oldbike/components/base_screen_template.dart';
 import 'package:oldbike/models/my_user.dart';
@@ -20,18 +19,6 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   late MyUser userInfo;
-
-  // Future<bool> uploadUserInfo(MyUser userInfo) async {
-  //   // TODO: check validation here
-
-  //   final CollectionReference userInfoReference =
-  //       FirebaseFirestore.instance.collection('/users-info');
-
-  //   await userInfoReference.doc(userInfo.email).set(userInfo.toJSON());
-
-  //   debugPrint('uploaded user info to database');
-  //   return false;
-  // }
 
   void onSignUpButtonPressed() async {
     userInfo = MyUser(
