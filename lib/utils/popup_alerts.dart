@@ -54,7 +54,7 @@ class CustomPopupAlerts {
     return DynamicAlertDialog(
       title: const Text('Not Signed In!'),
       content: const Text(
-        'While in anonymous mode, your statistics will not be uploaded.',
+        'While in anonymous mode, your statistics will not be uploaded. \n\nHowever, your statistics will still be publicly visible, anonymously.',
       ),
       showCancelButton: false,
       approveText: 'Got it!',
