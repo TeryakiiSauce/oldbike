@@ -48,7 +48,10 @@ class RideInfoCard extends StatelessWidget {
                 context: context,
                 builder: (context) =>
                     CustomPopupAlerts.displayConfirmationToDeleteRideStats(
-                        context),
+                  context,
+                  date,
+                  rideStatistics,
+                ),
               );
             },
             child: const Text('Delete'),

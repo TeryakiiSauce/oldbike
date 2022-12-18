@@ -52,15 +52,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     .collection('rides')
                     .snapshots(),
                 builder: (context, snapshot) {
+                  if (snapshot.data == null || snapshot.data?.size == 0) {
+                    return showHorizontalScroll(
+                      itemsCount: 0,
+                      rideStatsWidgets: [],
+                    );
+                  }
+
                   final rides = snapshot.data?.docs.reversed;
                   List<Widget> rideStatsWidgets = [];
+                  int itemsCount = 3;
 
-                  for (var i = 0; i < 3; i++) {
-                    final ride = rides?.elementAt(i);
-                    if (ride == null) return Container();
+                  for (var i = 0; i < itemsCount; i++) {
+                    if (rides == null) return Container();
+                    if (rides.isEmpty) {
+                      snapshot.data; // forgot what this is for ngl
+                      return Container();
+                    }
+                    if (rides.length < itemsCount) itemsCount = rides.length;
 
-                    // final RideStatistics rideStats =
-                    //     ride.data() as RideStatistics;
+                    final ride = rides.elementAt(i);
+
                     final RideStatistics rideStats = RideStatistics(
                       averageSpeed: 0.0,
                       currentSpeed: 0.0,
@@ -85,10 +97,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     rideStatsWidgets.add(rideWidget);
                   }
 
-                  return HorizontalScroll(
-                    height: MediaQuery.of(context).size.height * 0.25,
-                    itemsCount: 3,
-                    child: rideStatsWidgets,
+                  return showHorizontalScroll(
+                    itemsCount: itemsCount,
+                    rideStatsWidgets: rideStatsWidgets,
                   );
                 },
               ),
@@ -104,16 +115,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
       );
 
-  Widget moreButton() => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30.0),
-        child: GestureDetector(
-          onTap: () {},
-          child: const Text(
-            'Show all',
-            textAlign: TextAlign.end,
-            style: ktsCardAction,
-          ),
-        ),
+  Widget showHorizontalScroll({
+    required int itemsCount,
+    required List<Widget> rideStatsWidgets,
+  }) =>
+      HorizontalScroll(
+        height: MediaQuery.of(context).size.height * 0.25,
+        itemsCount: itemsCount,
+        child: rideStatsWidgets,
       );
 
   Row getProfileDetails() => Row(
@@ -173,9 +182,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
           buildProfileSummary(padding: padding),
           spacing,
           buildUserRecentRides(padding: padding),
-          userInfo == null ? Container() : spacing,
-          userInfo == null ? Container() : moreButton(),
-          userInfo == null ? spacing : Container(),
           buildAllTimeStats(padding: padding),
           muchMoreSpacing,
           const AppLogo(),

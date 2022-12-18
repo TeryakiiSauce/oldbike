@@ -27,6 +27,9 @@ class NoDataFoundNotice extends StatelessWidget {
             'No data were found!\nLogin & start tracking your rides.',
             textAlign: TextAlign.center,
           ),
+          SizedBox(
+            height: 20.0,
+          ),
         ],
       ),
     );
