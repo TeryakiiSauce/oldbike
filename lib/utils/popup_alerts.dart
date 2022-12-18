@@ -5,6 +5,7 @@ import 'package:oldbike/components/platform_based_widgets.dart';
 import 'package:oldbike/models/my_user.dart';
 import 'package:oldbike/models/ride_stats.dart';
 import 'package:oldbike/services/location.dart';
+import 'package:oldbike/utils/extensions.dart';
 
 class CustomPopupAlerts {
   static Widget displayLocationDisabledAlert(
@@ -89,6 +90,29 @@ class CustomPopupAlerts {
 
         navigator.pop();
       },
+    );
+  }
+
+  static Widget displayRegistrationError(BuildContext context, String error) {
+    // To get the error title
+    final regExpToGetTitle = RegExp('/.*]');
+    final regExpToReplaceDashesWithSpaces = RegExp('-');
+    String? title = regExpToGetTitle.stringMatch(error) ?? 'Error Occurred';
+    title = title.substring(1, title.length - 1);
+    title = title.replaceAll(regExpToReplaceDashesWithSpaces, ' ');
+    title = title.toTitleCase();
+
+    // To get the error description
+    final regExpToGetDesc = RegExp('] .*');
+    String? desc =
+        regExpToGetDesc.stringMatch(error) ?? 'An unknown error has occurred.';
+    desc = desc.substring(2);
+    desc = desc.toCapitalized();
+    if (!desc.endsWith('.')) desc += '.';
+
+    return DynamicAlertDialog(
+      title: Text(title),
+      content: Text(desc),
     );
   }
 }

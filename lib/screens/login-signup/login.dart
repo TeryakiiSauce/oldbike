@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:oldbike/components/app_logo.dart';
 import 'package:oldbike/components/custom_notice_screen.dart';
 import 'package:oldbike/models/my_user.dart';
-import 'package:oldbike/screens/login-signup/signup.dart';
 import 'package:oldbike/utils/popup_alerts.dart';
 import 'package:oldbike/utils/text_styles.dart';
-import 'package:oldbike/tab_view_controller.dart';
-import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String screen = 'login';
@@ -53,12 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
     HapticFeedback.selectionClick();
 
     if (await user.signIn()) {
-      pushNewScreen(
-        context,
-        withNavBar: false,
-        pageTransitionAnimation: PageTransitionAnimation.cupertino,
-        screen: const TabViewController(),
-      );
+      context.go('/tab-view-controller');
     } else {
       showDialog(
         context: context,
@@ -69,26 +62,15 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void onSkipButtonPressed() {
     HapticFeedback.selectionClick();
-    // user.signInAnon();
-    pushNewScreen(
-      context,
-      withNavBar: false,
-      pageTransitionAnimation: PageTransitionAnimation.cupertino,
-      screen: const TabViewController(),
-    );
+    context.go('/tab-view-controller');
   }
 
   void onCreateAccountButtonPressed() {
-    Navigator.pushNamed(context, SignUpScreen.screen);
+    context.push('/signup');
   }
 
   void onContinueButtonClicked() {
-    pushNewScreen(
-      context,
-      withNavBar: false,
-      pageTransitionAnimation: PageTransitionAnimation.cupertino,
-      screen: const TabViewController(),
-    );
+    context.go('/tab-view-controller');
   }
 
   Widget displayLogInScreen() {

@@ -39,31 +39,38 @@ class MyUser {
     await _auth.signOut();
   }
 
-  void createUser() async {
+  Future<String> createUser() async {
     try {
       await _auth.createUserWithEmailAndPassword(
-          email: email!, password: password!);
+        email: email!,
+        password: password!,
+      );
+      return '';
     } catch (e) {
-      debugPrint('Error: $e');
+      debugPrint('Error occurred: $e');
+      return 'Error occurred: $e';
     }
   }
 
   Future<bool> signIn() async {
     try {
       await _auth.signInWithEmailAndPassword(
-          email: email!, password: password!);
+        email: email!,
+        password: password!,
+      );
       return true;
     } catch (e) {
-      debugPrint('Error: $e');
+      debugPrint('Error occurred: $e');
       return false;
     }
   }
 
+  // [Deprecated] Not used
   void signInAnon() async {
     try {
       await _auth.signInAnonymously();
     } catch (e) {
-      debugPrint('Error: $e');
+      debugPrint('Error occurred: $e');
     }
   }
 }
