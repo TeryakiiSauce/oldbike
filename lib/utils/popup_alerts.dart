@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:oldbike/components/platform_based_widgets.dart';
 import 'package:oldbike/models/my_user.dart';
 import 'package:oldbike/models/ride_stats.dart';
@@ -23,14 +24,14 @@ class CustomPopupAlerts {
             : 'Permission to location is required in order for the app to track your progress. Click Ok to open App settings.',
       ),
       cancelAction: () {
-        Navigator.pop(context);
+        context.pop();
       },
       approveAction: () {
         isServiceDisabled
             ? location.openPrivacyLocationSettings()
             : location.openAppSettings();
 
-        Navigator.pop(context);
+        context.pop();
       },
     );
   }
@@ -45,7 +46,7 @@ class CustomPopupAlerts {
       ),
       showCancelButton: false,
       approveText: 'Retry',
-      approveAction: () => Navigator.pop(context),
+      approveAction: () => context.pop(),
     );
   }
 
@@ -57,7 +58,7 @@ class CustomPopupAlerts {
       ),
       showCancelButton: false,
       approveText: 'Got it!',
-      approveAction: () => Navigator.pop(context),
+      approveAction: () => context.pop(),
     );
   }
 
@@ -70,7 +71,7 @@ class CustomPopupAlerts {
       ),
       isApproveDestructive: true,
       approveText: 'Delete',
-      cancelAction: () => Navigator.pop(context),
+      cancelAction: () => context.pop(),
       approveAction: () async {
         // Reference: https://github.com/flutter/flutter/issues/110694#issuecomment-1233341081
         final NavigatorState navigator = Navigator.of(context);
@@ -113,6 +114,9 @@ class CustomPopupAlerts {
     return DynamicAlertDialog(
       title: Text(title),
       content: Text(desc),
+      showApproveButton: false,
+      cancelText: 'Fix now',
+      cancelAction: () => context.pop(),
     );
   }
 }
