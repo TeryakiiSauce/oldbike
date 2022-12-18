@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:oldbike/components/app_logo.dart';
@@ -24,8 +23,6 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  final User? userInfo = MyUser.getUserInfo();
-
   LabelledWidget buildProfileSummary({double padding = 0}) => LabelledWidget(
         titlePadding: padding,
         childPadding: padding,
@@ -42,7 +39,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         titlePadding: padding,
         childPadding: 0,
         title: 'Recent Rides',
-        child: userInfo == null
+        child: MyUser.getUserInfo() == null
             ? const NoDataFoundNotice()
             : StreamBuilder<QuerySnapshot>(
                 stream: RideStatistics.snapshots(),
