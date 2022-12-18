@@ -104,37 +104,35 @@ class _ProfileScreenState extends State<ProfileScreen> {
       );
 
   StreamBuilder buildUserInfo() {
-    // final MyUser userDetails = MyUser.createObject();
-
     return StreamBuilder<QuerySnapshot>(
-        // stream: Fire,
+        stream: MyUser.snapshots(),
         builder: (context, snapshot) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: const [
-          Text(
-            'Rintarou Okabe',
-            style: ktsProfileTitle,
-          ),
-          Text(
-            '25 years old, Male',
-            style: ktsProfileSubtitle,
-            textHeightBehavior: TextHeightBehavior(
-              applyHeightToFirstAscent: false,
-            ),
-          ),
-          Text(
-            '70 kg\n'
-            '182 cm\n'
-            'O+ Blood group',
-            style: ktsProfileTiny,
-            textHeightBehavior: TextHeightBehavior(
-              applyHeightToFirstAscent: false,
-            ),
-          ),
-        ],
-      );
-    });
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: const [
+              Text(
+                'Rintarou Okabe',
+                style: ktsProfileTitle,
+              ),
+              Text(
+                '25 years old, Male',
+                style: ktsProfileSubtitle,
+                textHeightBehavior: TextHeightBehavior(
+                  applyHeightToFirstAscent: false,
+                ),
+              ),
+              Text(
+                '70 kg\n'
+                '182 cm\n'
+                'O+ Blood group',
+                style: ktsProfileTiny,
+                textHeightBehavior: TextHeightBehavior(
+                  applyHeightToFirstAscent: false,
+                ),
+              ),
+            ],
+          );
+        });
   }
 
   Row getProfileDetails() => Row(
