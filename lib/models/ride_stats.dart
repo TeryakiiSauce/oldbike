@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:oldbike/models/my_user.dart';
 import 'package:oldbike/utils/custom_formatting.dart';
 import 'package:duration/duration.dart';
 
@@ -44,6 +46,23 @@ class RideStatistics {
     required this.topSpeed,
     required this.uphillDistance,
   });
+
+  static RideStatistics createObject(
+          QueryDocumentSnapshot<Object?>? rideStatsDoc) =>
+      RideStatistics(
+        averageSpeed: rideStatsDoc?.get('averageSpeed'),
+        currentSpeed: 0.0,
+        distanceTravelled: rideStatsDoc?.get('distanceTravelled'),
+        downhillDistance: rideStatsDoc?.get('downhillDistance'),
+        elevationGained: rideStatsDoc?.get('elevationGained'),
+        altitude: 0.0,
+        previousAltitude: 0.0,
+        minAltitude: rideStatsDoc?.get('minAltitude'),
+        maxAltitude: rideStatsDoc?.get('maxAltitude'),
+        timeElapsed: parseTime(rideStatsDoc?.get('timeElapsed')),
+        topSpeed: rideStatsDoc?.get('topSpeed'),
+        uphillDistance: rideStatsDoc?.get('uphillDistance'),
+      );
 
   void convertStatsFormat() {
     const int decimalPlaces = 2;
@@ -120,16 +139,24 @@ class RideStatistics {
     };
   }
 
-  void createObjectFromJSON(QueryDocumentSnapshot<Object?>? rideStatsDoc) {
-    averageSpeed = rideStatsDoc?.get('averageSpeed');
-    distanceTravelled = rideStatsDoc?.get('distanceTravelled');
-    downhillDistance = rideStatsDoc?.get('downhillDistance');
-    elevationGained = rideStatsDoc?.get('elevationGained');
-    maxAltitude = rideStatsDoc?.get('maxAltitude');
-    minAltitude = rideStatsDoc?.get('minAltitude');
-    timeElapsed = parseTime(rideStatsDoc?.get('timeElapsed'));
-    topSpeed = rideStatsDoc?.get('topSpeed');
-    uphillDistance = rideStatsDoc?.get('uphillDistance');
+  Future<void> uploadRideStats() async {
+    final User? userInfo = MyUser(email: '', password: '').getUserInfo();
+
+    debugPrint(
+      'User ID: ${userInfo?.uid}\ndata to be uploaded: ${toJSON()}',
+    );
+
+    // Reference: https://stackoverflow.com/a/55328839
+    final CollectionReference rideStatsReference =
+        FirebaseFirestore.instance.collection('/rides-statistics');
+
+    await rideStatsReference
+        .doc(userInfo!.uid)
+        .collection('rides')
+        .doc('${DateTime.now()}')
+        .set(toJSON());
+
+    debugPrint('uploaded ride stats to database');
   }
 
   Column displayCurrentStats() {

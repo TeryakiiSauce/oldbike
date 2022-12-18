@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:oldbike/components/base_screen_template.dart';
 import 'package:oldbike/models/my_user.dart';
@@ -20,6 +21,48 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   late MyUser userInfo;
 
+  // Future<bool> uploadUserInfo(MyUser userInfo) async {
+  //   // TODO: check validation here
+
+  //   final CollectionReference userInfoReference =
+  //       FirebaseFirestore.instance.collection('/users-info');
+
+  //   await userInfoReference.doc(userInfo.email).set(userInfo.toJSON());
+
+  //   debugPrint('uploaded user info to database');
+  //   return false;
+  // }
+
+  void onSignUpButtonPressed() async {
+    userInfo = MyUser(
+      firstName: 'teryakii',
+      lastName: 'sauce',
+      email: 'teryakii@sauce.com',
+      gender: 'male',
+      bloodGroup: 'A+',
+      password: '123456',
+      dob: DateTime.parse('2000-01-02'),
+      height: 179,
+      weight: 60,
+    );
+
+    final NavigatorState navigator = Navigator.of(context);
+    final String error = await userInfo.createUser();
+
+    if (error != '') {
+      await showDialog(
+        context: navigator.context,
+        builder: (context) => CustomPopupAlerts.displayRegistrationError(
+          context,
+          error,
+        ),
+      );
+    }
+
+    await userInfo.uploadUserInfo();
+    navigator.pop();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BaseScreenTemplate(
@@ -30,36 +73,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         width: double.infinity,
         color: Colors.amber,
         child: IconButton(
-          onPressed: () async {
-            userInfo = MyUser(
-              // username: 'teryakii',
-              firstName: 'teryakii',
-              lastName: 'sauce',
-              email: 'teryakii@sauce.com',
-              gender: 'male',
-              bloodGroup: 'A+',
-              password: '123456',
-              dob: DateTime.parse('2000-01-01'),
-              height: 179,
-              weight: 60,
-            );
-
-            final NavigatorState navigator = Navigator.of(context);
-            final String error = await userInfo.createUser();
-
-            if (error != '') {
-              showDialog(
-                context: navigator.context,
-                builder: (context) =>
-                    CustomPopupAlerts.displayRegistrationError(
-                  context,
-                  error,
-                ),
-              );
-            } else {
-              navigator.pop();
-            }
-          },
+          onPressed: () => onSignUpButtonPressed(),
           icon: const Icon(
             Icons.arrow_circle_right,
             size: 100.0,

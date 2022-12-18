@@ -73,22 +73,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     if (rides.length < itemsCount) itemsCount = rides.length;
 
                     final ride = rides.elementAt(i);
-
-                    final RideStatistics rideStats = RideStatistics(
-                      averageSpeed: 0.0,
-                      currentSpeed: 0.0,
-                      distanceTravelled: 0.0,
-                      downhillDistance: 0.0,
-                      elevationGained: 0.0,
-                      altitude: 0.0,
-                      previousAltitude: 0.0,
-                      minAltitude: 0.0,
-                      maxAltitude: 0.0,
-                      timeElapsed: const Duration(),
-                      topSpeed: 0.0,
-                      uphillDistance: 0.0,
-                    );
-                    rideStats.createObjectFromJSON(ride);
+                    final RideStatistics rideStats =
+                        RideStatistics.createObject(ride);
 
                     final rideWidget = RideInfoCard(
                       date: DateTime.parse(ride.id),
