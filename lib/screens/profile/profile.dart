@@ -172,7 +172,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     const double padding = 20;
-    const spacing = SizedBox(height: padding);
+    const spacing = SizedBox(height: 5);
     const muchMoreSpacing = SizedBox(height: 100.0);
 
     return BaseScreenTemplate(
