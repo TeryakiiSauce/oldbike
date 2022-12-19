@@ -37,7 +37,7 @@ class FeedRideInfoCard extends StatelessWidget {
     );
 
     return Container(
-      margin: const EdgeInsets.all(20.0),
+      margin: const EdgeInsets.all(30.0),
       padding: const EdgeInsets.all(20.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20.0),

@@ -43,7 +43,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 separatorBuilder: (context, index) {
                   return const Divider(
                     thickness: 4.0,
-                    height: 5.0,
                     indent: 150,
                     endIndent: 150,
                   );
