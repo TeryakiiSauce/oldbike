@@ -20,11 +20,13 @@ class RideInfoCard extends StatelessWidget {
   final DateTime date;
   final bool hasBorder, detailed, makeAsButton;
   final double height;
+  final VoidCallback onClicked;
 
   /// Creates a card similar to what you would see in the _Recent Rides_ section of the _Profile_ screen.
   const RideInfoCard({
     Key? key,
     required this.date,
+    required this.onClicked,
     this.rideStatistics,
     this.height = 0.0,
     this.hasBorder = true,
@@ -73,6 +75,7 @@ class RideInfoCard extends StatelessWidget {
     return GestureDetector(
       onLongPress: () =>
           makeAsButton ? displayDeletePrompt(context) : Container(),
+      onTap: onClicked,
       child: Stack(
         children: [
           // Background image

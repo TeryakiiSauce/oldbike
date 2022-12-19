@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:oldbike/components/app_logo.dart';
 import 'package:oldbike/components/circular_image.dart';
 import 'package:oldbike/components/labelled_widget.dart';
@@ -8,11 +9,13 @@ import 'package:oldbike/models/my_user.dart';
 import 'package:oldbike/models/ride_stats.dart';
 import 'package:oldbike/models/screen.dart';
 import 'package:oldbike/components/base_screen_template.dart';
+import 'package:oldbike/screens/tracking/statistics.dart';
 import 'package:oldbike/utils/custom_formatting.dart';
 import 'package:oldbike/utils/text_styles.dart';
 import 'package:oldbike/components/horizontal_scroll.dart';
 import 'package:oldbike/components/ride_info_card.dart';
 import 'package:oldbike/utils/extensions.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 
 class ProfileScreen extends StatefulWidget {
   static const TabScreen screen = TabScreen.profile;
@@ -71,6 +74,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     final rideWidget = RideInfoCard(
                       date: DateTime.parse(ride.id),
                       rideStatistics: rideStats,
+                      onClicked: () {
+                        HapticFeedback.selectionClick();
+                        pushNewScreen(
+                          context,
+                          withNavBar: true,
+                          pageTransitionAnimation:
+                              PageTransitionAnimation.cupertino,
+                          screen: StatisticsScreen(
+                            statsInfo: rideStats,
+                            doUpload: false,
+                            doPost: false,
+                          ),
+                        );
+                      },
                     );
 
                     rideStatsWidgets.add(rideWidget);
@@ -91,6 +108,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         child: RideInfoCard(
           date: DateTime.now(),
           makeAsButton: false,
+          onClicked: () => HapticFeedback.selectionClick(),
         ),
       );
 

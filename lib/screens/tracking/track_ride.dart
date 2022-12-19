@@ -211,7 +211,7 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
 
   List<Widget> buildTrackScreen() => [
         Expanded(
-          flex: isLocationPermissionGranted ? 4 : 1,
+          flex: isLocationPermissionGranted ? 3 : 1,
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: buildMapDisplay(),
@@ -219,7 +219,7 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
         ),
         isLocationPermissionGranted
             ? Expanded(
-                flex: 2,
+                flex: 1,
                 child: buildStatsDisplay(),
               )
             : Container(),
@@ -249,7 +249,7 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
       ];
 
   Widget buildMapDisplay() => ClipRRect(
-        borderRadius: BorderRadius.circular(16.0),
+        borderRadius: BorderRadius.circular(20.0),
         child: Stack(
           children: [
             FlutterMap(

@@ -1,10 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:oldbike/components/no_data_found_notice.dart';
 import 'package:oldbike/components/feed_ride_info_card.dart';
 import 'package:oldbike/models/ride_stats.dart';
 import 'package:oldbike/models/screen.dart';
 import 'package:oldbike/components/base_screen_template.dart';
+import 'package:oldbike/screens/tracking/statistics.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 
 class HomeScreen extends StatefulWidget {
   static const TabScreen screen = TabScreen.home;
@@ -60,6 +63,21 @@ class _HomeScreenState extends State<HomeScreen> {
                     title: title,
                     date: date,
                     rideStatistics: rideStatistics,
+                    onClicked: () {
+                      HapticFeedback.selectionClick();
+                      pushNewScreen(
+                        context,
+                        withNavBar: true,
+                        pageTransitionAnimation:
+                            PageTransitionAnimation.cupertino,
+                        screen: StatisticsScreen(
+                          screenTitle: '$title\'s Statistics',
+                          statsInfo: rideStatistics,
+                          doUpload: false,
+                          doPost: false,
+                        ),
+                      );
+                    },
                   );
                 },
               );

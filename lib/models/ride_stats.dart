@@ -187,16 +187,16 @@ class RideStatistics {
     List<Text> list = [];
 
     list.addAll([
-      Text('top speed: $topSpeedStr km/h'),
+      // Text('top speed: $topSpeedStr km/h'),
       Text('current speed: $currentSpeedStr km/h'),
-      Text('avg speed: $averageSpeedStr km/h'),
+      // Text('avg speed: $averageSpeedStr km/h'),
       Text('time elapsed: $timeElapsedStr minute(s)'),
       Text('distance travelled: $distanceTravelledStr km'),
-      Text('altitude: $altitudeStr m'),
-      Text('min altitude: $minAltitudeStr m'),
-      Text('max altitude: $maxAltitudeStr m'),
-      Text('uphill distance: $uphillDistanceStr m'),
-      Text('downhill distance: $downhillDistanceStr m'),
+      Text('current altitude: $altitudeStr m'),
+      // Text('min altitude: $minAltitudeStr m'),
+      // Text('max altitude: $maxAltitudeStr m'),
+      // Text('uphill distance: $uphillDistanceStr m'),
+      // Text('downhill distance: $downhillDistanceStr m'),
       Text('elevation gained: $elevationGainedStr m'),
     ]);
 

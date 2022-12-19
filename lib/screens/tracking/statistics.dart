@@ -3,15 +3,20 @@ import 'package:oldbike/models/ride_stats.dart';
 import 'package:oldbike/models/screen.dart';
 import 'package:oldbike/components/base_screen_template.dart';
 
+// TODO: if possible, design this screen
+
 class StatisticsScreen extends StatefulWidget {
   static const TabScreen screen = TabScreen.statistics;
   final RideStatistics statsInfo;
-  final bool doUpload;
+  final bool doUpload, doPost;
+  final String screenTitle;
 
   const StatisticsScreen({
     super.key,
     required this.statsInfo,
+    this.screenTitle = 'Your Statistics',
     this.doUpload = false,
+    this.doPost = true,
   });
 
   @override
@@ -22,10 +27,10 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
   @override
   Widget build(BuildContext context) {
     if (widget.doUpload) widget.statsInfo.uploadRideStats();
-    widget.statsInfo.postLatestRide();
+    if (widget.doPost) widget.statsInfo.postLatestRide();
 
     return BaseScreenTemplate(
-      title: 'Your Statistics',
+      title: widget.screenTitle,
       body: Padding(
         padding: const EdgeInsets.all(30.0),
         child: Center(
