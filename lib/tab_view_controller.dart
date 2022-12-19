@@ -42,7 +42,7 @@ class _TabViewControllerState extends State<TabViewController> {
       TabViewController.tabControllerContext,
       backgroundColor: kcPrimaryS4,
       controller: controller,
-      onItemSelected: (value) => HapticFeedback.selectionClick(),
+      onItemSelected: (value) async => await HapticFeedback.selectionClick(),
       screens: screen.tabScreens,
       items: screen.tabIcons,
       navBarStyle: NavBarStyle.style12,
