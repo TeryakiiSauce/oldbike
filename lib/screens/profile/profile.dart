@@ -9,9 +9,11 @@ import 'package:oldbike/models/my_user.dart';
 import 'package:oldbike/models/ride_stats.dart';
 import 'package:oldbike/models/screen.dart';
 import 'package:oldbike/components/base_screen_template.dart';
+import 'package:oldbike/utils/custom_formatting.dart';
 import 'package:oldbike/utils/text_styles.dart';
 import 'package:oldbike/components/horizontal_scroll.dart';
 import 'package:oldbike/components/compact_ride_info_card.dart';
+import 'package:oldbike/utils/extensions.dart';
 
 class ProfileScreen extends StatefulWidget {
   static const TabScreen screen = TabScreen.profile;
@@ -103,36 +105,89 @@ class _ProfileScreenState extends State<ProfileScreen> {
         child: rideStatsWidgets,
       );
 
-  StreamBuilder buildUserInfo() {
-    return StreamBuilder<QuerySnapshot>(
-        stream: MyUser.snapshots(),
-        builder: (context, snapshot) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: const [
-              Text(
-                'Rintarou Okabe',
-                style: ktsProfileTitle,
-              ),
-              Text(
-                '25 years old, Male',
-                style: ktsProfileSubtitle,
-                textHeightBehavior: TextHeightBehavior(
-                  applyHeightToFirstAscent: false,
-                ),
-              ),
-              Text(
-                '70 kg\n'
-                '182 cm\n'
-                'O+ Blood group',
-                style: ktsProfileTiny,
-                textHeightBehavior: TextHeightBehavior(
-                  applyHeightToFirstAscent: false,
-                ),
-              ),
-            ],
+  Column userInfoWidget({
+    required String fullName,
+    required DateTime dob,
+    required String gender,
+    required String bloodGroup,
+    required double weight,
+    required double height,
+  }) {
+    // Find user's age
+    String age = CustomFormat.getFormattedNumber(
+      DateTime.now().difference(dob).inDays / 365.24,
+      decimalPlace: 0,
+    );
+
+    String weightStr = CustomFormat.getFormattedNumber(
+      weight,
+      decimalPlace: 0,
+    );
+
+    String heightStr = CustomFormat.getFormattedNumber(
+      height,
+      decimalPlace: 0,
+    );
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text(
+          fullName,
+          style: ktsProfileTitle,
+        ),
+        Text(
+          '$age years old, ${gender.toCapitalized()}',
+          style: ktsProfileSubtitle,
+          textHeightBehavior: const TextHeightBehavior(
+            applyHeightToFirstAscent: false,
+          ),
+        ),
+        Text(
+          'Weight: $weightStr Kg\n'
+          'Height: $heightStr Cm\n'
+          'Blood group: $bloodGroup',
+          style: ktsProfileTiny,
+          textHeightBehavior: const TextHeightBehavior(
+            applyHeightToFirstAscent: false,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget buildUserInfo() {
+    return MyUser.getUserInfo() == null
+        ? userInfoWidget(
+            fullName: 'Rintarou Okabe',
+            dob: DateTime.parse('1991-12-14'),
+            gender: 'Male',
+            bloodGroup: 'A',
+            height: 177,
+            weight: 59,
+          )
+        : StreamBuilder<QuerySnapshot>(
+            stream: MyUser.snapshots(),
+            builder: (context, snapshot) {
+              final MyUser userInfo =
+                  MyUser.createObject(snapshot.data?.docs.elementAt(0));
+
+              // Full Name
+              String firstName =
+                  userInfo.firstName?.toCapitalized() ?? 'Rintarou';
+              String lastName = userInfo.lastName?.toCapitalized() ?? 'Okabe';
+              String fullName = '$firstName $lastName';
+
+              return userInfoWidget(
+                fullName: fullName,
+                dob: userInfo.dob ?? DateTime.parse('1991-12-14'),
+                gender: userInfo.gender ?? 'Male',
+                bloodGroup: userInfo.bloodGroup ?? 'A',
+                height: userInfo.height ?? 177,
+                weight: userInfo.weight ?? 59,
+              );
+            },
           );
-        });
   }
 
   Row getProfileDetails() => Row(

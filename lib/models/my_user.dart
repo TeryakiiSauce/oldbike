@@ -35,7 +35,7 @@ class MyUser {
       lastName: userDataDoc?.get('lastName'),
       gender: userDataDoc?.get('gender'),
       bloodGroup: userDataDoc?.get('bloodGroup'),
-      dob: userDataDoc?.get('dob'),
+      dob: (userDataDoc?.get('dob') as Timestamp?)?.toDate(),
       height: userDataDoc?.get('height'),
       weight: userDataDoc?.get('weight'),
     );
