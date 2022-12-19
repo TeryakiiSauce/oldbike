@@ -15,6 +15,7 @@ import 'package:oldbike/components/base_screen_template.dart';
 import 'package:oldbike/utils/colors.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:oldbike/utils/extensions.dart';
 import 'package:oldbike/utils/popup_alerts.dart';
 import 'package:oldbike/utils/text_styles.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
@@ -151,7 +152,7 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
     );
   }
 
-  void statisticsCalculations() {
+  void statisticsCalculations() async {
     // All speeds units are in Kph
     rideStats.currentSpeed = position.speed * 3.6;
     rideStats.timeElapsed = position.timestamp!.difference(startTime);
@@ -195,6 +196,17 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
 
     rideStats.elevationGained =
         rideStats.uphillDistance - rideStats.downhillDistance;
+
+    if (MyUser.getUserInfo() == null) return;
+
+    final User? userInfo = MyUser.getUserInfo();
+    final userDetails = await MyUser.document(userInfo?.email).get();
+
+    String firstName = userDetails.get('firstName').toString().toCapitalized();
+    String lastName = userDetails.get('lastName').toString().toCapitalized();
+    String fullName = '$firstName $lastName';
+
+    rideStats.cyclistName = fullName;
   }
 
   List<Widget> buildTrackScreen() => [
@@ -358,9 +370,7 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
                       resumedAt = DateTime.now();
                     });
 
-                    final User? userInfo = MyUser.getUserInfo();
-
-                    if (userInfo == null) {
+                    if (MyUser.getUserInfo() == null) {
                       // TODO: [not important] Add a feature to allow user to export their statistics.
                       showDialog(
                         context: context,

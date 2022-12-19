@@ -22,6 +22,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
   @override
   Widget build(BuildContext context) {
     if (widget.doUpload) widget.statsInfo.uploadRideStats();
+    widget.statsInfo.postLatestRide();
 
     return BaseScreenTemplate(
       title: 'Your Statistics',

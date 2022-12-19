@@ -17,6 +17,7 @@ class RideStatistics {
       downhillDistance,
       elevationGained;
   Duration timeElapsed;
+  String cyclistName;
 
   String? topSpeedStr,
       currentSpeedStr,
@@ -32,6 +33,7 @@ class RideStatistics {
       timeElapsedStr;
 
   RideStatistics({
+    this.cyclistName = 'Anonymous',
     required this.averageSpeed,
     required this.currentSpeed,
     required this.distanceTravelled,
@@ -49,6 +51,7 @@ class RideStatistics {
   static RideStatistics createObject(
       QueryDocumentSnapshot<Object?>? rideStatsDoc) {
     return RideStatistics(
+      cyclistName: rideStatsDoc?.get('cyclistName'),
       averageSpeed: rideStatsDoc?.get('averageSpeed'),
       currentSpeed: 0.0,
       distanceTravelled: rideStatsDoc?.get('distanceTravelled'),
@@ -69,6 +72,10 @@ class RideStatistics {
         .collection('/rides-statistics')
         .doc(MyUser.getUserInfo()?.uid)
         .collection('rides');
+  }
+
+  static CollectionReference<Map<String, dynamic>> latestPostsCollection() {
+    return FirebaseFirestore.instance.collection('/latest-posts');
   }
 
   static DocumentReference<Map<String, dynamic>> document(DateTime dateID) {
@@ -142,6 +149,7 @@ class RideStatistics {
 
   Map<String, dynamic> toJSON() {
     return {
+      'cyclistName': cyclistName,
       'topSpeed': topSpeed,
       'averageSpeed': averageSpeed,
       'timeElapsed': timeElapsed.toString(),
@@ -162,6 +170,10 @@ class RideStatistics {
     await RideStatistics.document(DateTime.now()).set(toJSON());
 
     debugPrint('uploaded ride stats to database');
+  }
+
+  Future<void> postLatestRide() async {
+    await RideStatistics.latestPostsCollection().doc().set(toJSON());
   }
 
   Column displayCurrentStats() {
