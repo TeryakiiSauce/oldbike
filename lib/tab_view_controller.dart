@@ -7,13 +7,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:oldbike/utils/colors.dart';
 import 'package:oldbike/models/screen.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 
 class TabViewController extends StatefulWidget {
   static const String screen = 'tabview';
   static late BuildContext tabControllerContext;
+  final int currentTabIndex;
 
-  const TabViewController({super.key});
+  const TabViewController({
+    super.key,
+    this.currentTabIndex = 0,
+  });
 
   @override
   State<TabViewController> createState() => _TabViewControllerState();
@@ -21,7 +25,13 @@ class TabViewController extends StatefulWidget {
 
 class _TabViewControllerState extends State<TabViewController> {
   late Screen screen;
-  PersistentTabController controller = PersistentTabController(initialIndex: 0);
+  late PersistentTabController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = PersistentTabController(initialIndex: widget.currentTabIndex);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +42,7 @@ class _TabViewControllerState extends State<TabViewController> {
       TabViewController.tabControllerContext,
       backgroundColor: kcPrimaryS4,
       controller: controller,
-      onItemSelected: (value) => HapticFeedback.selectionClick(),
+      onItemSelected: (value) async => await HapticFeedback.selectionClick(),
       screens: screen.tabScreens,
       items: screen.tabIcons,
       navBarStyle: NavBarStyle.style12,

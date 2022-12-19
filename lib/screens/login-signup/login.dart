@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:oldbike/components/app_logo.dart';
-import 'package:oldbike/components/platform_based_widgets.dart';
-import 'package:oldbike/models/user.dart';
-import 'package:oldbike/screens/login-signup/signup.dart';
+import 'package:oldbike/components/custom_notice_screen.dart';
+import 'package:oldbike/models/my_user.dart';
+import 'package:oldbike/utils/popup_alerts.dart';
 import 'package:oldbike/utils/text_styles.dart';
-import 'package:oldbike/tab_view_controller.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String screen = 'login';
+  final bool displaySignInPage;
 
-  const LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({
+    Key? key,
+    this.displaySignInPage = false,
+  }) : super(key: key);
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -41,8 +44,43 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
+  void onLoginButtonPressed() async {
+    // ignore: todo
+    // TODO: [could't figure out a proper way to do it, the package that I've used before is now obsolete] Display spinner when button is clicked
+
+    HapticFeedback.selectionClick();
+
+    if (await user.signIn()) {
+      context.go('/tab-view-controller');
+    } else {
+      showDialog(
+        context: context,
+        builder: (context) => CustomPopupAlerts.displayLoginError(context),
+      );
+    }
+  }
+
+  void onSkipButtonPressed() {
+    HapticFeedback.selectionClick();
+    context.go('/tab-view-controller');
+  }
+
+  void onCreateAccountButtonPressed() {
+    HapticFeedback.selectionClick();
+    context.push('/signup');
+  }
+
+  void onContinueButtonClicked() {
+    HapticFeedback.lightImpact();
+    context.go('/tab-view-controller');
+  }
+
+  void onForgotPasswordButtonClicked() {
+    HapticFeedback.lightImpact();
+    // TODO: [medium priority] create functionality
+  }
+
+  Widget displayLogInScreen() {
     const SizedBox spacing = SizedBox(
       height: 30.0,
     );
@@ -59,24 +97,33 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  spacing,
-                  const AppLogo(),
-                  spacing,
-                  const Text(
-                    'Sign In',
-                    style: ktsMainTitle,
+                  // Header
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: const [
+                      spacing,
+                      AppLogo(),
+                      spacing,
+                      Text(
+                        'Sign In',
+                        style: ktsMainTitle,
+                      ),
+                      spacing,
+                      Text(
+                        'The app\nfor tracking all\nyour bike rides',
+                        style: ktsNormalLargeLabel,
+                      ),
+                      spacing,
+                    ],
                   ),
-                  spacing,
-                  const Text(
-                    'The app\nfor tracking all\nyour bike rides',
-                    style: ktsNormalLargeLabel,
-                  ),
-                  spacing,
+
+                  // Input Text Fields
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       TextFormField(
+                        keyboardType: TextInputType.emailAddress,
                         onChanged: (value) => user.email = value,
                         decoration: const InputDecoration(
                           prefixIcon: Icon(Icons.person),
@@ -92,9 +139,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         decoration: InputDecoration(
                           prefixIcon: const Icon(Icons.lock),
                           suffixIcon: GestureDetector(
-                            onTap: () {
-                              togglePasswordVisibility();
-                            },
+                            onTap: () => togglePasswordVisibility(),
                             child: getVisibilityIcon(),
                           ),
                           hintText: 'Password',
@@ -103,50 +148,33 @@ class _LoginScreenState extends State<LoginScreen> {
                       const SizedBox(
                         height: 15.0,
                       ),
-                      const Text(
-                        'Forgot Password?',
-                        textAlign: TextAlign.right,
-                        style: ktsAttentionLabel,
+                      GestureDetector(
+                        onTap: () => onForgotPasswordButtonClicked(),
+                        child: const Text(
+                          'Forgot Password?',
+                          textAlign: TextAlign.right,
+                          style: ktsAttentionLabel,
+                        ),
                       ),
+                      spacing,
                     ],
                   ),
-                  spacing,
+
+                  // Login Button
                   IconButton(
-                    onPressed: () async {
-                      // ignore: todo
-                      // TODO: [could't figure out a proper way to do it, the package that I've used before is now obsolete] Display spinner when button is clicked
-
-                      HapticFeedback.selectionClick();
-
-                      if (await user.signIn()) {
-                        PersistentNavBarNavigator.pushNewScreen(
-                          context,
-                          withNavBar: false,
-                          pageTransitionAnimation:
-                              PageTransitionAnimation.cupertino,
-                          screen: const TabViewController(),
-                        );
-                      } else {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return const DynamicAlertDialog(
-                              title: Text('Incorrect email or password'),
-                              content: Text(
-                                  'Please retry entering your details correctly.'),
-                            );
-                          },
-                        );
-                      }
-                    },
+                    onPressed: () => onLoginButtonPressed(),
                     icon: const Icon(
                       Icons.arrow_circle_right_rounded,
                       size: 100.0,
                     ),
                   ),
-                  spacing,
+
+                  // 'Create account' + 'Skip' buttons
                   Column(
                     children: [
+                      spacing,
+
+                      // Create Account Button
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -155,9 +183,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             width: 5.0,
                           ),
                           GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamed(context, SignUpScreen.screen);
-                            },
+                            onTap: () => onCreateAccountButtonPressed(),
                             child: const Text(
                               'Create Account',
                               style: ktsAttentionLabel,
@@ -165,10 +191,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ],
                       ),
+
                       const SizedBox(
                         height: 15.0,
                         width: 5.0,
                       ),
+
+                      // Skip Button
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -177,17 +206,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             width: 5.0,
                           ),
                           GestureDetector(
-                            onTap: () {
-                              HapticFeedback.selectionClick();
-                              user.signInAnon();
-                              PersistentNavBarNavigator.pushNewScreen(
-                                context,
-                                withNavBar: false,
-                                pageTransitionAnimation:
-                                    PageTransitionAnimation.cupertino,
-                                screen: const TabViewController(),
-                              );
-                            },
+                            onTap: () => onSkipButtonPressed(),
                             child: const Text(
                               'Skip',
                               style: ktsAttentionLabel,
@@ -195,9 +214,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ],
                       ),
+                      spacing,
                     ],
                   ),
-                  spacing,
                 ],
               ),
             ),
@@ -205,5 +224,27 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  Widget displayAlreadyLoggedInScreen() {
+    return CustomNoticeScreen(
+      signOutButton: false,
+      appBarTitle: 'Already Logged In',
+      title: 'Already Logged In ⛄︎',
+      content: 'Please press Continue to proceed...',
+      onButtonPressed: () => onContinueButtonClicked(),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // If user is already logged in, immediately go to the home screen.
+    if (widget.displaySignInPage) {
+      return displayLogInScreen();
+    } else if (MyUser.getUserInfo() != null) {
+      return displayAlreadyLoggedInScreen();
+    } else {
+      return displayLogInScreen();
+    }
   }
 }

@@ -1,9 +1,12 @@
 import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:oldbike/components/app_logo.dart';
+import 'package:oldbike/models/my_user.dart';
 import 'package:oldbike/models/ride_stats.dart';
 import 'package:oldbike/models/screen.dart';
 import 'package:oldbike/screens/tracking/statistics.dart';
@@ -11,9 +14,11 @@ import 'package:oldbike/services/location.dart';
 import 'package:oldbike/components/base_screen_template.dart';
 import 'package:oldbike/utils/colors.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:oldbike/components/platform_based_widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:oldbike/utils/extensions.dart';
+import 'package:oldbike/utils/popup_alerts.dart';
+import 'package:oldbike/utils/text_styles.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 import 'package:wakelock/wakelock.dart';
 
 class RideTrackingScreen extends StatefulWidget {
@@ -27,12 +32,15 @@ class RideTrackingScreen extends StatefulWidget {
 
 class _RideTrackingScreenState extends State<RideTrackingScreen> {
   final Location location = Location();
+  late CustomLocationPermission permission;
   DateTime startTime = DateTime.now(),
       pausedAt = DateTime.now(),
       resumedAt = DateTime.now();
   late StreamSubscription networkConnectionListener;
   late StreamSubscription currentPositionListener;
   bool isConnectedToInternet = false;
+  bool doUpload = false;
+  bool isLocationPermissionGranted = false;
   Position position = Position(
     latitude: 51.509865,
     longitude: -0.118092,
@@ -92,11 +100,16 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
     );
   }
 
-  void getPermission() async {
-    CustomLocationPermission permission = await location.getPermission();
+  Future<void> getPermission() async {
+    permission = await location.checkPermission();
 
-    if (permission != CustomLocationPermission.always &&
-        permission != CustomLocationPermission.whileInUse) {
+    setState(() {
+      isLocationPermissionGranted =
+          permission == CustomLocationPermission.always ||
+              permission == CustomLocationPermission.whileInUse;
+    });
+
+    if (!isLocationPermissionGranted) {
       debugPrint('location permissions are NOT granted');
 
       showDialog(
@@ -105,23 +118,8 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
           final bool isServiceDisabled =
               permission == CustomLocationPermission.serviceDisabled;
 
-          return DynamicAlertDialog(
-            title: Text(
-              isServiceDisabled ? 'Location Disabled' : 'Location Permission',
-            ),
-            content: Text(
-              isServiceDisabled
-                  ? 'Access to location is disabled on your phone. Click Ok and turn on location service and then give the app permission to use location data.'
-                  : 'Permission to location is required in order for the app to track your progress. Click Ok to open App settings.',
-            ),
-            approveAction: () {
-              isServiceDisabled
-                  ? location.openPrivacyLocationSettings()
-                  : location.openAppSettings();
-
-              Navigator.pop(context);
-            },
-          );
+          return CustomPopupAlerts.displayLocationDisabledAlert(
+              context, isServiceDisabled, location);
         },
       );
     } else {
@@ -148,71 +146,87 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
         });
       },
       cancelOnError: false,
+      onError: (e) {
+        return 'Error occurred: $e';
+      },
     );
   }
 
-  void statisticsCalculations() {
+  void statisticsCalculations() async {
     // All speeds units are in Kph
-    setState(() {
-      rideStats.currentSpeed = position.speed * 3.6;
-      rideStats.timeElapsed = position.timestamp!.difference(startTime);
-      rideStats.distanceTravelled += Geolocator.distanceBetween(
-            previousPosition.latitude,
-            previousPosition.longitude,
-            position.latitude,
-            position.longitude,
-          ) /
-          1000;
-      rideStats.averageSpeed = rideStats.distanceTravelled /
-          (rideStats.timeElapsed.inSeconds / 3600);
+    rideStats.currentSpeed = position.speed * 3.6;
+    rideStats.timeElapsed = position.timestamp!.difference(startTime);
+    rideStats.distanceTravelled += Geolocator.distanceBetween(
+          previousPosition.latitude,
+          previousPosition.longitude,
+          position.latitude,
+          position.longitude,
+        ) /
+        1000;
+    rideStats.averageSpeed =
+        rideStats.distanceTravelled / (rideStats.timeElapsed.inSeconds / 3600);
 
-      if (rideStats.currentSpeed > rideStats.topSpeed) {
-        rideStats.topSpeed = rideStats.currentSpeed;
-      }
+    if (rideStats.currentSpeed > rideStats.topSpeed) {
+      rideStats.topSpeed = rideStats.currentSpeed;
+    }
 
-      rideStats.previousAltitude =
-          rideStats.altitude == 0.0 ? position.altitude : rideStats.altitude;
-      rideStats.altitude = position.altitude;
+    rideStats.previousAltitude =
+        rideStats.altitude == 0.0 ? position.altitude : rideStats.altitude;
+    rideStats.altitude = position.altitude;
 
-      if (rideStats.minAltitude == 0.0) {
-        rideStats.minAltitude = rideStats.altitude;
-      }
+    if (rideStats.minAltitude == 0.0) {
+      rideStats.minAltitude = rideStats.altitude;
+    }
 
-      if (rideStats.altitude > rideStats.maxAltitude) {
-        rideStats.maxAltitude = rideStats.altitude;
-      }
+    if (rideStats.altitude > rideStats.maxAltitude) {
+      rideStats.maxAltitude = rideStats.altitude;
+    }
 
-      if (rideStats.altitude < rideStats.minAltitude) {
-        rideStats.minAltitude = rideStats.altitude;
-      }
+    if (rideStats.altitude < rideStats.minAltitude) {
+      rideStats.minAltitude = rideStats.altitude;
+    }
 
-      if (rideStats.altitude > rideStats.previousAltitude) {
-        rideStats.uphillDistance +=
-            rideStats.altitude - rideStats.previousAltitude;
-      } else if (rideStats.altitude < rideStats.previousAltitude) {
-        rideStats.downhillDistance +=
-            rideStats.previousAltitude - rideStats.altitude;
-      }
+    if (rideStats.altitude > rideStats.previousAltitude) {
+      rideStats.uphillDistance +=
+          rideStats.altitude - rideStats.previousAltitude;
+    } else if (rideStats.altitude < rideStats.previousAltitude) {
+      rideStats.downhillDistance +=
+          rideStats.previousAltitude - rideStats.altitude;
+    }
 
-      rideStats.elevationGained =
-          rideStats.uphillDistance - rideStats.downhillDistance;
-    });
+    rideStats.elevationGained =
+        rideStats.uphillDistance - rideStats.downhillDistance;
+
+    if (MyUser.getUserInfo() == null) return;
+
+    final User? userInfo = MyUser.getUserInfo();
+    final userDetails = await MyUser.document(userInfo?.email).get();
+
+    String firstName = userDetails.get('firstName').toString().toCapitalized();
+    String lastName = userDetails.get('lastName').toString().toCapitalized();
+    String fullName = '$firstName $lastName';
+
+    rideStats.cyclistName = fullName;
   }
 
   List<Widget> buildTrackScreen() => [
         Expanded(
-          flex: 4,
+          flex: isLocationPermissionGranted ? 3 : 1,
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(30.0),
             child: buildMapDisplay(),
           ),
         ),
+        isLocationPermissionGranted
+            ? Expanded(
+                flex: 1,
+                child: buildStatsDisplay(),
+              )
+            : Container(),
         Expanded(
-          flex: 2,
-          child: buildStatsDisplay(),
-        ),
-        Expanded(
-          child: buildTrackingButtons(),
+          child: isLocationPermissionGranted
+              ? buildTrackingButtons()
+              : buildWarningContainer(),
         ),
       ];
 
@@ -235,7 +249,7 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
       ];
 
   Widget buildMapDisplay() => ClipRRect(
-        borderRadius: BorderRadius.circular(16.0),
+        borderRadius: BorderRadius.circular(20.0),
         child: Stack(
           children: [
             FlutterMap(
@@ -298,9 +312,12 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           IconButton(
-            onPressed: () {
+            onPressed: () async {
               HapticFeedback.selectionClick();
               Wakelock.enable();
+
+              await getPermission();
+              if (!isLocationPermissionGranted) return;
 
               debugPrint(!isPaused ? 'tracking paused' : 'tracker is running');
 
@@ -319,11 +336,11 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
                 });
               }
 
-              debugPrint('st = $startTime\n'
-                  'pt = $pausedAt\n'
-                  'rt = $resumedAt\n'
-                  'pd = ${pausedDuration.inSeconds} sec\n'
-                  'new st = $newStartTime');
+              // debugPrint('st = $startTime\n'
+              //     'pt = $pausedAt\n'
+              //     'rt = $resumedAt\n'
+              //     'pd = ${pausedDuration.inSeconds} sec\n'
+              //     'new st = $newStartTime');
 
               setState(() {
                 isPaused
@@ -341,10 +358,34 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
           IconButton(
             onPressed: isPaused
                 ? null
-                : () {
+                : () async {
                     if (isPaused) return;
                     HapticFeedback.selectionClick();
                     Wakelock.disable();
+
+                    if (MyUser.getUserInfo() == null) {
+                      // TODO: [very low priority] Add a feature to allow user to export their statistics.
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return CustomPopupAlerts
+                              .displayWarningWhileAnonDuringUpload(context);
+                        },
+                      );
+                    } else {
+                      doUpload = true;
+                    }
+
+                    await pushNewScreen(
+                      context,
+                      withNavBar: true,
+                      pageTransitionAnimation:
+                          PageTransitionAnimation.cupertino,
+                      screen: StatisticsScreen(
+                        statsInfo: rideStats,
+                        doUpload: doUpload,
+                      ),
+                    );
 
                     setState(() {
                       currentPositionListener.pause();
@@ -353,21 +394,49 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
                       resumedAt = DateTime.now();
                     });
 
-                    PersistentNavBarNavigator.pushNewScreen(
-                      context,
-                      withNavBar: true,
-                      pageTransitionAnimation:
-                          PageTransitionAnimation.cupertino,
-                      screen: StatisticsScreen(
-                        statsInfo: rideStats,
-                        upload: false, // TODO: toggle on
-                      ),
-                    );
+                    if (!mounted) return;
+
+                    debugPrint('resetting values...');
+                    doUpload = false;
+                    setState(() {
+                      // rideStats.timeElapsed = const Duration(seconds: 0);
+                      rideStats.distanceTravelled = 0.0;
+                      rideStats.elevationGained = 0.0;
+                    });
                   },
             icon: FaIcon(
               FontAwesomeIcons.circleStop,
               size: 50.0,
               color: isPaused ? kcPrimaryT9 : kcPrimaryT13,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildWarningContainer() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 18.0),
+      child: Column(
+        children: const [
+          AppLogo(),
+          SizedBox(
+            height: 30.0,
+          ),
+          Text(
+            'Location Access Denied',
+            style: ktsProfileTitle,
+          ),
+          SizedBox(
+            height: 15.0,
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 50.0),
+            child: Text(
+              'Please go to Settings and turn on location services so that you can continue tracking statistics of your rides.',
+              style: ktsCardDate,
+              textAlign: TextAlign.center,
             ),
           ),
         ],
@@ -393,14 +462,19 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> screenDisplay =
+        isConnectedToInternet ? buildTrackScreen() : buildNoConnectionScreen();
+
     return BaseScreenTemplate(
       title: 'Track',
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: isConnectedToInternet
-            ? buildTrackScreen()
-            : buildNoConnectionScreen(),
+      body: GestureDetector(
+        onTap: () async => getPermission(),
+        onTapCancel: () async => getPermission(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: screenDisplay,
+        ),
       ),
     );
   }

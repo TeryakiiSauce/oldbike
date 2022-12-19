@@ -7,7 +7,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:oldbike/utils/theme.dart';
 import 'package:oldbike/utils/routes.dart';
-import 'package:oldbike/screens/login-signup/login.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,12 +19,11 @@ void main() async {
 class OldBikeApp extends StatelessWidget {
   const OldBikeApp({super.key});
 
-  MaterialApp buildAndroidApp() => MaterialApp(
+  MaterialApp buildAndroidApp() => MaterialApp.router(
+        routerConfig: appRouter,
         debugShowCheckedModeBanner: false,
         title: 'Old Bike',
         theme: androidThemeData,
-        routes: appRoutes,
-        initialRoute: LoginScreen.screen,
       );
 
   // This widget is the root of your application.

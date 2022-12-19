@@ -1,82 +1,124 @@
 ///
-/// This file aims to build a widget similar to what you would see in the _Home_ screen of the application.
+/// This file aims to build a widget similar to what you would see in the 'Recent Rides' section in the _Profile_ screen of the application.
 ///
-/// Note: This is similar to the `CompactRideInfoCard()` widget.
+/// Tip: You can use the `HorizontalScroll()` widget if you'd like to display more than one of this `RideInfoCard()` widget.
+///
+/// Note: This is similar to the `FeedRideInfoCard()` widget.
 /// === === === === ===
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:oldbike/components/ride_summary_icons.dart';
-import 'package:oldbike/utils/custom_formatting.dart';
-import 'package:oldbike/utils/text_styles.dart';
+import 'package:oldbike/models/ride_stats.dart';
 import 'package:oldbike/utils/colors.dart';
+import 'package:oldbike/utils/custom_formatting.dart';
+import 'package:oldbike/utils/popup_alerts.dart';
+import 'package:oldbike/utils/text_styles.dart';
 
 class RideInfoCard extends StatelessWidget {
-  final String username;
+  final RideStatistics? rideStatistics;
   final DateTime date;
-  final double avgSpeed, distTravelled, elevationGained;
+  final bool hasBorder, detailed, makeAsButton;
+  final double height;
+  final VoidCallback onClicked;
 
-  /// This creates a card that displays a summary of a bike ride.
-  ///
-  /// Information includes:
-  ///   - The average speed.
-  ///   - The distance travelled.
-  ///   - The elevation gained.
+  /// Creates a card similar to what you would see in the _Recent Rides_ section of the _Profile_ screen.
   const RideInfoCard({
-    super.key,
-    required this.username,
+    Key? key,
     required this.date,
-    this.avgSpeed = 0.0,
-    this.distTravelled = 0.0,
-    this.elevationGained = 0.0,
-  });
+    required this.onClicked,
+    this.rideStatistics,
+    this.height = 0.0,
+    this.hasBorder = true,
+    this.makeAsButton = true,
+    this.detailed = false,
+  }) : super(key: key);
+
+  void displayDeletePrompt(BuildContext context) {
+    showCupertinoModalPopup(
+      context: context,
+      builder: (context) => CupertinoActionSheet(
+        title: const Text('Delete Ride Statistics?'),
+        message: const Text(
+            'Are you sure that you want to delete the selected ride statistics?'),
+        actions: [
+          CupertinoActionSheetAction(
+            isDestructiveAction: true,
+            onPressed: () {
+              Navigator.pop(context);
+              showDialog(
+                context: context,
+                builder: (context) =>
+                    CustomPopupAlerts.displayConfirmationToDeleteRideStats(
+                  context,
+                  date,
+                  rideStatistics,
+                ),
+              );
+            },
+            child: const Text('Delete'),
+          ),
+        ],
+        cancelButton: CupertinoActionSheetAction(
+          isDefaultAction: true,
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: const Text('Cancel'),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    const SizedBox spacing = SizedBox(
-      height: 20.0,
-    );
-
-    return Container(
-      margin: const EdgeInsets.all(20.0),
-      padding: const EdgeInsets.all(20.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20.0),
-        color: kcPrimaryT1,
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+    return GestureDetector(
+      onLongPress: () =>
+          makeAsButton ? displayDeletePrompt(context) : Container(),
+      onTap: onClicked,
+      child: Stack(
         children: [
-          // Rounded image
+          // Background image
           ClipRRect(
-            borderRadius: BorderRadius.circular(16.0),
-            child: Image.asset('images/robert-bye-tG36rvCeqng-unsplash.jpg'),
-          ),
-          spacing,
-
-          // Username Title
-          Text(
-            username,
-            style: ktsCardTitle,
-          ),
-          const SizedBox(
-            height: 5.0,
+            borderRadius: BorderRadius.circular(20.0),
+            child: Image.asset(
+              'images/robert-bye-tG36rvCeqng-unsplash.jpg',
+              fit: BoxFit.cover,
+              height: height == 0.0 ? null : height,
+              color: kcPrimaryS3.withOpacity(0.8),
+              colorBlendMode: BlendMode.srcOver,
+            ),
           ),
 
-          // Date & time info
-          Text(
-            CustomFormat.getFormattedDate(date),
-            style: ktsCardDate,
-          ),
-          spacing,
+          // The actual content
+          Positioned.fill(
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  // Heading
+                  Expanded(
+                    child: Center(
+                      child: Text(
+                        CustomFormat.getFormattedDate(date),
+                        style: ktsCardDate,
+                      ),
+                    ),
+                  ),
 
-          // Horizontal icons group
-          RideSummaryIcons(
-            avgSpeed: avgSpeed,
-            distTravelled: distTravelled,
-            elevationGained: elevationGained,
-            isVertical: false,
-            invertColors: false,
+                  // Icons & labels
+                  Expanded(
+                    flex: 5,
+                    child: RideSummaryIcons(
+                      avgSpeed: rideStatistics?.averageSpeed ?? 0,
+                      distTravelled: rideStatistics?.distanceTravelled ?? 0,
+                      elevationGained: rideStatistics?.elevationGained ?? 0,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ],
       ),
