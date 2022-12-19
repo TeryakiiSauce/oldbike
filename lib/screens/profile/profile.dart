@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:oldbike/components/app_logo.dart';
 import 'package:oldbike/components/circular_image.dart';
