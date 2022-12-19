@@ -86,6 +86,10 @@ class RideStatistics {
     return collection().snapshots();
   }
 
+  static Stream<QuerySnapshot<Map<String, dynamic>>> latestPostsSnapshots() {
+    return latestPostsCollection().snapshots();
+  }
+
   void convertStatsFormat() {
     const int decimalPlaces = 2;
 
@@ -173,7 +177,9 @@ class RideStatistics {
   }
 
   Future<void> postLatestRide() async {
-    await RideStatistics.latestPostsCollection().doc().set(toJSON());
+    await RideStatistics.latestPostsCollection()
+        .doc('${DateTime.now()}')
+        .set(toJSON());
   }
 
   Column displayCurrentStats() {

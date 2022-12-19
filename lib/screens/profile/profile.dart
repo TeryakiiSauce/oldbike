@@ -12,7 +12,7 @@ import 'package:oldbike/components/base_screen_template.dart';
 import 'package:oldbike/utils/custom_formatting.dart';
 import 'package:oldbike/utils/text_styles.dart';
 import 'package:oldbike/components/horizontal_scroll.dart';
-import 'package:oldbike/components/compact_ride_info_card.dart';
+import 'package:oldbike/components/ride_info_card.dart';
 import 'package:oldbike/utils/extensions.dart';
 
 class ProfileScreen extends StatefulWidget {
