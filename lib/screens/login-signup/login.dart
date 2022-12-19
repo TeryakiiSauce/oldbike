@@ -66,11 +66,17 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void onCreateAccountButtonPressed() {
+    HapticFeedback.selectionClick();
     context.push('/signup');
   }
 
   void onContinueButtonClicked() {
+    HapticFeedback.lightImpact();
     context.go('/tab-view-controller');
+  }
+
+  void onForgotPasswordButtonClicked() {
+    HapticFeedback.lightImpact();
   }
 
   Widget displayLogInScreen() {
@@ -141,10 +147,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       const SizedBox(
                         height: 15.0,
                       ),
-                      const Text(
-                        'Forgot Password?',
-                        textAlign: TextAlign.right,
-                        style: ktsAttentionLabel,
+                      GestureDetector(
+                        onTap: () => onForgotPasswordButtonClicked(),
+                        child: const Text(
+                          'Forgot Password?',
+                          textAlign: TextAlign.right,
+                          style: ktsAttentionLabel,
+                        ),
                       ),
                       spacing,
                     ],

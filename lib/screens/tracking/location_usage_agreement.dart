@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:oldbike/components/custom_notice_screen.dart';
 import 'package:oldbike/models/screen.dart';
 import 'package:oldbike/screens/tracking/track_ride.dart';
@@ -16,6 +17,7 @@ class LocationUsageAgreementScreen extends StatelessWidget {
       content:
           'Your location will used for determining your current position as well as to calculate statistics of your progress. Click Continue to grant Old Bike access.',
       onButtonPressed: () {
+        HapticFeedback.lightImpact();
         pushNewScreen(
           context,
           screen: const RideTrackingScreen(),
