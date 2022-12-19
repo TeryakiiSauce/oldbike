@@ -358,30 +358,25 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
           IconButton(
             onPressed: isPaused
                 ? null
-                : () {
+                : () async {
                     if (isPaused) return;
                     HapticFeedback.selectionClick();
                     Wakelock.disable();
-
-                    setState(() {
-                      currentPositionListener.pause();
-                      startTime = DateTime.now();
-                      pausedAt = DateTime.now();
-                      resumedAt = DateTime.now();
-                    });
 
                     if (MyUser.getUserInfo() == null) {
                       // TODO: [not important] Add a feature to allow user to export their statistics.
                       showDialog(
                         context: context,
-                        builder: (context) => CustomPopupAlerts
-                            .displayWarningWhileAnonDuringUpload(context),
+                        builder: (context) {
+                          return CustomPopupAlerts
+                              .displayWarningWhileAnonDuringUpload(context);
+                        },
                       );
                     } else {
                       doUpload = true;
                     }
 
-                    pushNewScreen(
+                    await pushNewScreen(
                       context,
                       withNavBar: true,
                       pageTransitionAnimation:
@@ -392,7 +387,22 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
                       ),
                     );
 
+                    setState(() {
+                      currentPositionListener.pause();
+                      startTime = DateTime.now();
+                      pausedAt = DateTime.now();
+                      resumedAt = DateTime.now();
+                    });
+
+                    if (!mounted) return;
+
+                    debugPrint('resetting values...');
                     doUpload = false;
+                    setState(() {
+                      // rideStats.timeElapsed = const Duration(seconds: 0);
+                      rideStats.distanceTravelled = 0.0;
+                      rideStats.elevationGained = 0.0;
+                    });
                   },
             icon: FaIcon(
               FontAwesomeIcons.circleStop,
