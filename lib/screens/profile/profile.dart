@@ -218,22 +218,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     return BaseScreenTemplate(
       title: 'Profile',
-      body: ListView(
-        children: [
-          buildProfileSummary(padding: padding),
-          spacing,
-          buildUserRecentRides(padding: padding),
-          buildAllTimeStats(padding: padding),
-          muchMoreSpacing,
-          const AppLogo(),
-          spacing,
-          const Text(
-            'Elias Rahma, 2022',
-            textAlign: TextAlign.center,
-            style: ktsProfileTiny,
-          ),
-          muchMoreSpacing,
-        ],
+      body: Scrollbar(
+        child: ListView(
+          children: [
+            buildProfileSummary(padding: padding),
+            spacing,
+            buildUserRecentRides(padding: padding),
+            buildAllTimeStats(padding: padding),
+            muchMoreSpacing,
+            const AppLogo(),
+            spacing,
+            const Text(
+              'Elias Rahma, 2022',
+              textAlign: TextAlign.center,
+              style: ktsProfileTiny,
+            ),
+            muchMoreSpacing,
+          ],
+        ),
       ),
     );
   }
