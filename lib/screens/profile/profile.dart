@@ -17,6 +17,8 @@ import 'package:oldbike/components/ride_info_card.dart';
 import 'package:oldbike/utils/extensions.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 
+// TODO: [high priority] calculate all time statistics
+
 class ProfileScreen extends StatefulWidget {
   static const TabScreen screen = TabScreen.profile;
 

@@ -3,6 +3,8 @@ import 'package:oldbike/components/base_screen_template.dart';
 import 'package:oldbike/models/my_user.dart';
 import 'package:oldbike/utils/popup_alerts.dart';
 
+// TODO: [high priority] design this screen
+
 class SignUpScreen extends StatefulWidget {
   static const String screen = 'signup';
   final String username, password;

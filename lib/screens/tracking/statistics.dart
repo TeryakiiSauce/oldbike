@@ -3,7 +3,7 @@ import 'package:oldbike/models/ride_stats.dart';
 import 'package:oldbike/models/screen.dart';
 import 'package:oldbike/components/base_screen_template.dart';
 
-// TODO: if possible, design this screen
+// TODO: [low priority], design this screen
 
 class StatisticsScreen extends StatefulWidget {
   static const TabScreen screen = TabScreen.statistics;

@@ -77,6 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void onForgotPasswordButtonClicked() {
     HapticFeedback.lightImpact();
+    // TODO: [medium priority] create functionality
   }
 
   Widget displayLogInScreen() {

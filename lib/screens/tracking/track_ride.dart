@@ -364,7 +364,7 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
                     Wakelock.disable();
 
                     if (MyUser.getUserInfo() == null) {
-                      // TODO: [not important] Add a feature to allow user to export their statistics.
+                      // TODO: [very low priority] Add a feature to allow user to export their statistics.
                       showDialog(
                         context: context,
                         builder: (context) {
