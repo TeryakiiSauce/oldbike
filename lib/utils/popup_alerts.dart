@@ -119,4 +119,15 @@ class CustomPopupAlerts {
       cancelAction: () => context.pop(),
     );
   }
+
+  static Widget displayNoInternetConnection(BuildContext context) {
+    return DynamicAlertDialog(
+      title: const Text('No Internet Connection'),
+      content: const Text(
+          'Please make sure that you are connected to the internet.'),
+      showApproveButton: false,
+      cancelText: 'Retry',
+      cancelAction: () => context.pop(),
+    );
+  }
 }

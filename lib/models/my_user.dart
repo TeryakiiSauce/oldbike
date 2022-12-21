@@ -105,6 +105,20 @@ class MyUser {
     debugPrint('uploaded user info to database');
   }
 
+  List<dynamic>? toList() {
+    return [
+      email,
+      password,
+      firstName,
+      lastName,
+      gender,
+      bloodGroup,
+      height,
+      weight,
+      dob,
+    ];
+  }
+
   /// [Deprecated]
   @Deprecated('No need to use this method, it\'s unnecessary.')
   void signInAnon() async {

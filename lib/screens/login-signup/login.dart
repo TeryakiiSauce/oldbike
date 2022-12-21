@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:oldbike/components/app_logo.dart';
+import 'package:oldbike/components/custom_form.dart';
 import 'package:oldbike/components/custom_notice_screen.dart';
 import 'package:oldbike/models/my_user.dart';
-import 'package:oldbike/utils/popup_alerts.dart';
 import 'package:oldbike/utils/text_styles.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -22,43 +22,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool showPassword = false;
-  MyUser user = MyUser(email: '', password: '');
-
-  Future<void> togglePasswordVisibility() async {
-    await HapticFeedback.selectionClick();
-
-    setState(() {
-      if (showPassword) {
-        showPassword = false;
-      } else {
-        showPassword = true;
-      }
-    });
-  }
-
-  Icon getVisibilityIcon() {
-    if (showPassword) {
-      return const Icon(Icons.visibility_off_outlined);
-    } else {
-      return const Icon(Icons.visibility_outlined);
-    }
-  }
-
-  void onLoginButtonPressed() async {
-    // ignore: todo
-    // TODO: [could't figure out a proper way to do it, the package that I've used before is now obsolete] Display spinner when button is clicked
-
-    HapticFeedback.selectionClick();
-
-    if (await user.signIn()) {
-      context.go('/tab-view-controller');
-    } else {
-      showDialog(
-        context: context,
-        builder: (context) => CustomPopupAlerts.displayLoginError(context),
-      );
-    }
-  }
+  MyUser userInfo = MyUser(email: '', password: '');
 
   void onSkipButtonPressed() {
     HapticFeedback.selectionClick();
@@ -73,11 +37,6 @@ class _LoginScreenState extends State<LoginScreen> {
   void onContinueButtonClicked() {
     HapticFeedback.lightImpact();
     context.go('/tab-view-controller');
-  }
-
-  void onForgotPasswordButtonClicked() {
-    HapticFeedback.lightImpact();
-    // TODO: [medium priority] create functionality
   }
 
   Widget displayLogInScreen() {
@@ -117,56 +76,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
 
-                  // Input Text Fields
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      TextFormField(
-                        keyboardType: TextInputType.emailAddress,
-                        onChanged: (value) => user.email = value,
-                        decoration: const InputDecoration(
-                          prefixIcon: Icon(Icons.person),
-                          hintText: 'Email',
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20.0,
-                      ),
-                      TextFormField(
-                        onChanged: (value) => user.password = value,
-                        obscureText: !showPassword,
-                        decoration: InputDecoration(
-                          prefixIcon: const Icon(Icons.lock),
-                          suffixIcon: GestureDetector(
-                            onTap: () => togglePasswordVisibility(),
-                            child: getVisibilityIcon(),
-                          ),
-                          hintText: 'Password',
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 15.0,
-                      ),
-                      GestureDetector(
-                        onTap: () => onForgotPasswordButtonClicked(),
-                        child: const Text(
-                          'Forgot Password?',
-                          textAlign: TextAlign.right,
-                          style: ktsAttentionLabel,
-                        ),
-                      ),
-                      spacing,
-                    ],
-                  ),
-
-                  // Login Button
-                  IconButton(
-                    onPressed: () => onLoginButtonPressed(),
-                    icon: const Icon(
-                      Icons.arrow_circle_right_rounded,
-                      size: 100.0,
-                    ),
+                  // Login Form
+                  CustomUserInfoForm(
+                    userInfo: userInfo,
+                    showForgotPasswordButton: true,
                   ),
 
                   // 'Create account' + 'Skip' buttons
@@ -201,14 +114,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text('Wanna do it up later?'),
+                          const Text('Not now?'),
                           const SizedBox(
                             width: 5.0,
                           ),
                           GestureDetector(
                             onTap: () => onSkipButtonPressed(),
                             child: const Text(
-                              'Skip',
+                              'Skip (Anonymous mode)',
                               style: ktsAttentionLabel,
                             ),
                           ),
