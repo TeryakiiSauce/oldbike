@@ -44,7 +44,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   LabelledWidget buildUserRecentRides({double padding = 0}) => LabelledWidget(
         titlePadding: padding,
         childPadding: 0,
-        title: 'Recent Rides',
+        title: 'My Rides',
         child: MyUser.getUserInfo() == null
             ? const NoDataFoundNotice()
             : StreamBuilder<QuerySnapshot>(
@@ -59,7 +59,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                   final rides = snapshot.data?.docs.reversed;
                   List<Widget> rideStatsWidgets = [];
-                  int itemsCount = 3;
+                  int itemsCount = snapshot.data?.size ?? 3;
 
                   for (var i = 0; i < itemsCount; i++) {
                     if (rides == null) return Container();
@@ -121,6 +121,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       HorizontalScroll(
         height: MediaQuery.of(context).size.height * 0.25,
         itemsCount: itemsCount,
+        showAllButton: false,
         child: rideStatsWidgets,
       );
 
