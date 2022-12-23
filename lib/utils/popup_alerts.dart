@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:oldbike/components/platform_based_widgets.dart';
 import 'package:oldbike/models/my_user.dart';
@@ -24,9 +25,12 @@ class CustomPopupAlerts {
             : 'Permission to location is required in order for the app to track your progress. Click Ok to open App settings.',
       ),
       cancelAction: () {
+        HapticFeedback.selectionClick();
         context.pop();
       },
       approveAction: () {
+        HapticFeedback.selectionClick();
+
         isServiceDisabled
             ? location.openPrivacyLocationSettings()
             : location.openAppSettings();
@@ -46,7 +50,10 @@ class CustomPopupAlerts {
       ),
       showCancelButton: false,
       approveText: 'Retry',
-      approveAction: () => context.pop(),
+      approveAction: () {
+        HapticFeedback.selectionClick();
+        context.pop();
+      },
     );
   }
 
@@ -58,7 +65,10 @@ class CustomPopupAlerts {
       ),
       showCancelButton: false,
       approveText: 'Got it!',
-      approveAction: () => context.pop(),
+      approveAction: () {
+        HapticFeedback.selectionClick();
+        context.pop();
+      },
     );
   }
 
@@ -71,8 +81,13 @@ class CustomPopupAlerts {
       ),
       isApproveDestructive: true,
       approveText: 'Delete',
-      cancelAction: () => context.pop(),
+      cancelAction: () {
+        HapticFeedback.selectionClick();
+        context.pop();
+      },
       approveAction: () async {
+        HapticFeedback.selectionClick();
+
         // Reference: https://github.com/flutter/flutter/issues/110694#issuecomment-1233341081
         final NavigatorState navigator = Navigator.of(context);
 
@@ -116,7 +131,10 @@ class CustomPopupAlerts {
       content: Text(desc),
       showApproveButton: false,
       cancelText: 'Fix now',
-      cancelAction: () => context.pop(),
+      cancelAction: () {
+        HapticFeedback.selectionClick();
+        context.pop();
+      },
     );
   }
 
@@ -127,7 +145,10 @@ class CustomPopupAlerts {
           'Please make sure that you are connected to the internet.'),
       showApproveButton: false,
       cancelText: 'Retry',
-      cancelAction: () => context.pop(),
+      cancelAction: () {
+        HapticFeedback.selectionClick();
+        context.pop();
+      },
     );
   }
 
@@ -137,17 +158,22 @@ class CustomPopupAlerts {
       content: const Text('Some information entered is invalid'),
       showApproveButton: false,
       cancelText: 'Fix now',
-      cancelAction: () => context.pop(),
+      cancelAction: () {
+        HapticFeedback.selectionClick();
+        context.pop();
+      },
     );
   }
 
+  /// [Deprecated]
+  @Deprecated('Not used any more')
   static Widget displayUserCreatedSuccessfully(BuildContext context) {
     return DynamicAlertDialog(
       title: const Text('User Created Successfully'),
       content: const Text(
           'Your profile has been created successfully. Now, you may login to the application with your new account.'),
       showCancelButton: false,
-      approveAction: () {},
+      approveAction: () => context.pop(),
     );
   }
 }

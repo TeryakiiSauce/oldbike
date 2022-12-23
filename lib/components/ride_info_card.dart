@@ -8,6 +8,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:oldbike/components/ride_summary_icons.dart';
 import 'package:oldbike/models/ride_stats.dart';
 import 'package:oldbike/utils/colors.dart';
@@ -45,6 +46,7 @@ class RideInfoCard extends StatelessWidget {
           CupertinoActionSheetAction(
             isDestructiveAction: true,
             onPressed: () {
+              HapticFeedback.selectionClick();
               Navigator.pop(context);
               showDialog(
                 context: context,
@@ -62,6 +64,7 @@ class RideInfoCard extends StatelessWidget {
         cancelButton: CupertinoActionSheetAction(
           isDefaultAction: true,
           onPressed: () {
+            HapticFeedback.selectionClick();
             Navigator.pop(context);
           },
           child: const Text('Cancel'),
@@ -73,8 +76,10 @@ class RideInfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onLongPress: () =>
-          makeAsButton ? displayDeletePrompt(context) : Container(),
+      onLongPress: () {
+        HapticFeedback.selectionClick();
+        return makeAsButton ? displayDeletePrompt(context) : Container();
+      },
       onTap: onClicked,
       child: Stack(
         children: [
