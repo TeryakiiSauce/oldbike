@@ -130,4 +130,24 @@ class CustomPopupAlerts {
       cancelAction: () => context.pop(),
     );
   }
+
+  static Widget displayInvalid(BuildContext context) {
+    return DynamicAlertDialog(
+      title: const Text('Invalid Information'),
+      content: const Text('Some information entered is invalid'),
+      showApproveButton: false,
+      cancelText: 'Fix now',
+      cancelAction: () => context.pop(),
+    );
+  }
+
+  static Widget displayUserCreatedSuccessfully(BuildContext context) {
+    return DynamicAlertDialog(
+      title: const Text('User Created Successfully'),
+      content: const Text(
+          'Your profile has been created successfully. Now, you may login to the application with your new account.'),
+      showCancelButton: false,
+      approveAction: () {},
+    );
+  }
 }

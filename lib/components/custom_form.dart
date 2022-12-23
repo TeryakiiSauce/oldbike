@@ -8,12 +8,13 @@ import 'package:oldbike/utils/text_styles.dart';
 
 class CustomUserInfoForm extends StatefulWidget {
   final MyUser userInfo;
-  final bool showForgotPasswordButton;
+  final bool showForgotPasswordButton, isLoginForm;
 
   const CustomUserInfoForm({
     super.key,
     required this.userInfo,
     this.showForgotPasswordButton = false,
+    this.isLoginForm = true,
   });
 
   @override
@@ -31,8 +32,6 @@ class _CustomUserInfoFormState extends State<CustomUserInfoForm> {
 
     int counter = 0;
     for (var info in userInfoList) {
-      // print('user info item: ${info == '' ? '[empty]' : info}');
-
       if (info == null) break;
 
       switch (counter) {
@@ -57,6 +56,12 @@ class _CustomUserInfoFormState extends State<CustomUserInfoForm> {
         case 6:
           fieldsList.add(inputsWidgetsList[counter]);
           break;
+        case 7:
+          fieldsList.add(inputsWidgetsList[counter]);
+          break;
+        case 8:
+          fieldsList.add(inputsWidgetsList[counter]);
+          break;
         default:
       }
 
@@ -74,7 +79,9 @@ class _CustomUserInfoFormState extends State<CustomUserInfoForm> {
 
     fieldsList.add(
       IconButton(
-        onPressed: () => onLoginButtonPressed(),
+        onPressed: () => widget.isLoginForm
+            ? onLoginButtonPressed()
+            : onSignUpButtonPressed(),
         icon: const Icon(
           Icons.arrow_circle_right_rounded,
           size: 100.0,
@@ -175,6 +182,157 @@ class _CustomUserInfoFormState extends State<CustomUserInfoForm> {
               : Container(),
         ],
       ),
+
+      // First Name Field
+      TextFormField(
+        onChanged: (value) => widget.userInfo.firstName = value,
+        decoration: const InputDecoration(
+          prefixIcon: Icon(Icons.android_rounded),
+          hintText: 'First Name',
+        ),
+        validator: (value) {
+          if (value!.isEmpty) {
+            return 'Field cannot be left empty';
+          }
+
+          if (value.contains(' ')) {
+            return 'Field cannot contain spaces';
+          }
+
+          return null;
+        },
+      ),
+
+      // Last Name Field
+      TextFormField(
+        onChanged: (value) => widget.userInfo.lastName = value,
+        decoration: const InputDecoration(
+          prefixIcon: Icon(Icons.assignment_ind_rounded),
+          hintText: 'Last Name',
+        ),
+        validator: (value) {
+          if (value!.isEmpty) {
+            return 'Field cannot be left empty';
+          }
+
+          if (value.contains(' ')) {
+            return 'Field cannot contain spaces';
+          }
+
+          return null;
+        },
+      ),
+
+      // Blood Group Field
+      TextFormField(
+        onChanged: (value) => widget.userInfo.bloodGroup = value,
+        decoration: const InputDecoration(
+          prefixIcon: Icon(Icons.water_drop_rounded),
+          hintText: 'Blood Group',
+        ),
+        validator: (value) {
+          if (value!.isEmpty) {
+            return 'Field cannot be left empty';
+          }
+
+          String tempStr = value.toUpperCase();
+
+          if (tempStr != 'O' &&
+              tempStr != 'A' &&
+              tempStr != 'B' &&
+              tempStr != 'AB') {
+            return 'Field only accepts: O, A, B, and AB';
+          }
+
+          return null;
+        },
+      ),
+
+      // Gender Field
+      TextFormField(
+        onChanged: (value) => widget.userInfo.gender = value,
+        decoration: const InputDecoration(
+          prefixIcon: Icon(Icons.badge_rounded),
+          hintText: 'Gender',
+        ),
+        validator: (value) {
+          if (value!.isEmpty) {
+            return 'Field cannot be left empty';
+          }
+
+          String tempStr = value.toLowerCase();
+
+          if (tempStr != 'male' && tempStr != 'female' && tempStr != 'alien') {
+            return 'Field only accepts: Male, Female or Alien';
+          }
+
+          return null;
+        },
+      ),
+
+      // Height Field
+      TextFormField(
+        keyboardType: TextInputType.number,
+        onChanged: (value) {
+          if (value.isEmpty) return;
+          widget.userInfo.height = double.parse(value);
+        },
+        decoration: const InputDecoration(
+          prefixIcon: Icon(Icons.height_rounded),
+          hintText: 'Height (in Centimetres)',
+          suffix: Text('CM'),
+        ),
+        validator: (value) {
+          if (value!.isEmpty) {
+            return 'Field cannot be left empty';
+          }
+
+          return null;
+        },
+      ),
+
+      // Weight Field
+      TextFormField(
+        keyboardType: TextInputType.number,
+        onChanged: (value) {
+          if (value.isEmpty) return;
+          widget.userInfo.weight = double.parse(value);
+        },
+        decoration: const InputDecoration(
+          prefixIcon: Icon(Icons.monitor_weight_rounded),
+          hintText: 'Weight (in Kilograms)',
+          suffix: Text('KG'),
+        ),
+        validator: (value) {
+          if (value!.isEmpty) {
+            return 'Field cannot be left empty';
+          }
+
+          return null;
+        },
+      ),
+
+      // Date of Birth Field
+      TextFormField(
+        keyboardType: TextInputType.datetime,
+        onChanged: (value) => widget.userInfo.dob = DateTime.tryParse(value),
+        decoration: const InputDecoration(
+          prefixIcon: Icon(Icons.date_range_rounded),
+          hintText: 'Date of Birth',
+          suffix: Text('YYYY-MM-DD'),
+        ),
+        validator: (value) {
+          if (value!.isEmpty) {
+            return 'Field cannot be left empty';
+          }
+
+          if (widget.userInfo.dob == null) {
+            return 'Invalid or incomplete date';
+          }
+
+          return null;
+        },
+      ),
     ];
   }
 
@@ -184,10 +342,15 @@ class _CustomUserInfoFormState extends State<CustomUserInfoForm> {
 
     HapticFeedback.selectionClick();
 
-    bool hasInternetConnection =
-        await InternetConnectionChecker().hasConnection;
+    if (!formKey.currentState!.validate()) {
+      showDialog(
+        context: context,
+        builder: (context) => CustomPopupAlerts.displayInvalid(context),
+      );
+      return;
+    }
 
-    if (!hasInternetConnection) {
+    if (!await InternetConnectionChecker().hasConnection) {
       showDialog(
         context: context,
         builder: (context) =>
@@ -198,7 +361,8 @@ class _CustomUserInfoFormState extends State<CustomUserInfoForm> {
 
     if (!mounted) return;
 
-    if (hasInternetConnection && await widget.userInfo.signIn()) {
+    if (await InternetConnectionChecker().hasConnection &&
+        await widget.userInfo.signIn()) {
       context.go('/tab-view-controller');
     } else {
       showDialog(
@@ -206,6 +370,44 @@ class _CustomUserInfoFormState extends State<CustomUserInfoForm> {
         builder: (context) => CustomPopupAlerts.displayLoginError(context),
       );
     }
+  }
+
+  void onSignUpButtonPressed() async {
+    HapticFeedback.selectionClick();
+
+    if (!formKey.currentState!.validate()) {
+      showDialog(
+        context: context,
+        builder: (context) => CustomPopupAlerts.displayInvalid(context),
+      );
+      return;
+    }
+
+    final String error = await widget.userInfo.createUser();
+
+    if (!await InternetConnectionChecker().hasConnection) {
+      showDialog(
+        context: context,
+        builder: (context) =>
+            CustomPopupAlerts.displayNoInternetConnection(context),
+      );
+      return;
+    }
+
+    if (error != '') {
+      await showDialog(
+        context: context,
+        builder: (context) => CustomPopupAlerts.displayRegistrationError(
+          context,
+          error,
+        ),
+      );
+      return;
+    }
+
+    await widget.userInfo.uploadUserInfo();
+    if (!mounted) return;
+    context.pop();
   }
 
   @override

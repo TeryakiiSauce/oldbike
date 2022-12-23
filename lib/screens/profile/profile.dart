@@ -188,8 +188,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
         : StreamBuilder<QuerySnapshot>(
             stream: MyUser.snapshots(),
             builder: (context, snapshot) {
-              final MyUser userInfo =
-                  MyUser.createObject(snapshot.data?.docs.elementAt(0));
+              final MyUser userInfo = MyUser.createObject(
+                snapshot.data?.docs.singleWhere((element) {
+                  String currentUserID = MyUser.getUserInfo()?.email ?? '';
+                  if (element.id == currentUserID) {
+                    return true;
+                  }
+                  return false;
+                }),
+              );
 
               // Full Name
               String firstName =
@@ -201,7 +208,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 fullName: fullName,
                 dob: userInfo.dob ?? DateTime.parse('1991-12-14'),
                 gender: userInfo.gender ?? 'Male',
-                bloodGroup: userInfo.bloodGroup ?? 'A',
+                bloodGroup: userInfo.bloodGroup?.toUpperCase() ?? 'A',
                 height: userInfo.height ?? 177,
                 weight: userInfo.weight ?? 59,
               );
