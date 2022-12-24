@@ -17,8 +17,6 @@ import 'package:oldbike/components/ride_info_card.dart';
 import 'package:oldbike/utils/extensions.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 
-// TODO: [high priority] calculate all time statistics
-
 class ProfileScreen extends StatefulWidget {
   static const TabScreen screen = TabScreen.profile;
 
@@ -29,6 +27,16 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  double allTimeAvgSpeed = 0.0,
+      allTimeDistanceTravelled = 0.0,
+      allTimeElevationGained = 0.0,
+      allTimeTopSpeed = 0.0,
+      allTimeMinAltitude = 0.0,
+      allTimeMaxAltitude = 0.0,
+      allTimeUphillDist = 0.0,
+      allTimeDownhillDist = 0.0;
+  Duration allTimeTimeElapsed = const Duration();
+
   LabelledWidget buildProfileSummary({double padding = 0}) => LabelledWidget(
         titlePadding: padding,
         childPadding: padding,
@@ -57,6 +65,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     );
                   }
 
+                  double tempAllTimeAvgSpeed = 0.0,
+                      tempAllTimeDistanceTravelled = 0.0,
+                      tempAllTimeElevationGained = 0.0,
+                      tempAllTimeTopSpeed = 0.0,
+                      tempAllTimeMinAltitude = 1000000000.0,
+                      tempAllTimeMaxAltitude = 0.0,
+                      tempAllTimeUphillDist = 0.0,
+                      tempAllTimeDownhillDist = 0.0;
+                  Duration tempAllTimeTimeElapsed = const Duration();
+
                   final rides = snapshot.data?.docs.reversed;
                   List<Widget> rideStatsWidgets = [];
                   int itemsCount = snapshot.data?.size ?? 3;
@@ -72,6 +90,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     final ride = rides.elementAt(i);
                     final RideStatistics rideStats =
                         RideStatistics.createObject(ride);
+
+                    // To calculate 'All-Time' statistics
+                    tempAllTimeAvgSpeed += rideStats.averageSpeed;
+                    tempAllTimeDistanceTravelled += rideStats.distanceTravelled;
+                    tempAllTimeElevationGained += rideStats.elevationGained;
+                    tempAllTimeUphillDist += rideStats.uphillDistance;
+                    tempAllTimeDownhillDist += rideStats.downhillDistance;
+                    tempAllTimeTimeElapsed += rideStats.timeElapsed;
+                    rideStats.topSpeed > tempAllTimeTopSpeed
+                        ? tempAllTimeTopSpeed = rideStats.topSpeed
+                        : null;
+                    rideStats.maxAltitude > tempAllTimeMaxAltitude
+                        ? tempAllTimeMaxAltitude = rideStats.maxAltitude
+                        : null;
+                    if (rideStats.minAltitude != 0) {
+                      rideStats.minAltitude < tempAllTimeMinAltitude
+                          ? tempAllTimeMinAltitude = rideStats.minAltitude
+                          : null;
+                    }
 
                     final rideWidget = RideInfoCard(
                       date: DateTime.parse(ride.id),
@@ -95,24 +132,75 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     rideStatsWidgets.add(rideWidget);
                   }
 
-                  return showHorizontalScroll(
-                    itemsCount: itemsCount,
-                    rideStatsWidgets: rideStatsWidgets,
+                  tempAllTimeAvgSpeed /= itemsCount;
+
+                  allTimeAvgSpeed = tempAllTimeAvgSpeed;
+                  allTimeDistanceTravelled = tempAllTimeDistanceTravelled;
+                  allTimeElevationGained = tempAllTimeElevationGained;
+                  allTimeTopSpeed = tempAllTimeTopSpeed;
+                  allTimeUphillDist = tempAllTimeUphillDist;
+                  allTimeDownhillDist = tempAllTimeDownhillDist;
+                  allTimeTimeElapsed = tempAllTimeTimeElapsed;
+                  allTimeMaxAltitude = tempAllTimeMaxAltitude;
+                  allTimeMinAltitude = tempAllTimeMinAltitude;
+
+                  return Column(
+                    children: [
+                      showHorizontalScroll(
+                        itemsCount: itemsCount,
+                        rideStatsWidgets: rideStatsWidgets,
+                      ),
+                      buildAllTimeStats(
+                        padding: padding,
+                        allRidesInfo: RideStatistics(
+                          averageSpeed: allTimeAvgSpeed,
+                          distanceTravelled: allTimeDistanceTravelled,
+                          downhillDistance: allTimeDownhillDist,
+                          elevationGained: allTimeElevationGained,
+                          maxAltitude: allTimeMaxAltitude,
+                          minAltitude: allTimeMinAltitude,
+                          topSpeed: allTimeTopSpeed,
+                          uphillDistance: allTimeUphillDist,
+                          timeElapsed: allTimeTimeElapsed,
+                          altitude: 0.0,
+                          previousAltitude: 0.0,
+                          currentSpeed: 0.0,
+                        ),
+                      ),
+                    ],
                   );
                 },
               ),
       );
 
-  LabelledWidget buildAllTimeStats({double padding = 0}) => LabelledWidget(
-        titlePadding: padding,
-        childPadding: padding,
-        title: 'All Time Stats',
-        child: RideInfoCard(
-          date: DateTime.now(),
-          makeAsButton: false,
-          onClicked: () => HapticFeedback.selectionClick(),
-        ),
-      );
+  LabelledWidget buildAllTimeStats({
+    double padding = 0,
+    required RideStatistics allRidesInfo,
+  }) {
+    return LabelledWidget(
+      titlePadding: padding,
+      childPadding: padding,
+      title: 'All Time Stats',
+      child: RideInfoCard(
+        date: DateTime.now(),
+        enableLongPress: false,
+        onClicked: () {
+          HapticFeedback.selectionClick();
+          pushNewScreen(
+            context,
+            withNavBar: true,
+            pageTransitionAnimation: PageTransitionAnimation.cupertino,
+            screen: StatisticsScreen(
+              statsInfo: allRidesInfo,
+              doUpload: false,
+              doPost: false,
+            ),
+          );
+        },
+        rideStatistics: allRidesInfo,
+      ),
+    );
+  }
 
   Widget showHorizontalScroll({
     required int itemsCount,
@@ -251,7 +339,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             buildProfileSummary(padding: padding),
             spacing,
             buildUserRecentRides(padding: padding),
-            buildAllTimeStats(padding: padding),
+            // buildAllTimeStats(padding: padding),
             muchMoreSpacing,
             const AppLogo(),
             spacing,
