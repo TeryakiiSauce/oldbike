@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:oldbike/components/circular_icon.dart';
 import 'package:oldbike/models/my_user.dart';
 import 'package:oldbike/utils/custom_formatting.dart';
 import 'package:duration/duration.dart';
@@ -184,44 +185,304 @@ class RideStatistics {
 
   Column displayCurrentStats() {
     convertStatsFormat();
-    List<Text> list = [];
+    List<Widget> list = [];
+    TextStyle titleTS = const TextStyle(
+      fontSize: 14.0,
+    );
+    TextStyle resultTS = const TextStyle(
+      fontSize: 26.0,
+      fontWeight: FontWeight.w700,
+    );
+    SizedBox spacing = const SizedBox(
+      width: 15.0,
+      height: 10.0,
+    );
 
-    list.addAll([
-      // Text('top speed: $topSpeedStr km/h'),
-      Text('current speed: $currentSpeedStr km/h'),
-      // Text('avg speed: $averageSpeedStr km/h'),
-      Text('time elapsed: $timeElapsedStr minute(s)'),
-      Text('distance travelled: $distanceTravelledStr km'),
-      Text('current altitude: $altitudeStr m'),
-      // Text('min altitude: $minAltitudeStr m'),
-      // Text('max altitude: $maxAltitudeStr m'),
-      // Text('uphill distance: $uphillDistanceStr m'),
-      // Text('downhill distance: $downhillDistanceStr m'),
-      Text('elevation gained: $elevationGainedStr m'),
-    ]);
+    list.addAll(
+      [
+        Expanded(
+          child: Text('Time Elapsed (Minutes): $timeElapsedStr'),
+        ),
+        Expanded(
+          flex: 3,
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            shrinkWrap: true,
+            children: [
+              // Current Speed
+              CircularIcon(
+                icon: Icons.flash_on_rounded,
+                size: 10.0,
+                borderThickness: 5.0,
+                isVerticalLayout: true,
+                labels: [
+                  Text(
+                    'Speed\n(Km/h)',
+                    style: titleTS,
+                    textAlign: TextAlign.center,
+                  ),
+                  spacing,
+                  Text(
+                    currentSpeedStr!,
+                    style: resultTS,
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+              spacing,
+
+              // Distance Travelled
+              CircularIcon(
+                icon: Icons.location_on_rounded,
+                size: 10.0,
+                borderThickness: 5.0,
+                isVerticalLayout: true,
+                labels: [
+                  Text(
+                    'Distance\n(Km)',
+                    style: titleTS,
+                    textAlign: TextAlign.center,
+                  ),
+                  spacing,
+                  Text(
+                    distanceTravelledStr!,
+                    style: resultTS,
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+              spacing,
+
+              // Elevation Gained
+              CircularIcon(
+                icon: Icons.trending_up_rounded,
+                size: 10.0,
+                borderThickness: 5.0,
+                isVerticalLayout: true,
+                labels: [
+                  Text(
+                    'Elevation\nGained\n(M)',
+                    style: titleTS,
+                    textAlign: TextAlign.center,
+                  ),
+                  spacing,
+                  Text(
+                    elevationGainedStr!,
+                    style: resultTS,
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+              spacing,
+
+              // Altitude
+              CircularIcon(
+                icon: Icons.cloud_rounded,
+                size: 10.0,
+                borderThickness: 5.0,
+                isVerticalLayout: true,
+                labels: [
+                  Text(
+                    'Current\nAltitude\n(M)',
+                    style: titleTS,
+                    textAlign: TextAlign.center,
+                  ),
+                  spacing,
+                  Text(
+                    altitudeStr!,
+                    style: resultTS,
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
 
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: list,
     );
   }
 
-  Column displaySummarizedStats() {
+  ListView displaySummarizedStats() {
     convertStatsFormat();
-    List<Text> list = [];
+    List<Widget> list = [];
 
-    list.addAll([
-      Text('top speed: $topSpeedStr km/h'),
-      Text('avg speed: $averageSpeedStr km/h'),
-      Text('time elapsed: $timeElapsedStr minute(s)'),
-      Text('distance travelled: $distanceTravelledStr km'),
-      Text('min altitude: $minAltitudeStr m'),
-      Text('max altitude: $maxAltitudeStr m'),
-      Text('uphill distance: $uphillDistanceStr m'),
-      Text('downhill distance: $downhillDistanceStr m'),
-      Text('elevation gained: $elevationGainedStr m'),
-    ]);
+    TextStyle leadingTS = const TextStyle(fontSize: 16.0);
+    TextStyle titleTS = const TextStyle(fontSize: 26.0);
+    TextStyle subtitleTS = const TextStyle(fontSize: 13.0);
 
-    return Column(
+    list.addAll(
+      [
+        // Top Speed
+        Card(
+          child: ListTile(
+            leading: Text(
+              'Top Speed',
+              style: leadingTS,
+            ),
+            title: Text(
+              topSpeedStr!,
+              style: titleTS,
+            ),
+            subtitle: Text(
+              'Km/h',
+              style: subtitleTS,
+            ),
+          ),
+        ),
+
+        // Average Speed
+        Card(
+          child: ListTile(
+            leading: Text(
+              'Average Speed',
+              style: leadingTS,
+            ),
+            title: Text(
+              averageSpeedStr!,
+              style: titleTS,
+            ),
+            subtitle: Text(
+              'Km/h',
+              style: subtitleTS,
+            ),
+          ),
+        ),
+
+        // Time Elapsed
+        Card(
+          child: ListTile(
+            leading: Text(
+              'Time Elapsed',
+              style: leadingTS,
+            ),
+            title: Text(
+              timeElapsedStr!,
+              style: titleTS,
+            ),
+            subtitle: Text(
+              'Minute(s)',
+              style: subtitleTS,
+            ),
+          ),
+        ),
+
+        // Distance Travelled
+        Card(
+          child: ListTile(
+            leading: Text(
+              'Distance Travelled',
+              style: leadingTS,
+            ),
+            title: Text(
+              distanceTravelledStr!,
+              style: titleTS,
+            ),
+            subtitle: Text(
+              'Kilometres',
+              style: subtitleTS,
+            ),
+          ),
+        ),
+
+        // Elevation Gained
+        Card(
+          child: ListTile(
+            leading: Text(
+              'Elevation Gained',
+              style: leadingTS,
+            ),
+            title: Text(
+              elevationGainedStr!,
+              style: titleTS,
+            ),
+            subtitle: Text(
+              'Metres',
+              style: subtitleTS,
+            ),
+          ),
+        ),
+
+        // Uphill Distance
+        Card(
+          child: ListTile(
+            leading: Text(
+              'Uphill Distance',
+              style: leadingTS,
+            ),
+            title: Text(
+              uphillDistanceStr!,
+              style: titleTS,
+            ),
+            subtitle: Text(
+              'Metres',
+              style: subtitleTS,
+            ),
+          ),
+        ),
+
+        // Downhill Distance
+        Card(
+          child: ListTile(
+            leading: Text(
+              'Downhill Distance',
+              style: leadingTS,
+            ),
+            title: Text(
+              downhillDistanceStr!,
+              style: titleTS,
+            ),
+            subtitle: Text(
+              'Metres',
+              style: subtitleTS,
+            ),
+          ),
+        ),
+
+        // Minimum Altitude
+        Card(
+          child: ListTile(
+            leading: Text(
+              'Minimum Altitude',
+              style: leadingTS,
+            ),
+            title: Text(
+              minAltitudeStr!,
+              style: titleTS,
+            ),
+            subtitle: Text(
+              'Metres',
+              style: subtitleTS,
+            ),
+          ),
+        ),
+
+        // Maximum Altitude
+        Card(
+          child: ListTile(
+            leading: Text(
+              'Maximum Altitude',
+              style: leadingTS,
+            ),
+            title: Text(
+              maxAltitudeStr!,
+              style: titleTS,
+            ),
+            subtitle: Text(
+              'Metres',
+              style: subtitleTS,
+            ),
+          ),
+        ),
+      ],
+    );
+
+    return ListView(
       children: list,
     );
   }

@@ -211,7 +211,7 @@ class _RideTrackingScreenState extends State<RideTrackingScreen> {
 
   List<Widget> buildTrackScreen() => [
         Expanded(
-          flex: isLocationPermissionGranted ? 3 : 1,
+          flex: isLocationPermissionGranted ? 1 : 1,
           child: Padding(
             padding: const EdgeInsets.all(30.0),
             child: buildMapDisplay(),

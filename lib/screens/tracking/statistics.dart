@@ -3,8 +3,6 @@ import 'package:oldbike/models/ride_stats.dart';
 import 'package:oldbike/models/screen.dart';
 import 'package:oldbike/components/base_screen_template.dart';
 
-// TODO: [low priority], design this screen
-
 class StatisticsScreen extends StatefulWidget {
   static const TabScreen screen = TabScreen.statistics;
   final RideStatistics statsInfo;
@@ -33,9 +31,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
       title: widget.screenTitle,
       body: Padding(
         padding: const EdgeInsets.all(30.0),
-        child: Center(
-          child: widget.statsInfo.displaySummarizedStats(),
-        ),
+        child: widget.statsInfo.displaySummarizedStats(),
       ),
     );
   }

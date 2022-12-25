@@ -16,4 +16,7 @@ final ThemeData androidThemeData = ThemeData.dark().copyWith(
     ),
     iconColor: kcAccent,
   ),
+  cardTheme: const CardTheme(
+    color: kcPrimaryS2,
+  ),
 );
