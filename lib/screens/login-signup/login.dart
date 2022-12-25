@@ -79,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   // Login Form
                   CustomUserInfoForm(
                     userInfo: userInfo,
-                    showForgotPasswordButton: true,
+                    showForgotPasswordButton: false,
                   ),
 
                   // 'Create account' + 'Skip' buttons

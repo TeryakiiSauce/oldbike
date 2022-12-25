@@ -106,7 +106,8 @@ class _CustomUserInfoFormState extends State<CustomUserInfoForm> {
 
   void onForgotPasswordButtonClicked() {
     HapticFeedback.lightImpact();
-    // TODO: [medium priority] create functionality
+    // ignore: todo
+    // TODO: [medium priority] create functionality; requires checking is email is verified.
   }
 
   /// Ordered depending on the order of [MyUser.toList()] function.
