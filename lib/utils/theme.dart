@@ -1,3 +1,7 @@
+///
+/// This file includes data related to the application's theme
+/// === === === === ===
+
 import 'package:flutter/material.dart';
 import 'package:oldbike/utils/colors.dart';
 

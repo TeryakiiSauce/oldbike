@@ -1,3 +1,7 @@
+///
+/// This file contains all the alerts that are used in the application
+/// === === === === ===
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

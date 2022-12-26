@@ -183,7 +183,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       title: 'All Time Stats',
       child: RideInfoCard(
         date: DateTime.now(),
-        enableLongPress: false,
+        enableLongPressToDelete: false,
         onClicked: () {
           HapticFeedback.selectionClick();
           pushNewScreen(

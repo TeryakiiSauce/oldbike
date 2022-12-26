@@ -1,3 +1,7 @@
+///
+/// This file is responsible for displaying the user sign in & registration forms.
+/// === === === === ===
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
@@ -8,7 +12,10 @@ import 'package:oldbike/utils/text_styles.dart';
 
 class CustomUserInfoForm extends StatefulWidget {
   final MyUser userInfo;
-  final bool showForgotPasswordButton, isLoginForm;
+  final bool showForgotPasswordButton;
+
+  /// Used to either create an new account or login.
+  final bool isLoginForm;
 
   const CustomUserInfoForm({
     super.key,
@@ -22,47 +29,65 @@ class CustomUserInfoForm extends StatefulWidget {
 }
 
 class _CustomUserInfoFormState extends State<CustomUserInfoForm> {
+  /// Mainly used to check if there are any invalid fields
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  /// Used to add the Text Fields
   List<Widget> inputsWidgetsList = [];
+
   bool showPassword = false;
 
+  /// Checks what user info has been passed to this widget and creates whatever input fields needed.
+  /// If some user info is null, an input field will NOT be created.
+  ///
+  /// **Returns** A list of the input fields widgets.
   List<Widget> getTextFields() {
     List<Widget> fieldsList = [];
     List userInfoList = widget.userInfo.toList() ?? [];
 
     int counter = 0;
+
+    /// Loops around all user information and checks whether an input field needs to be created or not.
     for (var info in userInfoList) {
       if (info == null) break;
 
       switch (counter) {
+        // Email
         case 0:
           fieldsList.add(inputsWidgetsList[counter]);
           break;
+        // Password
         case 1:
           fieldsList.add(inputsWidgetsList[counter]);
           break;
+        // First Name
         case 2:
           fieldsList.add(inputsWidgetsList[counter]);
           break;
+        // Last Name
         case 3:
           fieldsList.add(inputsWidgetsList[counter]);
           break;
+        // Blood Group
         case 4:
           fieldsList.add(inputsWidgetsList[counter]);
           break;
+        // Gender
         case 5:
           fieldsList.add(inputsWidgetsList[counter]);
           break;
+        // Height
         case 6:
           fieldsList.add(inputsWidgetsList[counter]);
           break;
+        // Weight
         case 7:
           fieldsList.add(inputsWidgetsList[counter]);
           break;
+        // Date of Birth
         case 8:
           fieldsList.add(inputsWidgetsList[counter]);
           break;
-        default:
       }
 
       // Add spacings
@@ -77,6 +102,7 @@ class _CustomUserInfoFormState extends State<CustomUserInfoForm> {
       counter++;
     }
 
+    // Adds a button with either a login or register functionality.
     fieldsList.add(
       IconButton(
         onPressed: () => widget.isLoginForm
@@ -92,10 +118,12 @@ class _CustomUserInfoFormState extends State<CustomUserInfoForm> {
     return fieldsList;
   }
 
+  /// Password visibility icon
   Icon getVisibilityIcon() => showPassword
       ? const Icon(Icons.visibility_off_outlined)
       : const Icon(Icons.visibility_outlined);
 
+  /// Toggles password visibility icon
   void togglePasswordVisibility() {
     HapticFeedback.selectionClick();
 
@@ -104,13 +132,16 @@ class _CustomUserInfoFormState extends State<CustomUserInfoForm> {
     });
   }
 
+  /// [Deprecated]
+  @Deprecated('Functionality removed because it takes time')
   void onForgotPasswordButtonClicked() {
     HapticFeedback.lightImpact();
     // ignore: todo
     // TODO: [medium priority] create functionality; requires checking is email is verified.
   }
 
-  /// Ordered depending on the order of [MyUser.toList()] function.
+  /// Creates a new list of all input fields that might be used.
+  /// Note: Ordered depending on the order of [MyUser.toList()] function.
   void initWidgetsList() {
     inputsWidgetsList = [
       // Email Text Field
@@ -337,12 +368,15 @@ class _CustomUserInfoFormState extends State<CustomUserInfoForm> {
     ];
   }
 
+  /// Checks if input fields are valid, has internet connection and then signs the user in
+  /// and redirects them to the app's home screen.
   void onLoginButtonPressed() async {
     // ignore: todo
     // TODO: [couldn't figure out a proper way to do it, the package that I've used before is now obsolete] Display spinner when button is clicked
 
     HapticFeedback.selectionClick();
 
+    // Checks input fields validity
     if (!formKey.currentState!.validate()) {
       showDialog(
         context: context,
@@ -373,9 +407,12 @@ class _CustomUserInfoFormState extends State<CustomUserInfoForm> {
     }
   }
 
+  /// Checks if input fields are valid, has internet connection and then registers a new account
+  /// and later redirects them to the app's home screen.
   void onSignUpButtonPressed() async {
     HapticFeedback.selectionClick();
 
+    // Checks input fields validity
     if (!formKey.currentState!.validate()) {
       showDialog(
         context: context,
@@ -395,6 +432,7 @@ class _CustomUserInfoFormState extends State<CustomUserInfoForm> {
       return;
     }
 
+    // Gets the error message (if any) and displays it as an alert
     if (error != '') {
       await showDialog(
         context: context,

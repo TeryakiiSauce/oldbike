@@ -1,3 +1,8 @@
+///
+/// This widget is used to create all the screens after the user signs in.
+/// It creates the AppBar and adds an icon button to allow a user to sign out.
+/// === === === === ===
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

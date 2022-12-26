@@ -1,3 +1,7 @@
+///
+/// This file includes information related to the application's screen navigation
+/// === === === === ===
+
 import 'package:go_router/go_router.dart';
 import 'package:oldbike/screens/login-signup/login.dart';
 import 'package:oldbike/screens/login-signup/signup.dart';

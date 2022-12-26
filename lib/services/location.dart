@@ -1,3 +1,7 @@
+///
+/// This class [Location()] is used to get location information from the device using the GPS sensor
+/// === === === === ===
+
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:geolocator/geolocator.dart';

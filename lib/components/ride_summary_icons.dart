@@ -35,6 +35,7 @@ class RideSummaryIcons extends StatelessWidget {
   /// Creates _three_ icons (with labels if specified) on top of each other. [ For CompactRideInfoCard() ]
   Column getVerticalLayout() => Column(
         children: [
+          // Average Speed
           Expanded(
             child: CircularIcon(
               labels: [
@@ -56,6 +57,8 @@ class RideSummaryIcons extends StatelessWidget {
               size: 15,
             ),
           ),
+
+          // Distance Travelled
           Expanded(
             child: CircularIcon(
               labels: [
@@ -77,6 +80,8 @@ class RideSummaryIcons extends StatelessWidget {
               size: 15,
             ),
           ),
+
+          // Elevation Gained
           Expanded(
             child: CircularIcon(
               labels: [
@@ -105,6 +110,7 @@ class RideSummaryIcons extends StatelessWidget {
   Row _createHorizontalLayout() => Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Average Speed
           Expanded(
             child: CircularIcon(
               labels: [
@@ -128,6 +134,8 @@ class RideSummaryIcons extends StatelessWidget {
               isVerticalLayout: true,
             ),
           ),
+
+          // Distance Travelled
           Expanded(
             child: CircularIcon(
               labels: [
@@ -151,6 +159,8 @@ class RideSummaryIcons extends StatelessWidget {
               isVerticalLayout: true,
             ),
           ),
+
+          // Elevation Gained
           Expanded(
             child: CircularIcon(
               labels: [

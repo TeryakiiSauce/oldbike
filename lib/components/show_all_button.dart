@@ -1,3 +1,10 @@
+///
+/// [Deprecated] This widget is not used any more due to lack of time to create the functionality.
+///
+/// This widget is used in the 'Profile' screen in 'My Rides' (previously known as 'Recent Rides')
+/// to display another screen and show all the user's rides.
+/// === === === === ===
+
 import 'package:flutter/material.dart';
 import 'package:oldbike/utils/text_styles.dart';
 

@@ -1,3 +1,11 @@
+///
+/// This file is responsible for creating widgets that dynamically change between
+/// iOS and Android operating systems.
+///
+/// Includes:
+///   1. Dynamic Alert Dialog
+/// === === === === ===
+
 import 'dart:io' show Platform;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

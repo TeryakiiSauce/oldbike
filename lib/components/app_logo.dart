@@ -1,3 +1,8 @@
+///
+/// This file simply creates the business's app logo.
+/// Logo on top and the text 'Old Bike' at the bottom.
+/// === === === === ===
+
 import 'package:flutter/material.dart';
 import 'package:oldbike/utils/text_styles.dart';
 

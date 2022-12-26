@@ -1,3 +1,8 @@
+///
+/// Custom widget to create a simple notice screen with a button at the bottom.
+/// Useful for displaying some really important information like: Location Usage Notice.
+/// === === === === ===
+
 import 'package:flutter/cupertino.dart';
 import 'package:oldbike/components/app_logo.dart';
 import 'package:oldbike/components/base_screen_template.dart';

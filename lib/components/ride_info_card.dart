@@ -19,7 +19,7 @@ import 'package:oldbike/utils/text_styles.dart';
 class RideInfoCard extends StatelessWidget {
   final RideStatistics? rideStatistics;
   final DateTime date;
-  final bool hasBorder, detailed, enableLongPress;
+  final bool hasBorder, detailed, enableLongPressToDelete;
   final double height;
   final VoidCallback onClicked;
 
@@ -31,7 +31,7 @@ class RideInfoCard extends StatelessWidget {
     this.rideStatistics,
     this.height = 0.0,
     this.hasBorder = true,
-    this.enableLongPress = true,
+    this.enableLongPressToDelete = true,
     this.detailed = false,
   }) : super(key: key);
 
@@ -78,7 +78,9 @@ class RideInfoCard extends StatelessWidget {
     return GestureDetector(
       onLongPress: () {
         HapticFeedback.selectionClick();
-        return enableLongPress ? displayDeletePrompt(context) : Container();
+        return enableLongPressToDelete
+            ? displayDeletePrompt(context)
+            : Container();
       },
       onTap: onClicked,
       child: Stack(
